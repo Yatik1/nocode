@@ -1,7 +1,7 @@
 
 import { Layers } from 'lucide-react';
-import { ComponentLibrary } from './components/builder/ComponentLibrary';
-import { Canvas } from './components/builder/Canvas';
+import ComponentLibrary from './components/builder/ComponentLibrary';
+import Canvas from './components/builder/Canvas';
 
 function App() {
   return (
