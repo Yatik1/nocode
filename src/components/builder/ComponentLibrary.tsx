@@ -1,0 +1,37 @@
+import React from 'react';
+import { Card } from '../ui/Card';
+import { Layout, Type, Image, Link, Menu } from 'lucide-react';
+
+const components = [
+  { id: 'heading', icon: <Type size={24} />, label: 'Heading' },
+  { id: 'text', icon: <Type size={24} />, label: 'Text' },
+  { id: 'image', icon: <Image size={24} />, label: 'Image' },
+  { id: 'button', icon: <Link size={24} />, label: 'Button' },
+  { id: 'section', icon: <Layout size={24} />, label: 'Section' },
+  { id: 'navbar', icon: <Menu size={24} />, label: 'Navigation' },
+];
+
+export function ComponentLibrary() {
+  const onDragStart = (e: React.DragEvent, componentId: string) => {
+    e.dataTransfer.setData('componentId', componentId);
+  };
+
+  return (
+    <div className="w-64 bg-white border-r border-gray-200 p-4">
+      <h2 className="text-lg font-semibold mb-4">Components</h2>
+      <div className="grid grid-cols-2 gap-2">
+        {components.map((component) => (
+          <Card
+            key={component.id}
+            draggable
+            onDragStart={(e) => onDragStart(e, component.id)}
+            className="p-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
+          >
+            {component.icon}
+            <span className="text-sm">{component.label}</span>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
