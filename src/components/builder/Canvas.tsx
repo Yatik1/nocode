@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ComponentRenderer } from './ComponentRenderer';
+import ComponentRenderer from './ComponentRenderer';
 
 
 export interface CanvasComponent {
@@ -8,7 +8,7 @@ export interface CanvasComponent {
   props: Record<string, any>;
 }
 
-export function Canvas() {
+function Canvas() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
 
   const handleDrop = (e: React.DragEvent) => {
@@ -73,3 +73,5 @@ function getDefaultProps(componentId: string): Record<string, any> {
       return {};
   }
 }
+
+export default Canvas

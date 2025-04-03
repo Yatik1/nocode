@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '../ui/Card';
+import Card from '../ui/Card';
 import { Layout, Type, Image, Link, Menu } from 'lucide-react';
 
 const components = [
@@ -11,7 +11,7 @@ const components = [
   { id: 'navbar', icon: <Menu size={24} />, label: 'Navigation' },
 ];
 
-export function ComponentLibrary() {
+function ComponentLibrary() {
   const onDragStart = (e: React.DragEvent, componentId: string) => {
     e.dataTransfer.setData('componentId', componentId);
   };
@@ -35,3 +35,5 @@ export function ComponentLibrary() {
     </div>
   );
 }
+
+export default ComponentLibrary

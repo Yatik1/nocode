@@ -6,7 +6,7 @@ interface ComponentRendererProps {
   component: CanvasComponent;
 }
 
-export function ComponentRenderer({ component }: ComponentRendererProps) {
+function ComponentRenderer({ component }: ComponentRendererProps) {
   const { type, props } = component;
 
   switch (type) {
@@ -61,3 +61,5 @@ export function ComponentRenderer({ component }: ComponentRendererProps) {
       return null;
   }
 }
+
+export default ComponentRenderer
