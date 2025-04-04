@@ -1,13 +1,14 @@
 
 import { JSX } from 'react';
-import type { CanvasComponent } from './Canvas';
+import type { ElementType } from './Canvas';
+import FlexRow from './layouts/FlexRow';
 
 interface ComponentRendererProps {
-  component: CanvasComponent;
+  element: ElementType;
 }
 
-export function ComponentRenderer({ component }: ComponentRendererProps) {
-  const { type, props } = component;
+function ComponentRenderer({ element }: ComponentRendererProps) {
+  const { type, props } = element;
 
   switch (type) {
     case 'heading':
@@ -57,7 +58,14 @@ export function ComponentRenderer({ component }: ComponentRendererProps) {
         </nav>
       );
 
+    case 'flex-row':
+      return (
+        <FlexRow props={props} />
+      )
+
     default:
       return null;
   }
 }
+
+export default ComponentRenderer
