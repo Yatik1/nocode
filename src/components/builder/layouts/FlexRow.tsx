@@ -27,19 +27,19 @@ function FlexRow({props}:{props:any}) {
 
   return (
     <div 
-      className={`flex gap-4 border border-gray-200 w-full min-h-30 h-auto items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
+      className={`flex flex-1 gap-4 border border-gray-400 border-dashed w-full min-h-30 items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}  
     >
-        {children ? ( 
+        {children.length !== 0 ? ( 
           children.map((child:any, index:any) => (
             <div key={index}>
-              <ComponentRenderer key={index} element={child}  />
+              <ComponentRenderer element={child}  />
             </div>
           ))
         ) : 
         (
-          <div className="h-full flex items-center justify-center text-gray-400">
+          <div className={`h-full flex items-center justify-center`}>
             Drop component here
           </div>
         )
