@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Layout, Type, Image, Link, Menu, AlignHorizontalDistributeCenter, LayoutPanelLeft, Heading } from 'lucide-react';
+import { Layout, Type, Image, Link, Menu, AlignHorizontalDistributeCenter, LayoutPanelLeft, Heading, AlignVerticalDistributeCenter } from 'lucide-react';
 // import FlexLayout from './layouts/FlexLayout';
 
 const components = [
@@ -14,6 +14,7 @@ const components = [
 
 const layouts = [
   { id: 'flex-row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row Layout' },
+  { id: 'flex-col', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column Layout' },
   { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
 ]
 
@@ -34,7 +35,7 @@ function ComponentLibrary() {
             className="p-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
           >
             {component.icon}
-            <span className="text-sm">{component.label}</span>
+            <span className="text-[0.85rem]">{component.label}</span>
           </Card>
         ))}
       </div>
@@ -46,10 +47,10 @@ function ComponentLibrary() {
             key={layout.id}
             draggable
             onDragStart={(e) => onDragStart(e, layout.id)}
-            className="p-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
+            className="px-1 py-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
           >
             {layout.icon}
-            <span className="text-sm">{layout.label}</span>
+            <span className="text-[0.8rem]">{layout.label}</span>
           </Card>
         ))}
       </div>

@@ -5,15 +5,9 @@ import Canvas from './components/builder/Canvas';
 
 function App() {
   return (
-    <div className="min-h-screen h-fit bg-gray-50">
-      {/* <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Layers className="text-blue-500" size={32} />
-          <h1 className="text-xl font-bold">Website Builder</h1>
-        </div>
-      </header> */}
+    <div className="min-h-screen h-auto bg-gray-50">
       
-      <main className="flex h-[calc(100vh-4rem)]">
+      <main className="flex flex-row h-[calc(100vh-4rem)]">
         <ComponentLibrary />
         <Canvas />
       </main>

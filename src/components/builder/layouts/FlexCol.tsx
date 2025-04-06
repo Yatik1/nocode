@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ElementType, getDefaultProps } from "../Canvas"
 import ComponentRenderer from "../ComponentRenderer"
 
-function FlexRow({props}:{props:any}) {
+function FlexCol({props}:{props:any}) {
 
   const [children, setChildren] = useState(props.children || [])
 
@@ -27,7 +27,7 @@ function FlexRow({props}:{props:any}) {
 
   return (
     <div 
-      className={`flex flex-1 gap-4 border border-gray-400 border-dashed w-full min-h-30 items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
+      className={`flex flex-col gap-4 border border-gray-400 border-dashed w-full min-h-30 p-2 items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}  
     >
@@ -49,4 +49,4 @@ function FlexRow({props}:{props:any}) {
   )
 }
 
-export default FlexRow
+export default FlexCol

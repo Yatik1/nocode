@@ -45,18 +45,18 @@ function Canvas() {
 
   return (
     <div 
-      className="flex-1 p-8"
+      className="flex-1 p-6"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <div className="max-w-4xl mx-auto min-h-[calc(100vh-4rem)] bg-white rounded-lg shadow-sm p-8">
+      <div className="max-w-4xl mx-auto min-h-[calc(100vh-4rem)] flex flex-col gap-4 bg-white rounded-lg shadow-sm p-8">
         {elements.map((element:ElementType) => (
           <div  key={element.id} onClick={() => handleClick(element)} onMouseLeave={mouseleave}>
             <ComponentRenderer element={element} />
           </div>
         ))}
         {elements.length === 0 && (
-          <div className="h-full flex items-center justify-center text-gray-400">
+          <div className="text-center text-gray-400">
             Drag and drop components here
           </div>  
         )}
@@ -94,6 +94,13 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         justifyContent:'center',
         children:[]
        }
+
+    case 'flex-col':
+      return {
+        alignItems:'center',
+        justifyContent:'center',
+        children:[]
+      }
     default:
       return {};
   }
