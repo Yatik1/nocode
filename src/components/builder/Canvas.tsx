@@ -51,6 +51,8 @@ function Canvas() {
     }
   }
 
+  console.log(canvasRef.current)
+
   return (
     <div 
       className="flex-1 p-6"
