@@ -61,12 +61,22 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
 
     case 'flex-row':
       return (
-        <FlexRow props={props} />
+        <FlexRow 
+          props={props}  
+          onChildrenChange={(newChildren) => {
+            props.children = newChildren;
+          }}  
+        />
       )
     
     case 'flex-col':
       return (
-        <FlexCol props={props} />
+        <FlexCol 
+          props={props} 
+          onChildrenChange={(newChildren) => {
+            props.children = newChildren;
+          }} 
+        />
       )
 
     default:
