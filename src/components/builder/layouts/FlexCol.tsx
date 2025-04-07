@@ -1,35 +1,35 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ElementType, getDefaultProps } from "../Canvas"
 import ComponentRenderer from "../ComponentRenderer"
 
-function FlexCol({props}:{props:any}) {
+function FlexCol({ props, onChildrenChange }: { props: any, onChildrenChange: (children: ElementType[]) => void }){
 
-  const [children, setChildren] = useState(props.children || [])
-
-  function handleDrop(e:React.DragEvent) {
-    e.stopPropagation();
-    e.preventDefault();
-    const childComponentType = e.dataTransfer.getData('componentId')
-
-    const newChildElement:ElementType = {
-      id:`${childComponentType}-${Date.now()}`,
-      type:childComponentType,
-      props:getDefaultProps(childComponentType)
+    const [children, setChildren] = useState<ElementType[]>(props.children || []);
+  
+    useEffect(() => {
+      onChildrenChange(children);
+    }, [children]);
+  
+    function handleDrop(e: React.DragEvent) {
+      e.stopPropagation();
+      e.preventDefault();
+  
+      const childComponentType = e.dataTransfer.getData('componentId');
+  
+      const newChildElement: ElementType = {
+        id: `${childComponentType}-${Date.now()}`,
+        type: childComponentType,
+        props: getDefaultProps(childComponentType),
+      };
+  
+      setChildren(prev => [...prev, newChildElement]);
     }
-
-    setChildren((prevChildren:any) => [...prevChildren, newChildElement])
-  }
-
-  function handleDragOver(e:React.DragEvent) {
-    e.preventDefault();
-  }
-
   return (
     <div 
       className={`flex flex-col gap-4 border border-gray-400 border-dashed w-full min-h-30 p-2 items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
       onDrop={handleDrop}
-      onDragOver={handleDragOver}  
+      onDragOver={(e) => e.preventDefault()}  
     >
         {children.length !== 0 ? ( 
           children.map((child:any, index:any) => (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
@@ -13,8 +13,8 @@ export interface ElementType {
 function Canvas() {
 
   const {elements, setElements, setSelectedElement, selectedElement} : any  = useBuilder()
-
-  // console.log(sections)
+  const canvasRef = useRef<HTMLDivElement>(null)
+  const elementRef = useRef<HTMLDivElement>(null)
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -34,24 +34,38 @@ function Canvas() {
     e.preventDefault();
   };
 
-  function handleClick(element:ElementType) {
-    setSelectedElement(element)
-  }
+  function handleClick() {
 
-  function mouseleave() {
-    setSelectedElement(null)
-  }
+    if (canvasRef.current && elementRef.current) {
+      const canvasRect = canvasRef.current.getBoundingClientRect();
+      const elementRect = elementRef.current.getBoundingClientRect();
 
+      const position = {
+        top: elementRect.top - canvasRect.top,
+        left: elementRect.left - canvasRect.left,
+        right: canvasRect.right - elementRect.right,
+        bottom: canvasRect.bottom - elementRect.bottom,
+      };
+
+      console.log('Div and position',elementRef.current, position)
+    }
+  }
 
   return (
     <div 
       className="flex-1 p-6"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
+      ref={canvasRef}
     >
       <div className="max-w-4xl mx-auto min-h-[calc(100vh-4rem)] flex flex-col gap-4 bg-white rounded-lg shadow-sm p-8">
         {elements.map((element:ElementType) => (
-          <div  key={element.id} onClick={() => handleClick(element)} onMouseLeave={mouseleave}>
+          <div  
+            key={element.id}
+            onClick={handleClick}
+            ref={elementRef} 
+            // onMouseLeave={mouseleave}
+          >
             <ComponentRenderer element={element} />
           </div>
         ))}
@@ -66,7 +80,9 @@ function Canvas() {
 }
 
 export function getDefaultProps(sectionType: string): Record<string, any> {
+
   switch (sectionType) {
+
     case 'heading':
       return { text: 'New Heading', level: 'h2' };
     case 'text':
@@ -92,7 +108,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return {
         alignItems:'center',
         justifyContent:'center',
-        children:[]
+        children:[] 
        }
 
     case 'flex-col':
