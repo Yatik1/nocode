@@ -12,9 +12,7 @@ export interface ElementType {
 
 function Canvas() {
 
-  const {elements, setElements, setSelectedElement, selectedElement} : any  = useBuilder()
-
-  // console.log(sections)
+  const {elements, setElements, setSelectedElement} : any  = useBuilder()
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -38,11 +36,6 @@ function Canvas() {
     setSelectedElement(element)
   }
 
-  function mouseleave() {
-    setSelectedElement(null)
-  }
-
-
   return (
     <div 
       className="flex-1 p-6"
@@ -51,7 +44,11 @@ function Canvas() {
     >
       <div className="max-w-4xl mx-auto min-h-[calc(100vh-4rem)] flex flex-col gap-4 bg-white rounded-lg shadow-sm p-8">
         {elements.map((element:ElementType) => (
-          <div  key={element.id} onClick={() => handleClick(element)} onMouseLeave={mouseleave}>
+          <div  
+            key={element.id}
+            onClick={() => handleClick(element)} 
+            // onMouseLeave={mouseleave}
+          >
             <ComponentRenderer element={element} />
           </div>
         ))}
@@ -66,7 +63,9 @@ function Canvas() {
 }
 
 export function getDefaultProps(sectionType: string): Record<string, any> {
+
   switch (sectionType) {
+
     case 'heading':
       return { text: 'New Heading', level: 'h2' };
     case 'text':
@@ -92,7 +91,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return {
         alignItems:'center',
         justifyContent:'center',
-        children:[]
+        children:[] 
        }
 
     case 'flex-col':
