@@ -2,7 +2,7 @@ import useBuilder from "../../hooks/useBuilder"
 import PropertyRenderer from "./PropertyRenderer"
 
 function Properties() {
-  const { selectedElement, updateElementProps } = useBuilder() as any
+  const { selectedElement } = useBuilder() as any
 
   if (!selectedElement) return null
 
@@ -14,7 +14,6 @@ function Properties() {
         <PropertyRenderer 
           key={selectedElement.id} 
           element={selectedElement} 
-          onChange={updateElementProps}
         />
       </div>
     </div>
