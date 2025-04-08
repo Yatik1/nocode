@@ -1,26 +1,27 @@
+import useBuilder from "../../hooks/useBuilder";
 
 function PropertyRenderer({
     element,
-    onChange
   }: {
     element: any,
-    onChange: (newProps: any) => void
   }) {
     const { props, type } = element
   
+    const {updateElementProps} = useBuilder() as any
+
     function onChangeLevel(level: string) {
-      onChange({ ...props, level })
+      updateElementProps({ ...props, level })
     }
   
     function onColorInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-      onChange({ ...props, color: e.target.value });
+      updateElementProps({ ...props, color: e.target.value });
     }
   
     switch (type) {
       case "heading":
         const headingLevels = ["h1", "h2", "h3", "h4", "h5", "h6"]
         return (
-          <div className="flex flex-1 flex-col gap-[0.45rem]">
+          <div className="flex flex-1 flex-col gap-[0.56rem]">
             <label className="text-sm font-semibold">Levels</label>
             <div className="flex items-center justify-between px-2">
               {
@@ -39,7 +40,7 @@ function PropertyRenderer({
             </div>
             
             <label className="text-sm font-semibold">Text Color</label>
-              <div className="flex gap-2 justify-center items-center">
+              <div className="flex gap-2 justify-start items-center">
                   <div className="w-4 h-4 rounded-md" style={{backgroundColor:props.color}} />
                   <input
                     type="text"
