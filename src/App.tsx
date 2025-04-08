@@ -3,10 +3,11 @@
 import ComponentLibrary from './components/builder/ComponentLibrary';
 import Canvas from './components/builder/Canvas';
 import useBuilder from './hooks/useBuilder';
+import Properties from './components/builder/Properties';
 
 function App() {
 
-  const {elements} = useBuilder() as any 
+  const {elements,selectedElement} = useBuilder() as any 
 
   return (
     <div className="min-h-screen h-auto bg-gray-50">
@@ -14,6 +15,9 @@ function App() {
       <main className="flex flex-row h-[calc(100vh-4rem)]">
         <ComponentLibrary />
         <Canvas />
+        {selectedElement && (
+          <Properties />
+        )}
       </main>
       <button onClick={() => console.log(elements)}>Get data json</button>
     </div>
