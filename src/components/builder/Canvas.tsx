@@ -12,7 +12,7 @@ export interface ElementType {
 
 function Canvas() {
 
-  const {elements, setElements, setSelectedElement, selectedElement} : any  = useBuilder()
+  const {elements, setElements, setSelectedElement} : any  = useBuilder()
   const canvasRef = useRef<HTMLDivElement>(null)
   const elementRef = useRef<HTMLDivElement>(null)
 
@@ -34,24 +34,9 @@ function Canvas() {
     e.preventDefault();
   };
 
-  function handleClick() {
-
-    if (canvasRef.current && elementRef.current) {
-      const canvasRect = canvasRef.current.getBoundingClientRect();
-      const elementRect = elementRef.current.getBoundingClientRect();
-
-      const position = {
-        top: elementRect.top - canvasRect.top,
-        left: elementRect.left - canvasRect.left,
-        right: canvasRect.right - elementRect.right,
-        bottom: canvasRect.bottom - elementRect.bottom,
-      };
-
-      console.log('Div and position',elementRef.current, position)
-    }
+  function handleClick(element:ElementType) {
+    setSelectedElement(element)
   }
-
-  console.log(canvasRef.current)
 
   return (
     <div 
@@ -64,7 +49,7 @@ function Canvas() {
         {elements.map((element:ElementType) => (
           <div  
             key={element.id}
-            onClick={handleClick}
+            onClick={() => handleClick(element)}
             ref={elementRef} 
             // onMouseLeave={mouseleave}
           >
@@ -86,7 +71,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
   switch (sectionType) {
 
     case 'heading':
-      return { text: 'New Heading', level: 'h2' };
+      return { text: 'New Heading', level: 'h2',color:"#000000"};
     case 'text':
       return { content: 'Add your text here' };
     case 'image':
