@@ -26,7 +26,6 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
           if (!prev) return prev;
           const updated = { ...prev, props: { ...prev.props, ...newProps } };
       
-          // Optionally update the element inside the main elements array too:
           setElements(els =>
             els.map(el => (el.id === updated.id ? updated : el))
           );
