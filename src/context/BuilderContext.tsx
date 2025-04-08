@@ -9,6 +9,7 @@ export type BuilderContextProps = {
     setSelectedElement: React.Dispatch<React.SetStateAction<ElementType | null>>;
     childrens?:ElementType[],
     setChildrens?:React.Dispatch<React.SetStateAction<ElementType[]>>
+    updateElementProps:(props:any) => void
 }
 
 export const BuilderContext = createContext<BuilderContextProps | null>(null)
@@ -19,8 +20,23 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
     const [selectedElement, setSelectedElement] = useState<ElementType | null>(null)
     const [childrens, setChildrens] = useState<ElementType[]>([])
 
+    
+    function updateElementProps(newProps: any) {
+        setSelectedElement(prev => {
+          if (!prev) return prev;
+          const updated = { ...prev, props: { ...prev.props, ...newProps } };
+      
+          // Optionally update the element inside the main elements array too:
+          setElements(els =>
+            els.map(el => (el.id === updated.id ? updated : el))
+          );
+      
+          return updated;
+        });
+      }
+
     return (
-        <BuilderContext.Provider value={{elements, setElements, selectedElement, setSelectedElement, childrens, setChildrens}}>
+        <BuilderContext.Provider value={{elements, setElements, selectedElement, setSelectedElement, childrens, setChildrens,updateElementProps}}>
             {children}
         </BuilderContext.Provider>
     )
