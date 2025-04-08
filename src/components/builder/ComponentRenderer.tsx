@@ -14,7 +14,7 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
   switch (type) {
     case 'heading':
       const HeadingTag = props.level as keyof JSX.IntrinsicElements;
-      return <HeadingTag className="font-bold text-2xl">{props.text}</HeadingTag>;
+      return <HeadingTag className={`font-bold`} style={{color:props.color}}>{props.text}</HeadingTag>;
 
     case 'text':
       return <p>{props.content}</p>;
@@ -57,6 +57,11 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
             </a>
           ))}
         </nav>
+      );
+
+    case 'divider':
+      return(
+        <hr className='text-gray-200' />
       );
 
     case 'flex-row':
