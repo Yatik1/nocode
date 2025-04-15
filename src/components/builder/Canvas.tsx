@@ -71,16 +71,17 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
   switch (sectionType) {
 
     case 'heading':
-      return { text: 'New Heading', level: 'h2',color:"#000000"};
+      return { text: 'New Heading', level: 'h2',color:"#000000", bgColor:"none"};
     case 'text':
-      return { content: 'Add your text here' };
+      return { content: 'Add your text here', bgColor:"none", color:"#000000", fontStyle:"normal", decoration:"none" };
     case 'image':
       return { 
-        src: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.1',
-        alt: 'Image description' 
+        src: "",
+        width:"100",
+        height:"100"
       };
     case 'button':
-      return { text: 'Click me', variant: 'primary' };
+      return { text: 'Button', bgColor:"black", color:"#FFFFFF", rounded:"0"};
     case 'section':
       return { backgroundColor: 'white', padding: 'medium' };
     case 'navbar':
