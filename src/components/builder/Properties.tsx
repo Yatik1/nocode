@@ -1,10 +1,10 @@
 import useBuilder from "../../hooks/useBuilder"
+
 import PropertyRenderer from "./PropertyRenderer"
 
-function Properties() {
+export default function Properties() {
   const { selectedElement } = useBuilder() as any
-
-  if (!selectedElement) return null
+  const {props, type} = selectedElement
 
   return (
     <div className="w-68 bg-white h-screen border-r border-gray-200 p-3 overflow-auto">
@@ -12,14 +12,10 @@ function Properties() {
       <hr className="text-gray-200" />
       <div className="flex flex-1 flex-wrap overflow-auto mt-5">
         <PropertyRenderer 
-          key={selectedElement.id} 
-          element={selectedElement} 
+            props={props}
+            type={type}
         />
       </div>
     </div>
   )
 }
-
-
-
-export default Properties
