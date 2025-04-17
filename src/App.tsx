@@ -19,6 +19,7 @@ function App() {
           <Properties />
         )}
       </main>
+      <button onClick={() => console.log(JSON.stringify(elements))}>Get data stringify</button>
       <button onClick={() => console.log(elements)}>Get data json</button>
     </div>
   );
