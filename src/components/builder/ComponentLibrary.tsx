@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Layout, Type, Image, Link, Menu, AlignHorizontalDistributeCenter, LayoutPanelLeft, Heading, AlignVerticalDistributeCenter } from 'lucide-react';
-// import FlexLayout from './layouts/FlexLayout';
+import { Layout, Type, Image, Link, Menu, AlignHorizontalDistributeCenter, LayoutPanelLeft, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal } from 'lucide-react';
+
 
 const components = [
   { id: 'heading', icon: <Heading size={24} />, label: 'Heading' },
@@ -10,6 +10,7 @@ const components = [
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
   { id: 'section', icon: <Layout size={24} />, label: 'Section' },
   { id: 'navbar', icon: <Menu size={24} />, label: 'Navigation' },
+  {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'}
 ];
 
 const layouts = [

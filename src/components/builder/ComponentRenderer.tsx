@@ -14,24 +14,43 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
   switch (type) {
     case 'heading':
       const HeadingTag = props.level as keyof JSX.IntrinsicElements;
-      return <HeadingTag className="font-bold text-2xl">{props.text}</HeadingTag>;
+      if(props.text) return (
+        <div className='w-full h-fit p-2' style={{background:props.bgColor}}>
+          <HeadingTag className={`font-bold`} style={{color:props.color}}>{props.text}</HeadingTag>
+        </div>
+      )
+      else return <HeadingTag className={`text-gray-500`}>Add Heading</HeadingTag>;
 
     case 'text':
-      return <p>{props.content}</p>;
+      if(props.content) {
+        return(
+          <div className='w-full h-fit p-2' style={{background:props.bgColor}}>
+            <p style={{color:props.color, fontStyle:props.fontStyle, textDecoration:props.decoration}}>{props.content}</p>
+          </div>
+        )
+      }
+      return <p className='text-gray-500'>Add content</p>;
 
     case 'image':
       return (
-        <img
-          src={props.src}
-          alt={props.alt}
-          className="w-full h-auto rounded-lg"
-        />
-      );
+        props.src ? (
+          <img
+            src={props.src}
+            alt="uploaded image"
+            className="rounded-lg object-fit aspect-auto"
+            style={{width:props.width+"px", height:props.height+"px"}}
+          />
+        ) : (
+          <button className='w-fit p-2 rounded-md bg-gray-200 text-gray-400'>
+            <p>Add Image</p>
+          </button>
+        )
+      )
 
     case 'button':
       return (
-        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
-          {props.text}
+        <button className={`px-4 py-2`} style={{background:props.bgColor?props.bgColor:"black", color:props.color?props.color : "white", borderRadius:props.rounded+"px"}}> 
+          {props.text ? props.text : "Button"}
         </button>
       );
 
@@ -57,6 +76,11 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
             </a>
           ))}
         </nav>
+      );
+
+    case 'divider':
+      return(
+        <hr className='text-gray-200' />
       );
 
     case 'flex-row':
