@@ -34,9 +34,6 @@ function Canvas() {
     e.preventDefault();
   };
 
-  function handleClick(element:ElementType) {
-    setSelectedElement(element)
-  }
 
   return (
     <div 
@@ -49,9 +46,8 @@ function Canvas() {
         {elements.map((element:ElementType) => (
           <div  
             key={element.id}
-            onClick={() => handleClick(element)}
+            onClick={() =>setSelectedElement(element)}
             ref={elementRef} 
-            // onMouseLeave={mouseleave}
           >
             <ComponentRenderer element={element} />
           </div>
