@@ -32,7 +32,7 @@ function TextProperties({element}:{element:ElementType}) {
         <label className='text-sm font-semibold'>Content</label>
         <input 
             type="text"
-            value={props.content || ""}
+            value={props.content}
             onChange={onContentChange}
             placeholder="Add your text here"
             className="border border-gray-300 rounded-md py-2 px-3 text-sm"
