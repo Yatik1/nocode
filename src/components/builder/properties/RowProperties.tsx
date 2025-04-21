@@ -5,7 +5,8 @@ import { ElementType } from "../Canvas"; // adjust import if needed
 
 function RowProperties({ element }: { element: ElementType }) {
   const { id, props } = element;
-  const { selectedElement,updateElementProps } = useBuilder() as any;
+  const { updateElementProps } = useBuilder() as any;
+
 
   function onAlignChange(e: React.ChangeEvent<HTMLSelectElement>) {
     updateElementProps({
