@@ -1,15 +1,31 @@
 
 import { JSX } from 'react';
-import type { ElementType } from './Canvas';
 import FlexRow from './layouts/FlexRow';
 import FlexCol from './layouts/FlexCol';
+import useBuilder from '../../hooks/useBuilder';
+import { ElementType } from './Canvas';
 
 interface ComponentRendererProps {
   element: ElementType;
 }
 
 function ComponentRenderer({ element }: ComponentRendererProps) {
-  const { type, props } = element;
+  // const { type, props, id } = element;
+
+  const {elements} = useBuilder() as any
+  const liveElement = findElementById(elements, element.id) || element;
+  const { id, props, type } = liveElement;
+
+  function findElementById(elements: ElementType[], id: string): ElementType | null {
+    for (const el of elements) {
+      if (el.id === id) return el;
+      if (Array.isArray(el.props?.children)) {
+        const found = findElementById(el.props.children, id);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
 
   switch (type) {
     case 'heading':
@@ -83,15 +99,14 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
         <hr className='text-gray-200' />
       );
 
-    case 'flex-row':
-      return (
-        <FlexRow 
-          props={props}  
-          onChildrenChange={(newChildren) => {
-            props.children = newChildren;
-          }}  
-        />
-      )
+      case 'flex-row':
+        return (
+          <FlexRow 
+            props={props}  
+            id={id}
+          />
+        );
+      
     
     case 'flex-col':
       return (
