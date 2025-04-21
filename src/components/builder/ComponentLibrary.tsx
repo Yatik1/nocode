@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../ui/Card';
 import { Layout, Type, Image, Link, Menu, AlignHorizontalDistributeCenter, LayoutPanelLeft, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal } from 'lucide-react';
+import useBuilder from '../../hooks/useBuilder';
 
 
 const components = [
@@ -20,8 +21,13 @@ const layouts = [
 ]
 
 function ComponentLibrary() {
+
+  const {setSelectedElement} = useBuilder() as any
+
   const onDragStart = (e: React.DragEvent, componentId: string) => {
+  setSelectedElement(null)
     e.dataTransfer.setData('componentId', componentId);
+    
   };
 
   return (
