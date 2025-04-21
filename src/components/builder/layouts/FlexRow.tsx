@@ -1,14 +1,10 @@
-// import { useState } from "react";
-import { useEffect, useState } from "react";
-import { ElementType, getDefaultProps } from "../Canvas"
-import ComponentRenderer from "../ComponentRenderer"
+import useBuilder from "../../../hooks/useBuilder";
+import { ElementType, getDefaultProps } from "../Canvas";
+import ComponentRenderer from "../ComponentRenderer";
 
-function FlexRow({ props, onChildrenChange }: { props: any, onChildrenChange: (children: ElementType[]) => void }) {
-  const [children, setChildren] = useState<ElementType[]>(props.children || []);
+function FlexRow({ props,id }: { props: any, id:string}) {
 
-  useEffect(() => {
-    onChildrenChange(children);
-  }, [children]);
+  const {updateElementProps} = useBuilder() as any
 
   function handleDrop(e: React.DragEvent) {
     e.stopPropagation();
@@ -22,23 +18,32 @@ function FlexRow({ props, onChildrenChange }: { props: any, onChildrenChange: (c
       props: getDefaultProps(childComponentType),
     };
 
-    setChildren(prev => [...prev, newChildElement]);
-  }
+    const newChildren = [...(props.children || []), newChildElement];
+
+    updateElementProps({
+          id,
+          props: {
+            ...props,
+            children: newChildren,
+          }
+        });
+  } 
 
   return (
     <div
-      className={`flex flex-1 gap-4 border border-gray-400 border-dashed w-full min-h-30 items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
+      className={`flex flex-1 gap-4 border border-gray-400 border-dashed w-full min-h-30 hover:border-blue-200`}
+      style={{ alignItems: props.alignItems, justifyContent: props.justifyContent }}
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
     >
-      {children.length > 0 ? (
-        children.map((child, index) => (
-          <div key={index}>
+      {Array.isArray(props.children) && props.children.length > 0 ? (
+        props.children.map((child: ElementType) => (
+          <div key={child.id}>
             <ComponentRenderer element={child} />
           </div>
         ))
       ) : (
-        <div className="h-full flex items-center justify-center">
+        <div className="h-full flex items-center justify-center text-gray-400 text-sm">
           Drop component here
         </div>
       )}
