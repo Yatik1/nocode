@@ -1,12 +1,10 @@
 import React from "react";
 import useBuilder from "../../../hooks/useBuilder";
-import PropertyRenderer from "../PropertyRenderer";
-import { ElementType } from "../Canvas"; // adjust import if needed
+import { ElementType } from "../Canvas";
 
 function RowProperties({ element }: { element: ElementType }) {
   const { id, props } = element;
   const { updateElementProps } = useBuilder() as any;
-
 
   function onAlignChange(e: React.ChangeEvent<HTMLSelectElement>) {
     updateElementProps({
@@ -22,8 +20,28 @@ function RowProperties({ element }: { element: ElementType }) {
     });
   }
 
+  function onBgChange(e:React.ChangeEvent<HTMLInputElement>) {
+    updateElementProps({
+      id, 
+      props:{...props, backgroundColor: e.target.value}
+    })
+  }
+
   return (
     <div className="flex flex-1 flex-col gap-[0.56rem]">
+
+      <label className="text-sm font-semibold">Background color</label>
+      <div className="flex gap-2 justify-start items-center">
+        <div className={`w-5 h-5 rounded-md border border-stone-400`} style={{backgroundColor:props.backgroundColor}} />
+        <input
+          type="text"
+          value={props.bgColor === "none" ? "" : props.bgColor}
+          onChange={onBgChange}
+          placeholder="#FFFFFF"
+          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
+        />
+      </div>
+
       <label className="text-sm font-semibold">Align items</label>
       <select
         className="border border-gray-300 rounded-md py-2 px-3 text-sm"
@@ -49,20 +67,6 @@ function RowProperties({ element }: { element: ElementType }) {
         <option value="space-evenly">space evenly</option>
       </select>
 
-      {props.children?.length > 0 && (
-        <>
-          <hr className="text-gray-200 my-2" />
-          {props.children.map((childEl: ElementType) => {
-            return (
-                (
-                    <div key={childEl.id}>
-                      <PropertyRenderer element={childEl} />
-                    </div>
-                  )
-            )
-          })}
-        </>
-      )}
     </div>
   );
 }
