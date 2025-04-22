@@ -1,16 +1,20 @@
+import { useState } from "react";
 import useBuilder from "../../../hooks/useBuilder";
 import { ElementType, getDefaultProps } from "../Canvas";
 import ComponentRenderer from "../ComponentRenderer";
 
-function FlexRow({ props,id }: { props: any, id:string}) {
+function FlexRow({ props, id }: { props: any, id: string }) {
+  const { updateElementProps, setSelectedElement, selectedElement } = useBuilder() as any;
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-  const {updateElementProps} = useBuilder() as any
+  const isSelected = selectedElement?.id === id;
 
   function handleDrop(e: React.DragEvent) {
     e.stopPropagation();
     e.preventDefault();
+    setIsDraggingOver(false);
 
-    const childComponentType = e.dataTransfer.getData('componentId');
+    const childComponentType = e.dataTransfer.getData("componentId");
 
     const newChildElement: ElementType = {
       id: `${childComponentType}-${Date.now()}`,
@@ -21,24 +25,40 @@ function FlexRow({ props,id }: { props: any, id:string}) {
     const newChildren = [...(props.children || []), newChildElement];
 
     updateElementProps({
-          id,
-          props: {
-            ...props,
-            children: newChildren,
-          }
-        });
-  } 
+      id,
+      props: {
+        ...props,
+        children: newChildren,
+      },
+    });
+  }
+
+  const borderClass = isDraggingOver || isSelected
+    ? "border border-dotted border-blue-400"
+    : "";
 
   return (
     <div
-      className={`flex flex-1 gap-4 border border-gray-400 border-dashed w-full min-h-30 hover:border-blue-200`}
-      style={{ alignItems: props.alignItems, justifyContent: props.justifyContent }}
+      className={`flex flex-1 gap-4 w-full min-h-30 ${borderClass}`}
+      style={{
+        alignItems: props.alignItems,
+        justifyContent: props.justifyContent,
+        background: props.backgroundColor,
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        setSelectedElement({ id, props, type: "flex-row" });
+      }}
       onDrop={handleDrop}
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setIsDraggingOver(true);
+      }}
+      onDragLeave={() => setIsDraggingOver(false)}
     >
       {Array.isArray(props.children) && props.children.length > 0 ? (
         props.children.map((child: ElementType) => (
-          <div key={child.id}>
+          <div key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
             <ComponentRenderer element={child} />
           </div>
         ))
