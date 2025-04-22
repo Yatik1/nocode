@@ -65,7 +65,7 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
     
       setElements(prev => {
         const updated = updateRecursive(prev);
-        console.log("✅ Updated elements", JSON.stringify(updated, null, 2));
+        // console.log("✅ Updated elements", JSON.stringify(updated, null, 2));
         return updated;
       });
     
