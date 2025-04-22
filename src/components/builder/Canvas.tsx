@@ -3,6 +3,7 @@ import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
 
+
 export interface ElementType {
   id: string;
   type: string;
@@ -34,15 +35,15 @@ function Canvas() {
     e.preventDefault();
   };
 
-
   return (
-    <div 
+    <>
+      <div 
       className="flex-1 p-6"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       ref={canvasRef}
     >
-      <div className="max-w-4xl mx-auto min-h-[calc(100vh-4rem)] flex flex-col gap-4 bg-white rounded-lg shadow-sm p-8">
+      <div className="max-w-4xl mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-sm mb-2 overflow-auto">
         {elements.map((element:ElementType) => (
           <div  
             key={element.id}
@@ -52,13 +53,10 @@ function Canvas() {
             <ComponentRenderer element={element} />
           </div>
         ))}
-        {elements.length === 0 && (
-          <div className="text-center text-gray-400">
-            Drag and drop components here
-          </div>  
-        )}
       </div>
     </div>
+    
+    </>
   );
 }
 
@@ -92,6 +90,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return {
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:"",
         children:[] 
        }
 
@@ -99,6 +98,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return {
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:"",
         children:[]
       }
     default:

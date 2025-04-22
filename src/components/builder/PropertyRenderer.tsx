@@ -1,5 +1,6 @@
 import { ElementType } from "./Canvas"
 import ButtonProperties from "./properties/ButtonProperties"
+import ColumnProperties from "./properties/ColumnProperties"
 import HeadingProperties from "./properties/HeadingProperties"
 import ImageProperties from "./properties/ImageProperties"
 import RowProperties from "./properties/RowProperties"
@@ -23,6 +24,9 @@ function PropertyRenderer({element}:{element:ElementType}) {
       
       case "flex-row":
         return <RowProperties element={element} />
+
+      case "flex-col":
+        return <ColumnProperties element={element} />
       default:
         return <p>No properties available for this element.</p>
     }
