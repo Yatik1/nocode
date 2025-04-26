@@ -39,7 +39,7 @@ function FlexRow({ props, id }: { props: any, id: string }) {
 
   return (
     <div
-      className={`flex flex-1 gap-4 w-full min-h-30 ${borderClass}`}
+      className={`flex flex-1 gap-4 w-full min-h-30 h-full ${borderClass}`}
       style={{
         alignItems: props.alignItems,
         justifyContent: props.justifyContent,
@@ -56,17 +56,13 @@ function FlexRow({ props, id }: { props: any, id: string }) {
       }}
       onDragLeave={() => setIsDraggingOver(false)}
     >
-      {Array.isArray(props.children) && props.children.length > 0 ? (
+      {Array.isArray(props.children) && props.children.length > 0 && (
         props.children.map((child: ElementType) => (
           <div key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
             <ComponentRenderer element={child} />
           </div>
         ))
-      ) : (
-        <div className="h-full flex items-center justify-center text-gray-400 text-sm">
-          Drop component here
-        </div>
-      )}
+      ) }
     </div>
   );
 }
