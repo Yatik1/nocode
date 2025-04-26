@@ -3,6 +3,7 @@ import { JSX } from 'react';
 import FlexRow from './layouts/FlexRow';
 import FlexCol from './layouts/FlexCol';
 import { ElementType } from './Canvas';
+import Section from './layouts/Section';
 
 interface ComponentRendererProps {
   element: ElementType;
@@ -58,11 +59,7 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
 
     case 'section':
       return (
-        <section className="p-6 rounded-lg border border-gray-200">
-          <div className="h-32 flex items-center justify-center text-gray-400">
-            Section Container
-          </div>
-        </section>
+        <Section props={props} id={id} />
       );
 
     case 'navbar':
@@ -82,7 +79,9 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
 
     case 'divider':
       return(
-        <hr className='text-gray-200' />
+        <div className='w-full h-full p-3'>
+          <hr className='text-gray-200 w-full' />
+        </div>
       );
 
       case 'flex-row':
