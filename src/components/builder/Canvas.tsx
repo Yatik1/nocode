@@ -77,7 +77,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
     case 'button':
       return { text: 'Button', bgColor:"black", color:"#FFFFFF", rounded:"0"};
     case 'section':
-      return { backgroundColor: 'white', padding: 'medium' };
+      return { backgroundColor: 'lightgray', height:"", width:"", direction:"row", children:[]};
     case 'navbar':
       return { 
         links: [
