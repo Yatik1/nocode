@@ -4,6 +4,7 @@ import ColumnProperties from "./properties/ColumnProperties"
 import HeadingProperties from "./properties/HeadingProperties"
 import ImageProperties from "./properties/ImageProperties"
 import RowProperties from "./properties/RowProperties"
+import SectionProperties from "./properties/SectionProperties"
 import TextProperties from "./properties/TextProperties"
 
 
@@ -21,6 +22,9 @@ function PropertyRenderer({element}:{element:ElementType}) {
 
       case "image":
         return <ImageProperties element={element} />
+
+      case "section":
+        return <SectionProperties element={element} />
       
       case "flex-row":
         return <RowProperties element={element} />
