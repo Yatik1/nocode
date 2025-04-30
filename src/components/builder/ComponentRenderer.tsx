@@ -7,6 +7,7 @@ import Section from './layouts/Section';
 
 interface ComponentRendererProps {
   element: ElementType;
+  isMoveEnter?:boolean
 }
 
 function ComponentRenderer({ element }: ComponentRendererProps) {
@@ -18,7 +19,7 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
     case 'heading':
       const HeadingTag = props.level as keyof JSX.IntrinsicElements;
       if(props.text) return (
-        <div className='w-full h-fit p-2' style={{background:props.bgColor}}>
+        <div className={`w-full h-fit p-2`} style={{background:props.bgColor}}>
           <HeadingTag className={`font-bold`} style={{color:props.color}}>{props.text}</HeadingTag>
         </div>
       )
