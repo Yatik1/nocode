@@ -39,7 +39,7 @@ function Section({ props, id }: { props: any, id: string }) {
 
   return (
     <section 
-        className={`h-screen flex flex-1 items-center justify-center p-4 m-5 text-gray-400 ${borderClass} overflow-x-none`} 
+        className={`min-h-fit h-screen flex flex-1 items-center justify-center p-4 text-gray-400 group ${borderClass} overflow-x-none`} 
         style={{background:props.backgroundColor, width: props.width+'px', height: props.height+"px", flexDirection:props.direction}}
         onDrop={handleDrop}
         onClick={(e) => {
