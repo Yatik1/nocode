@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
@@ -16,6 +16,9 @@ function Canvas() {
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
   const canvasRef = useRef<HTMLDivElement>(null)
   const elementRef = useRef<HTMLDivElement>(null)
+
+  const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
+
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -43,17 +46,23 @@ function Canvas() {
       onDragOver={handleDragOver}
       ref={canvasRef}
     >
-      <div className="max-w-4xl mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-sm mb-2 overflow-auto">
-        {elements.map((element:ElementType) => (
-          <div  
-            key={element.id}
-            onClick={() =>setSelectedElement(element)}
-            ref={elementRef} 
-          >
-            <ComponentRenderer element={element} />
-          </div>
-        ))}
-      </div>
+      <div className="mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
+  {elements.map((element: ElementType) => (
+    <div
+      key={element.id}
+      onClick={() => setSelectedElement(element)}
+      className='relative'
+      ref={elementRef}
+      onMouseEnter={() => setHoveredElementId(element.id)}
+      onMouseLeave={() => setHoveredElementId(null)}
+    >
+      <ComponentRenderer element={element} isMoveEnter={hoveredElementId === element.id} />
+      {/* {hoveredElementId === element.id && (
+        <div className='w-full h-full absolute z-10 bg-pink-800/40 top-0' />
+      )} */}
+    </div>
+  ))}
+</div>
     </div>
     
     </>
