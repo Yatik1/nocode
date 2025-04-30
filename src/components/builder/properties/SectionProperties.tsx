@@ -25,7 +25,7 @@ function SectionProperties({ element }: { element: ElementType }) {
   }
 
   function onHeightChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({id, props:{...props, height: e.target.value}});
+      updateElementProps({id, props:{...props, height: e.target.value}});
   }
 
 
