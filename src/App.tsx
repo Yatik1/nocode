@@ -5,13 +5,23 @@ import Canvas from './components/builder/Canvas';
 import useBuilder from './hooks/useBuilder';
 import Properties from './components/builder/Properties';
 import Navbar from './components/ui/Navbar';
+import { Route, Routes } from 'react-router-dom';
+import Preview from './components/page/Preview';
 
 function App() {
 
-  const {elements,selectedElement} = useBuilder() as any 
-
   return (
-   <div className='relative flex-1 flex-col'>
+   <Routes>
+     <Route path='/' element={<AppLayer />} />
+     <Route path="/preview" element={<Preview />} />
+   </Routes>
+  );
+}
+
+function AppLayer() {
+  const {elements,selectedElement} = useBuilder() as any 
+  return (
+    <div className='relative flex-1 flex-col'>
       <Navbar />
      <div className="relative min-h-screen h-auto bg-gray-50">
       
@@ -26,7 +36,7 @@ function App() {
       <button onClick={() => console.log(elements)}>Get data json</button>
     </div>
    </div>
-  );
+  )
 }
 
 export default App;

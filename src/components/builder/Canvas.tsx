@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
@@ -14,11 +14,19 @@ export interface ElementType {
 function Canvas() {
 
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
-  const canvasRef = useRef<HTMLDivElement>(null)
-  const elementRef = useRef<HTMLDivElement>(null)
 
-  const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
-
+  // useEffect(() => {
+  //   if (elements.length > 0) {
+  //     localStorage.setItem("NocodeElements", JSON.stringify(elements));
+  //   }
+  // }, [elements]);
+  
+  // useEffect(() => {
+  //   const stored = localStorage.getItem("NocodeElements");
+  //   if (stored) {
+  //     setElements(JSON.parse(stored));
+  //   }
+  // }, [])
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -44,7 +52,6 @@ function Canvas() {
       className="flex-1 p-6"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      ref={canvasRef}
     >
       <div className="mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
   {elements.map((element: ElementType) => (
@@ -52,11 +59,10 @@ function Canvas() {
       key={element.id}
       onClick={() => setSelectedElement(element)}
       className='relative'
-      ref={elementRef}
-      onMouseEnter={() => setHoveredElementId(element.id)}
-      onMouseLeave={() => setHoveredElementId(null)}
+      // onMouseEnter={() => setHoveredElementId(element.id)}
+      // onMouseLeave={() => setHoveredElementId(null)}
     >
-      <ComponentRenderer element={element} isMoveEnter={hoveredElementId === element.id} />
+      <ComponentRenderer element={element} />
       {/* {hoveredElementId === element.id && (
         <div className='w-full h-full absolute z-10 bg-pink-800/40 top-0' />
       )} */}

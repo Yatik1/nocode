@@ -1,7 +1,11 @@
 import { Save, ScanEye } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 function Navbar() {
+
+    const navigate = useNavigate()
+
   return (
     <div className="w-full h-[6.5vh] border-b border-gray-200 flex justify-between items-center align-center px-3 gap-1">
         <span className='w-12 h-12 flex items-center justify-center'>
@@ -12,7 +16,7 @@ function Navbar() {
                 <p className='text-white text-sm'>Save</p>
                 <Save size={15}/>
             </div>
-            <div className='bg-white border border-gray-300 w-25 rounded-md h-8 text-black flex items-center justify-center gap-2'>
+            <div className='bg-white border border-gray-300 w-25 rounded-md h-8 text-black flex items-center justify-center gap-2' onClick={() => navigate("/preview")}>
                 <p className='text-sm'>Preview</p>
                 <ScanEye size={15}/>
             </div>
