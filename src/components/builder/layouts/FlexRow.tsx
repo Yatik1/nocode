@@ -1,20 +1,20 @@
-// import { useState } from "react";
-import { useEffect, useState } from "react";
-import { ElementType, getDefaultProps } from "../Canvas"
-import ComponentRenderer from "../ComponentRenderer"
+import { useState } from "react";
+import useBuilder from "../../../hooks/useBuilder";
+import { ElementType, getDefaultProps } from "../Canvas";
+import ComponentRenderer from "../ComponentRenderer";
 
-function FlexRow({ props, onChildrenChange }: { props: any, onChildrenChange: (children: ElementType[]) => void }) {
-  const [children, setChildren] = useState<ElementType[]>(props.children || []);
+function FlexRow({ props, id }: { props: any, id: string }) {
+  const { updateElementProps, setSelectedElement, selectedElement } = useBuilder() as any;
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-  useEffect(() => {
-    onChildrenChange(children);
-  }, [children]);
+  const isSelected = selectedElement?.id === id;
 
   function handleDrop(e: React.DragEvent) {
     e.stopPropagation();
     e.preventDefault();
+    setIsDraggingOver(false);
 
-    const childComponentType = e.dataTransfer.getData('componentId');
+    const childComponentType = e.dataTransfer.getData("componentId");
 
     const newChildElement: ElementType = {
       id: `${childComponentType}-${Date.now()}`,
@@ -22,26 +22,47 @@ function FlexRow({ props, onChildrenChange }: { props: any, onChildrenChange: (c
       props: getDefaultProps(childComponentType),
     };
 
-    setChildren(prev => [...prev, newChildElement]);
+    const newChildren = [...(props.children || []), newChildElement];
+
+    updateElementProps({
+      id,
+      props: {
+        ...props,
+        children: newChildren,
+      },
+    });
   }
+
+  const borderClass = isDraggingOver || isSelected
+    ? "border border-dotted border-blue-400"
+    : "";
 
   return (
     <div
-      className={`flex flex-1 gap-4 border border-gray-400 border-dashed w-full min-h-30 items-${props.alignItems} justify-${props.justifyContent} hover:border-blue-200`}
+      className={`flex flex-1 gap-4 w-full min-h-30 h-full ${borderClass}`}
+      style={{
+        alignItems: props.alignItems,
+        justifyContent: props.justifyContent,
+        background: props.backgroundColor,
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        setSelectedElement({ id, props, type: "flex-row" });
+      }}
       onDrop={handleDrop}
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setIsDraggingOver(true);
+      }}
+      onDragLeave={() => setIsDraggingOver(false)}
     >
-      {children.length > 0 ? (
-        children.map((child, index) => (
-          <div key={index}>
+      {Array.isArray(props.children) && props.children.length > 0 && (
+        props.children.map((child: ElementType) => (
+          <div key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
             <ComponentRenderer element={child} />
           </div>
         ))
-      ) : (
-        <div className="h-full flex items-center justify-center">
-          Drop component here
-        </div>
-      )}
+      ) }
     </div>
   );
 }

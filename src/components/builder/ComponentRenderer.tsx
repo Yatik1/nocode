@@ -1,21 +1,24 @@
 
 import { JSX } from 'react';
-import type { ElementType } from './Canvas';
 import FlexRow from './layouts/FlexRow';
 import FlexCol from './layouts/FlexCol';
+import { ElementType } from './Canvas';
+import Section from './layouts/Section';
 
 interface ComponentRendererProps {
   element: ElementType;
 }
 
 function ComponentRenderer({ element }: ComponentRendererProps) {
-  const { type, props } = element;
+
+  const { id, props, type } = element;
+
 
   switch (type) {
     case 'heading':
       const HeadingTag = props.level as keyof JSX.IntrinsicElements;
       if(props.text) return (
-        <div className='w-full h-fit p-2' style={{background:props.bgColor}}>
+        <div className={`w-full h-fit p-2`} style={{background:props.bgColor}}>
           <HeadingTag className={`font-bold`} style={{color:props.color}}>{props.text}</HeadingTag>
         </div>
       )
@@ -56,11 +59,7 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
 
     case 'section':
       return (
-        <section className="p-6 rounded-lg border border-gray-200">
-          <div className="h-32 flex items-center justify-center text-gray-400">
-            Section Container
-          </div>
-        </section>
+        <Section props={props} id={id} />
       );
 
     case 'navbar':
@@ -80,26 +79,25 @@ function ComponentRenderer({ element }: ComponentRendererProps) {
 
     case 'divider':
       return(
-        <hr className='text-gray-200' />
+        <div className='w-full h-full p-3'>
+          <hr className='text-gray-200 w-full' />
+        </div>
       );
 
-    case 'flex-row':
-      return (
-        <FlexRow 
-          props={props}  
-          onChildrenChange={(newChildren) => {
-            props.children = newChildren;
-          }}  
-        />
-      )
+      case 'flex-row':
+        return (
+          <FlexRow 
+            props={props}  
+            id={id}
+          />
+        );
+      
     
     case 'flex-col':
       return (
         <FlexCol 
           props={props} 
-          onChildrenChange={(newChildren) => {
-            props.children = newChildren;
-          }} 
+          id={id}
         />
       )
 

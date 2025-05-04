@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
+
 
 
 export interface ElementType {
@@ -13,8 +14,19 @@ export interface ElementType {
 function Canvas() {
 
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
-  const canvasRef = useRef<HTMLDivElement>(null)
-  const elementRef = useRef<HTMLDivElement>(null)
+
+  // useEffect(() => {
+  //   if (elements.length > 0) {
+  //     localStorage.setItem("NocodeElements", JSON.stringify(elements));
+  //   }
+  // }, [elements]);
+  
+  // useEffect(() => {
+  //   const stored = localStorage.getItem("NocodeElements");
+  //   if (stored) {
+  //     setElements(JSON.parse(stored));
+  //   }
+  // }, [])
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -34,31 +46,32 @@ function Canvas() {
     e.preventDefault();
   };
 
-
   return (
-    <div 
+    <>
+      <div 
       className="flex-1 p-6"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      ref={canvasRef}
     >
-      <div className="max-w-4xl mx-auto min-h-[calc(100vh-4rem)] flex flex-col gap-4 bg-white rounded-lg shadow-sm p-8">
-        {elements.map((element:ElementType) => (
-          <div  
-            key={element.id}
-            onClick={() =>setSelectedElement(element)}
-            ref={elementRef} 
-          >
-            <ComponentRenderer element={element} />
-          </div>
-        ))}
-        {elements.length === 0 && (
-          <div className="text-center text-gray-400">
-            Drag and drop components here
-          </div>  
-        )}
-      </div>
+      <div className="mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
+  {elements.map((element: ElementType) => (
+    <div
+      key={element.id}
+      onClick={() => setSelectedElement(element)}
+      className='relative'
+      // onMouseEnter={() => setHoveredElementId(element.id)}
+      // onMouseLeave={() => setHoveredElementId(null)}
+    >
+      <ComponentRenderer element={element} />
+      {/* {hoveredElementId === element.id && (
+        <div className='w-full h-full absolute z-10 bg-pink-800/40 top-0' />
+      )} */}
     </div>
+  ))}
+</div>
+    </div>
+    
+    </>
   );
 }
 
@@ -79,7 +92,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
     case 'button':
       return { text: 'Button', bgColor:"black", color:"#FFFFFF", rounded:"0"};
     case 'section':
-      return { backgroundColor: 'white', padding: 'medium' };
+      return { backgroundColor: 'lightgray', height:"", width:"", direction:"row", children:[]};
     case 'navbar':
       return { 
         links: [
@@ -92,6 +105,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return {
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:"",
         children:[] 
        }
 
@@ -99,6 +113,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return {
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:"",
         children:[]
       }
     default:

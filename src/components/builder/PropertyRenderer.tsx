@@ -1,28 +1,36 @@
+import { ElementType } from "./Canvas"
 import ButtonProperties from "./properties/ButtonProperties"
+import ColumnProperties from "./properties/ColumnProperties"
 import HeadingProperties from "./properties/HeadingProperties"
 import ImageProperties from "./properties/ImageProperties"
 import RowProperties from "./properties/RowProperties"
+import SectionProperties from "./properties/SectionProperties"
 import TextProperties from "./properties/TextProperties"
 
 
-function PropertyRenderer({
-    props, type
-  }: any) {
-    switch (type) {
+function PropertyRenderer({element}:{element:ElementType}) {
+
+    switch (element.type) {
       case "heading":
-         return <HeadingProperties props={props} />
+         return <HeadingProperties element={element} />
         
       case "text":
-        return <TextProperties props={props} />
+        return <TextProperties element={element} />
 
       case "button":
-        return <ButtonProperties props={props} />
+        return <ButtonProperties element={element} />
 
       case "image":
-        return <ImageProperties props={props} />
+        return <ImageProperties element={element} />
+
+      case "section":
+        return <SectionProperties element={element} />
       
       case "flex-row":
-        return <RowProperties props={props} />
+        return <RowProperties element={element} />
+
+      case "flex-col":
+        return <ColumnProperties element={element} />
       default:
         return <p>No properties available for this element.</p>
     }

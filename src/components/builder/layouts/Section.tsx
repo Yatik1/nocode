@@ -3,7 +3,7 @@ import useBuilder from "../../../hooks/useBuilder";
 import { ElementType, getDefaultProps } from "../Canvas";
 import ComponentRenderer from "../ComponentRenderer";
 
-function FlexCol({ props, id }: { props: any, id: string }) {
+function Section({ props, id }: { props: any, id: string }) {
   const { updateElementProps, setSelectedElement, selectedElement } = useBuilder() as any;
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
@@ -34,37 +34,33 @@ function FlexCol({ props, id }: { props: any, id: string }) {
   }
 
   const borderClass = isDraggingOver || isSelected
-  ? "border border-dotted border-blue-400"
+    ? "border border-dotted border-blue-400"
     : "";
 
   return (
-    <div
-      className={`flex flex-col w-full min-h-30 h-full gap-4 ${borderClass}`}
-      style={{
-        alignItems: props.alignItems,
-        justifyContent: props.justifyContent,
-        background: props.backgroundColor,
-      }}
-      onClick={(e) => {
-        e.stopPropagation();
-        setSelectedElement({ id, props, type: "flex-col" });
-      }}
-      onDrop={handleDrop}
-      onDragOver={(e) => {
-        e.preventDefault();
-        setIsDraggingOver(true);
-      }}
-      onDragLeave={() => setIsDraggingOver(false)}
+    <section 
+        className={`min-h-fit h-screen flex flex-1 items-center justify-center p-4 text-gray-400 group ${borderClass} overflow-x-none`} 
+        style={{background:props.backgroundColor, width: props.width+'px', height: props.height+"px", flexDirection:props.direction}}
+        onDrop={handleDrop}
+        onClick={(e) => {
+            e.stopPropagation();
+            setSelectedElement({ id, props, type: "section" });
+        }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDraggingOver(true);
+        }}
+        onDragLeave={() => setIsDraggingOver(false)}
     >
-      {Array.isArray(props.children) && props.children.length > 0 && (
+            {Array.isArray(props.children) && props.children.length > 0 && (
         props.children.map((child: ElementType) => (
-          <div key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
+          <div className="w-full h-full" key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
             <ComponentRenderer element={child} />
           </div>
         ))
       )}
-    </div>
+    </section>
   );
 }
 
-export default FlexCol;
+export default Section;
