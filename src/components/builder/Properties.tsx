@@ -44,7 +44,7 @@ export default function Properties() {
         }}
       > 
         <Trash className="w-4 h-4" />
-        Delete element
+        Remove element
       </button>
     </div>
   )

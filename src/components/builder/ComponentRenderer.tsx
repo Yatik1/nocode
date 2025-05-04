@@ -7,7 +7,6 @@ import Section from './layouts/Section';
 
 interface ComponentRendererProps {
   element: ElementType;
-  isMoveEnter?:boolean
 }
 
 function ComponentRenderer({ element }: ComponentRendererProps) {
