@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
@@ -14,6 +14,7 @@ export interface ElementType {
 function Canvas() {
 
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
+
 
   // useEffect(() => {
   //   if (elements.length > 0) {
@@ -49,23 +50,17 @@ function Canvas() {
   return (
     <>
       <div 
-      className="flex-1 p-6"
+      className="flex-1 p-3"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <div className="mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
+      <div className="w-full h-[100vh] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
   {elements.map((element: ElementType) => (
     <div
       key={element.id}
       onClick={() => setSelectedElement(element)}
-      className='relative'
-      // onMouseEnter={() => setHoveredElementId(element.id)}
-      // onMouseLeave={() => setHoveredElementId(null)}
     >
       <ComponentRenderer element={element} />
-      {/* {hoveredElementId === element.id && (
-        <div className='w-full h-full absolute z-10 bg-pink-800/40 top-0' />
-      )} */}
     </div>
   ))}
 </div>
@@ -90,17 +85,17 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         height:"100"
       };
     case 'button':
-      return { text: 'Button', bgColor:"black", color:"#FFFFFF", rounded:"0"};
+      return { text: 'Button', bgColor:"gray", color:"white", rounded:"0"};
     case 'section':
       return { backgroundColor: 'lightgray', height:"", width:"", direction:"row", children:[]};
-    case 'navbar':
-      return { 
-        links: [
-          { text: 'Home', href: '#' },
-          { text: 'About', href: '#' },
-          { text: 'Contact', href: '#' }
-        ]
-      };
+    // case 'navbar':
+    //   return { 
+    //     links: [
+    //       { text: 'Home', href: '#' },
+    //       { text: 'About', href: '#' },
+    //       { text: 'Contact', href: '#' }
+    //     ]
+    //   };
     case 'flex-row':
       return {
         alignItems:'center',
