@@ -1,7 +1,8 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Layout, Type, Image, Link, Menu, AlignHorizontalDistributeCenter, LayoutPanelLeft, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal } from 'lucide-react';
+import { Layout, Type, Image, Link, AlignHorizontalDistributeCenter, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal, X, Menu } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
+import { useState } from 'react';
 
 
 const components = [
@@ -10,19 +11,19 @@ const components = [
   { id: 'image', icon: <Image size={24} />, label: 'Image' },
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
   { id: 'section', icon: <Layout size={24} />, label: 'Section' },
-  { id: 'navbar', icon: <Menu size={24} />, label: 'Navigation' },
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'}
 ];
 
 const layouts = [
   { id: 'flex-row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row Layout' },
   { id: 'flex-col', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column Layout' },
-  { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
+  // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
 ]
 
 function ComponentLibrary() {
 
-  const {setSelectedElement} = useBuilder() as any
+  const {setSelectedElement,elements} = useBuilder() as any
+   const [isOpen , setIsOpen] = useState(false)
 
   const onDragStart = (e: React.DragEvent, componentId: string) => {
   setSelectedElement(null)
@@ -31,8 +32,14 @@ function ComponentLibrary() {
   };
 
   return (
-    <div className="w-64 bg-white h-screen border-r border-gray-200 p-4">
-      <h2 className="text-lg font-semibold mb-2">Components</h2>
+    isOpen ? (
+      <div className=" w-[16rem] bg-white h-screen border-r border-gray-200 p-4">
+      <div className='flex items-center justify-between mb-4'>
+        <h2 className="text-lg font-semibold">Components</h2>
+        <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setIsOpen(false)}>
+          <X className="w-5 h-5" />
+        </button>
+      </div>
       <div className="grid grid-cols-2 gap-2">
         {components.map((component) => (
           <Card
@@ -61,7 +68,18 @@ function ComponentLibrary() {
           </Card>
         ))}
       </div>
+
+      <button onClick={() => console.log(JSON.stringify(elements))}>Get data stringify</button>
+      <button onClick={() => console.log(elements)}>Get data json</button>
+
     </div>
+    ) : (
+        <div className='h-[100vh] bg-[#FFFFFF] w-12 flex items-start justify-center py-3'>
+          <button className='flex items-center justify-center' onClick={() => setIsOpen(true)}>
+          <Menu size={20} />
+        </button>
+        </div>
+    )
   );
 }
 
