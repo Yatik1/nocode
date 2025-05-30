@@ -27,7 +27,7 @@ export default function Properties() {
   
 
   return (
-    <div className="w-68 bg-white h-screen border-r border-gray-200 p-3 overflow-auto">
+    <div className="fixed z-30 right-0 top-0 w-68 min-h-screen h-[100%] bg-white border-l border-gray-200 p-3 overflow-auto">
       <div className="flex items-center justify-between">
         <div className="text-md font-semibold capitalize"> {selectedElement.type} Properties</div>
         <div className="flex items-center justify-center gap-2">
