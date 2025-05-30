@@ -1,8 +1,7 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Layout, Type, Image, Link, AlignHorizontalDistributeCenter, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal, X, Menu } from 'lucide-react';
+import { Layout, Type, Image, Link, AlignHorizontalDistributeCenter, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal, X } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
-import { useState } from 'react';
 
 
 const components = [
@@ -23,7 +22,8 @@ const layouts = [
 function ComponentLibrary() {
 
   const {setSelectedElement,elements} = useBuilder() as any
-   const [isOpen , setIsOpen] = useState(false)
+
+  const {open, setOpen} = useBuilder() as any
 
   const onDragStart = (e: React.DragEvent, componentId: string) => {
   setSelectedElement(null)
@@ -32,11 +32,11 @@ function ComponentLibrary() {
   };
 
   return (
-    isOpen ? (
-      <div className=" w-[16rem] bg-white h-screen border-r border-gray-200 p-4">
+    open && (
+      <div className="w-[16rem] bg-white h-screen border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
         <h2 className="text-lg font-semibold">Components</h2>
-        <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setIsOpen(false)}>
+        <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setOpen(false)}>
           <X className="w-5 h-5" />
         </button>
       </div>
@@ -73,13 +73,7 @@ function ComponentLibrary() {
       <button onClick={() => console.log(elements)}>Get data json</button>
 
     </div>
-    ) : (
-        <div className='h-[100vh] bg-[#FFFFFF] w-12 flex items-start justify-center py-3'>
-          <button className='flex items-center justify-center' onClick={() => setIsOpen(true)}>
-          <Menu size={20} />
-        </button>
-        </div>
-    )
+    ) 
   );
 }
 
