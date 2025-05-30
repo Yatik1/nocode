@@ -15,20 +15,6 @@ function Canvas() {
 
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
 
-
-  // useEffect(() => {
-  //   if (elements.length > 0) {
-  //     localStorage.setItem("NocodeElements", JSON.stringify(elements));
-  //   }
-  // }, [elements]);
-  
-  // useEffect(() => {
-  //   const stored = localStorage.getItem("NocodeElements");
-  //   if (stored) {
-  //     setElements(JSON.parse(stored));
-  //   }
-  // }, [])
-
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     
@@ -50,20 +36,21 @@ function Canvas() {
   return (
     <>
       <div 
-      className="flex-1 p-3"
+      className="flex-1 p-3 h-auto"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <div className="w-full h-[100vh] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
-  {elements.map((element: ElementType) => (
-    <div
-      key={element.id}
-      onClick={() => setSelectedElement(element)}
-    >
-      <ComponentRenderer element={element} />
-    </div>
-  ))}
-</div>
+      <div className="h-full flex flex-col bg-white rounded-lg shadow-md overflow-auto">
+          {elements.map((element: ElementType) => (
+            <div
+              key={element.id}
+              onClick={() => setSelectedElement(element)}
+              className='h-fit w-full hover:border hover:border-blue-500 border-dotted'
+            >
+              <ComponentRenderer element={element} />
+            </div>
+          ))}
+      </div>
     </div>
     
     </>
