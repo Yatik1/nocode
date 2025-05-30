@@ -21,16 +21,15 @@ function AppLayer() {
   const {selectedElement} = useBuilder() as any 
   return (
     <div className='flex-1 flex-col'>
-      <Navbar />
-     <div className="relative w-screen h-fit bg-gray-50">
-      <main className="flex flex-row w-full">
+      <Navbar />  
+      <div className="relative h-screen bg-[url('/paper.svg')]">      
+      <main className="flex h-full w-full">
         <ComponentLibrary />
         <Canvas />
-        {selectedElement && (
+      </main>
+      {selectedElement && (
           <Properties />
         )}
-      </main>
-      
     </div>
    </div>
   )
