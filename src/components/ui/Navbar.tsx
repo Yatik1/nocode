@@ -1,13 +1,18 @@
-import { Save, ScanEye } from 'lucide-react'
+import { Menu, Save, ScanEye } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import useBuilder from '../../hooks/useBuilder'
 
 function Navbar() {
 
     const navigate = useNavigate()
+    const {setOpen} = useBuilder() as any
 
   return (
     <div className="w-full h-[6.5vh] border-b border-gray-200 flex justify-between items-center align-center px-3 gap-1">
+        <button className='flex items-center justify-center' onClick={() => setOpen((prev:any) => !prev)}>
+          <Menu size={20} />
+        </button>
         <span className='w-12 h-12 flex items-center justify-center'>
             <img src='logo.png' alt='logo' />
         </span>
