@@ -1,11 +1,11 @@
 import { ElementType } from "./Canvas"
-import ButtonProperties from "./properties/ButtonProperties"
-import ColumnProperties from "./properties/ColumnProperties"
-import HeadingProperties from "./properties/HeadingProperties"
-import ImageProperties from "./properties/ImageProperties"
-import RowProperties from "./properties/RowProperties"
-import SectionProperties from "./properties/SectionProperties"
-import TextProperties from "./properties/TextProperties"
+import ButtonProperties from "./properties-form/ButtonProperties"
+import ColumnProperties from "./properties-form/ColumnProperties"
+import HeadingProperties from "./properties-form/HeadingProperties"
+import ImageProperties from "./properties-form/ImageProperties"
+import RowProperties from "./properties-form/RowProperties"
+import SectionProperties from "./properties-form/SectionProperties"
+import TextProperties from "./properties-form/TextProperties"
 
 
 function PropertyRenderer({element}:{element:ElementType}) {
