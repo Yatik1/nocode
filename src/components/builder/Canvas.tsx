@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
@@ -14,6 +14,7 @@ export interface ElementType {
 function Canvas() {
 
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
+  const [copiedElement, setCopiedElement] = useState<ElementType | null>(null)
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -33,6 +34,24 @@ function Canvas() {
     e.preventDefault();
   };
 
+  function onCopyEvent(e:React.ClipboardEvent, element:ElementType) {
+    e.preventDefault()
+    setCopiedElement(element)
+  }
+
+  function onPasteEvent(e:React.ClipboardEvent) {
+    e.preventDefault()
+    if(copiedElement) {
+      const newElementId = `${copiedElement.type}-${Date.now()}`
+      const newElement:ElementType = {
+        ...copiedElement,
+        id: newElementId
+      } 
+      setElements([...elements, newElement])
+    }
+  }
+
+
   return (
     <>
       <div 
@@ -40,12 +59,13 @@ function Canvas() {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <div className="h-full flex flex-col bg-white rounded-lg shadow-md overflow-auto">
+      <div className="h-full flex flex-col bg-white shadow-black drop-shadow-md border border-gray-300 overflow-auto">
           {elements.map((element: ElementType) => (
             <div
               key={element.id}
               onClick={() => setSelectedElement(element)}
-              className='h-fit w-full hover:border hover:border-blue-500 border-dotted'
+              onCopy={(e:any) => onCopyEvent(e,element)}
+              onPaste={onPasteEvent}
             >
               <ComponentRenderer element={element} />
             </div>
@@ -75,14 +95,6 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return { text: 'Button', bgColor:"gray", color:"white", rounded:"0"};
     case 'section':
       return { backgroundColor: 'lightgray', height:"", width:"", direction:"row", children:[]};
-    // case 'navbar':
-    //   return { 
-    //     links: [
-    //       { text: 'Home', href: '#' },
-    //       { text: 'About', href: '#' },
-    //       { text: 'Contact', href: '#' }
-    //     ]
-    //   };
     case 'flex-row':
       return {
         alignItems:'center',
