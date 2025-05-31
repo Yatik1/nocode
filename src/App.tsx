@@ -1,5 +1,4 @@
 
-// import { Layers } from 'lucide-react';
 import ComponentLibrary from './components/builder/ComponentLibrary';
 import Canvas from './components/builder/Canvas';
 import useBuilder from './hooks/useBuilder';
@@ -19,21 +18,18 @@ function App() {
 }
 
 function AppLayer() {
-  const {elements,selectedElement} = useBuilder() as any 
+  const {selectedElement} = useBuilder() as any 
   return (
-    <div className='relative flex-1 flex-col'>
-      <Navbar />
-     <div className="relative min-h-screen h-auto bg-gray-50">
-      
-      <main className="flex flex-row h-[calc(100vh-4rem)]">
+    <div className='flex-1 flex-col'>
+      <Navbar />  
+      <div className="relative h-screen bg-[url('/paper.svg')]">      
+      <main className="flex h-full w-full">
         <ComponentLibrary />
         <Canvas />
-        {selectedElement && (
+      </main>
+      {selectedElement && (
           <Properties />
         )}
-      </main>
-      <button onClick={() => console.log(JSON.stringify(elements))}>Get data stringify</button>
-      <button onClick={() => console.log(elements)}>Get data json</button>
     </div>
    </div>
   )

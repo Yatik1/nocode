@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ComponentRenderer from './ComponentRenderer';
 import useBuilder from '../../hooks/useBuilder';
 
@@ -14,19 +14,7 @@ export interface ElementType {
 function Canvas() {
 
   const {elements, setElements, setSelectedElement} : any  = useBuilder()
-
-  // useEffect(() => {
-  //   if (elements.length > 0) {
-  //     localStorage.setItem("NocodeElements", JSON.stringify(elements));
-  //   }
-  // }, [elements]);
-  
-  // useEffect(() => {
-  //   const stored = localStorage.getItem("NocodeElements");
-  //   if (stored) {
-  //     setElements(JSON.parse(stored));
-  //   }
-  // }, [])
+  const [copiedElement, setCopiedElement] = useState<ElementType | null>(null)
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -46,29 +34,43 @@ function Canvas() {
     e.preventDefault();
   };
 
+  function onCopyEvent(e:React.ClipboardEvent, element:ElementType) {
+    e.preventDefault()
+    setCopiedElement(element)
+  }
+
+  function onPasteEvent(e:React.ClipboardEvent) {
+    e.preventDefault()
+    if(copiedElement) {
+      const newElementId = `${copiedElement.type}-${Date.now()}`
+      const newElement:ElementType = {
+        ...copiedElement,
+        id: newElementId
+      } 
+      setElements([...elements, newElement])
+    }
+  }
+
+
   return (
     <>
       <div 
-      className="flex-1 p-6"
+      className="flex-1 p-3 h-auto"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <div className="mx-auto min-h-[calc(100vh-2rem)] flex flex-col bg-white rounded-lg shadow-md mb-2 overflow-auto">
-  {elements.map((element: ElementType) => (
-    <div
-      key={element.id}
-      onClick={() => setSelectedElement(element)}
-      className='relative'
-      // onMouseEnter={() => setHoveredElementId(element.id)}
-      // onMouseLeave={() => setHoveredElementId(null)}
-    >
-      <ComponentRenderer element={element} />
-      {/* {hoveredElementId === element.id && (
-        <div className='w-full h-full absolute z-10 bg-pink-800/40 top-0' />
-      )} */}
-    </div>
-  ))}
-</div>
+      <div className="h-full flex flex-col bg-white shadow-black drop-shadow-md border border-gray-300 overflow-auto">
+          {elements.map((element: ElementType) => (
+            <div
+              key={element.id}
+              onClick={() => setSelectedElement(element)}
+              onCopy={(e:any) => onCopyEvent(e,element)}
+              onPaste={onPasteEvent}
+            >
+              <ComponentRenderer element={element} />
+            </div>
+          ))}
+      </div>
     </div>
     
     </>
@@ -90,17 +92,9 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         height:"100"
       };
     case 'button':
-      return { text: 'Button', bgColor:"black", color:"#FFFFFF", rounded:"0"};
+      return { text: 'Button', bgColor:"gray", color:"white", rounded:"0"};
     case 'section':
       return { backgroundColor: 'lightgray', height:"", width:"", direction:"row", children:[]};
-    case 'navbar':
-      return { 
-        links: [
-          { text: 'Home', href: '#' },
-          { text: 'About', href: '#' },
-          { text: 'Contact', href: '#' }
-        ]
-      };
     case 'flex-row':
       return {
         alignItems:'center',

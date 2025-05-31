@@ -3,6 +3,8 @@ import {ElementType} from '../components/builder/Canvas.tsx';
 
 
 export type BuilderContextProps = {
+    open:boolean, 
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
     elements: ElementType[],
     setElements: React.Dispatch<React.SetStateAction<ElementType[]>>;
     selectedElement: ElementType | null
@@ -19,22 +21,7 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
     const [elements, setElements] = useState<ElementType[]>([])
     const [selectedElement, setSelectedElement] = useState<ElementType | null>(null)
     const [childrens, setChildrens] = useState<ElementType[]>([])
-
-    // function updateElementProps(update: { id: string; props: any }) {
-    //   setElements(prevElements =>
-    //     prevElements.map(el =>
-    //       el.id === update.id
-    //         ? { ...el, props: { ...el.props, ...update.props } }
-    //         : el
-    //     )
-    //   );
-
-    //   setSelectedElement(prev =>
-    //     prev && prev.id === update.id
-    //       ? { ...prev, props: { ...prev.props, ...update.props } }
-    //       : prev
-    //   );
-    // }
+    const [open,setOpen] = useState<boolean>(false)
 
     function updateElementProps(update: { id: string; props: any }) {
       function updateRecursive(elements: ElementType[]): ElementType[] {
@@ -65,7 +52,6 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
     
       setElements(prev => {
         const updated = updateRecursive(prev);
-        // console.log("✅ Updated elements", JSON.stringify(updated, null, 2));
         return updated;
       });
     
@@ -79,7 +65,7 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
     
 
     return (
-        <BuilderContext.Provider value={{elements, setElements, selectedElement, setSelectedElement, childrens, setChildrens,updateElementProps}}>
+        <BuilderContext.Provider value={{open, setOpen, elements, setElements, selectedElement, setSelectedElement, childrens, setChildrens,updateElementProps}}>
             {children}
         </BuilderContext.Provider>
     )
