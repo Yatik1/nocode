@@ -9,11 +9,11 @@ const components = [
   { id: 'text', icon: <Type size={24} />, label: 'Text' },
   { id: 'image', icon: <Image size={24} />, label: 'Image' },
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
-  { id: 'section', icon: <Layout size={24} />, label: 'Section' },
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'}
 ];
 
 const layouts = [
+  { id: 'section', icon: <Layout size={24} />, label: 'Section' },
   { id: 'flex-row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row Layout' },
   { id: 'flex-col', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column Layout' },
   // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
@@ -33,7 +33,7 @@ function ComponentLibrary() {
 
   return (
     open && (
-      <div className="w-[16rem] bg-white h-screen border-r border-gray-200 p-4">
+      <div className="bg-white w-[16rem] h-screen border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
         <h2 className="text-lg font-semibold">Components</h2>
         <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setOpen(false)}>
