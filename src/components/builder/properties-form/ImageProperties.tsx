@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import useBuilder from "../../../hooks/useBuilder";
 import { Trash } from "lucide-react";
-import { ElementType } from "../Canvas";
+import { ElementType } from "../../../types/types";
+import { BuilderContextProps } from "../../../context/BuilderContext";
+
 
 function ImageProperties({ element }: {element:ElementType}) {
-  const { updateElementProps } = useBuilder() as any;
-  const {id, props} = element
+  const { updateElementProps } = useBuilder() as BuilderContextProps;
+  const {props} = element
 
   const [imageUrl, setImageUrl] = useState<string | null>(props.src || null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // 👈
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-      updateElementProps({id, props:{...props, src: imageUrl }});
+      updateElementProps({...element, props:{...props, src: imageUrl }});
   }, [imageUrl]);
 
   function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -30,11 +32,11 @@ function ImageProperties({ element }: {element:ElementType}) {
   }
 
   function onWidthChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({id, props:{...props, width: e.target.value}});
+    updateElementProps({...element, props:{...props, width: e.target.value}});
   }
 
   function onHeightChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({id, props:{...props, height: e.target.value}});
+    updateElementProps({...element, props:{...props, height: e.target.value}});
   }
 
   return (

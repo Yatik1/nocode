@@ -2,8 +2,8 @@
 
 function Divider() {
     return(
-        <div className='w-full p-3'>
-          <hr className='text-gray-200 w-full' />
+        <div className='py-3 w-screen'>
+          <hr className='text-gray-200' />
         </div>
     );
 }

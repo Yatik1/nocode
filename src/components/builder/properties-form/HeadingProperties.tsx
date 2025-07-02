@@ -1,25 +1,26 @@
 import React from 'react'
 import useBuilder from '../../../hooks/useBuilder';
-import { ElementType } from '../Canvas'; // adjust import as needed
+import { ElementType } from '../../../types/types';
+import { BuilderContextProps } from '../../../context/BuilderContext';
 
 function HeadingProperties({ element }: { element: ElementType }) {
-  const { id, props } = element;
-  const { updateElementProps } = useBuilder() as any;
+  const { props } = element;
+  const { updateElementProps } = useBuilder() as BuilderContextProps;
 
   function onChangeLevel(level: string) {
-    updateElementProps({ id, props: { ...props, level } });
+    updateElementProps({ ...element, props: { ...props, level } });
   }
 
   function onColorInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({ id, props: { ...props, color: e.target.value } });
+    updateElementProps({ ...element, props: { ...props, color: e.target.value } });
   }
 
   function onHeadingChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({ id, props: { ...props, text: e.target.value } });
+    updateElementProps({ ...element, props: { ...props, text: e.target.value } });
   }
 
   function onBgChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({ id, props: { ...props, bgColor: e.target.value || "none" } });
+    updateElementProps({ ...element, props: { ...props, bgColor: e.target.value || "none" } });
   }
 
   const headingLevels = ["h1", "h2", "h3", "h4", "h5", "h6"];

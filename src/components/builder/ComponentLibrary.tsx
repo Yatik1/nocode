@@ -1,7 +1,8 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Layout, Type, Image, Link, AlignHorizontalDistributeCenter, Heading, AlignVerticalDistributeCenter, SeparatorHorizontal, X } from 'lucide-react';
+import { Type, Image, Link, Heading, SeparatorHorizontal, X } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
+import { BuilderContextProps } from '../../context/BuilderContext';
 
 
 const components = [
@@ -12,18 +13,16 @@ const components = [
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'}
 ];
 
-const layouts = [
-  { id: 'section', icon: <Layout size={24} />, label: 'Section' },
-  { id: 'flex-row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row Layout' },
-  { id: 'flex-col', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column Layout' },
-  // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
-]
+// const layouts = [
+//   { id: 'section', icon: <Layout size={24} />, label: 'Section' },
+//   { id: 'flex-row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row Layout' },
+//   { id: 'flex-col', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column Layout' },
+//   // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
+// ]
 
 function ComponentLibrary() {
 
-  const {setSelectedElement,elements} = useBuilder() as any
-
-  const {open, setOpen} = useBuilder() as any
+  const {setSelectedElement,sections,open, setOpen} = useBuilder() as BuilderContextProps
 
   const onDragStart = (e: React.DragEvent, componentId: string) => {
   setSelectedElement(null)
@@ -33,7 +32,7 @@ function ComponentLibrary() {
 
   return (
     open && (
-      <div className="bg-white w-[16rem] h-screen border-r border-gray-200 p-4">
+      <div className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
         <h2 className="text-lg font-semibold">Components</h2>
         <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setOpen(false)}>
@@ -54,7 +53,7 @@ function ComponentLibrary() {
         ))}
       </div>
 
-      <h2 className="text-lg font-semibold mb-2 mt-5">Layouts</h2>
+      {/* <h2 className="text-lg font-semibold mb-2 mt-5">Layouts</h2>
       <div className="grid grid-cols-2 gap-2">
         {layouts.map((layout) => (
           <Card
@@ -67,10 +66,10 @@ function ComponentLibrary() {
             <span className="text-[0.8rem]">{layout.label}</span>
           </Card>
         ))}
-      </div>
+      </div> */}
 
-      <button onClick={() => console.log(JSON.stringify(elements))}>Get data stringify</button>
-      <button onClick={() => console.log(elements)}>Get data json</button>
+      <button onClick={() => console.log(JSON.stringify(sections))}>Get data stringify</button>
+      <button onClick={() => console.log(sections)}>Get data json</button>
 
     </div>
     ) 

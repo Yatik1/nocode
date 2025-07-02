@@ -1,28 +1,30 @@
 import React from "react";
 import useBuilder from "../../../hooks/useBuilder";
-import { ElementType } from "../Canvas";
+import { ElementType } from "../../../types/types";
+import { BuilderContextProps } from "../../../context/BuilderContext";
+
 
 function ColumnProperties({ element }: { element: ElementType }) {
-  const { id, props } = element;
-  const { updateElementProps } = useBuilder() as any;
+  const {props } = element;
+  const { updateElementProps } = useBuilder() as BuilderContextProps;
 
   function onAlignChange(e: React.ChangeEvent<HTMLSelectElement>) {
     updateElementProps({
-      id,
+      ...element,
       props: { ...props, alignItems: e.target.value },
     });
   }
 
   function onJustifyChange(e: React.ChangeEvent<HTMLSelectElement>) {
     updateElementProps({
-      id,
+      ...element,
       props: { ...props, justifyContent: e.target.value },
     });
   }
 
   function onBgChange(e:React.ChangeEvent<HTMLInputElement>) {
     updateElementProps({
-      id, 
+      ...element, 
       props:{...props, backgroundColor: e.target.value}
     })
   }

@@ -1,31 +1,33 @@
 import React from "react";
 import useBuilder from "../../../hooks/useBuilder";
-import { ElementType } from "../Canvas";
+import { ElementType } from "../../../types/types";
+import { BuilderContextProps } from "../../../context/BuilderContext";
+
 
 function SectionProperties({ element }: { element: ElementType }) {
-  const { id, props } = element;
-  const { updateElementProps } = useBuilder() as any;
+  const { props } = element;
+  const { updateElementProps } = useBuilder() as BuilderContextProps;
 
   function onDirectionChange(e: React.ChangeEvent<HTMLSelectElement>) {
     updateElementProps({
-      id,
+      ...element,
       props: { ...props, direction: e.target.value },
     });
   }
 
   function onBgChange(e:React.ChangeEvent<HTMLInputElement>) {
     updateElementProps({
-      id, 
+      ...element,
       props:{...props, backgroundColor: e.target.value}
     })
   }
 
   function onWidthChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({id, props:{...props, width: e.target.value}});
+    updateElementProps({...element, props:{...props, width: e.target.value}});
   }
 
   function onHeightChange(e: React.ChangeEvent<HTMLInputElement>) {
-      updateElementProps({id, props:{...props, height: e.target.value}});
+      updateElementProps({...element, props:{...props, height: e.target.value}});
   }
 
 
@@ -39,7 +41,7 @@ function SectionProperties({ element }: { element: ElementType }) {
           type="text"
           value={props.bgColor === "none" ? "" : props.bgColor}
           onChange={onBgChange}
-          placeholder="#FFFFFF"
+          placeholder={props.background || "#FFFFFF"}
           className="border border-gray-300 rounded-md py-2 px-3 text-sm"
         />
       </div>
