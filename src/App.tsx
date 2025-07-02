@@ -1,37 +1,51 @@
 
 import ComponentLibrary from './components/builder/ComponentLibrary';
-import Canvas from './components/builder/Canvas';
 import useBuilder from './hooks/useBuilder';
 import Properties from './components/builder/Properties';
 import Navbar from './components/ui/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import Preview from './components/page/Preview';
+import ComponentRenderer from './components/builder/ComponentRenderer';
+import { BuilderContextProps } from './context/BuilderContext';
+import { CanvasType } from './types/types';
 
 function App() {
 
   return (
    <Routes>
-     <Route path='/' element={<AppLayer />} />
+     <Route path='/' element={<AppLayout />} />
      <Route path="/preview" element={<Preview />} />
    </Routes>
   );
 }
 
-function AppLayer() {
-  const {selectedElement} = useBuilder() as any 
+function AppLayout() {
+  const {selectedElement, sections} = useBuilder() as BuilderContextProps 
   return (
-    <div className='flex-1 flex-col'>
+    <div className='flex flex-col w-full '>
       <Navbar />  
-      <div className="relative h-screen bg-[url('/paper.svg')]">      
-      <main className="flex h-full w-full">
+      <div className="relative h-full bg-[url('/paper.svg')] flex items-center justify-center">      
+      <main className='flex p-2'>
         <ComponentLibrary />
-        <Canvas />
+        <BuildLayer>
+            {sections.map((element:CanvasType) => (
+              <ComponentRenderer key={element.id} element={element} />
+            ))}
+        </BuildLayer>
       </main>
       {selectedElement && (
           <Properties />
         )}
     </div>
    </div>
+  )
+}
+
+function BuildLayer({children}:{children:React.ReactNode}) {
+  return (
+    <section className='flex flex-col gap-2'>
+         {children}
+    </section>
   )
 }
 
