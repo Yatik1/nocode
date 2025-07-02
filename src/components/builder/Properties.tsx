@@ -1,54 +1,58 @@
 import { Trash, X } from "lucide-react"
 import useBuilder from "../../hooks/useBuilder"
-
 import PropertyRenderer from "./PropertyRenderer"
-import { ElementType } from "react";
+import { ElementType, CanvasType } from "../../types/types";
+import { BuilderContextProps } from "../../context/BuilderContext";
 
 export default function Properties() {
+  const { selectedElement, setSelectedElement, setSections } = useBuilder() as BuilderContextProps
 
-  const {selectedElement, setSelectedElement,setElements} = useBuilder() as any
-
-  function deleteElementById(elements:any, idToDelete:any) {
-    return elements
-      .map((element:ElementType | any) => {
-        if (element.props?.children) {
-          return {
-            ...element,
-            props: {
-              ...element.props,
-              children: deleteElementById(element.props.children, idToDelete)
-            }
-          };
-        }
-        return element;
-      })
-      .filter((element:any) => element.id !== idToDelete);
+  function deleteElementFromSections(sections: CanvasType[], elementId: string | undefined): CanvasType[] {
+    if (!elementId) return sections;
+    
+    return sections.map((section: CanvasType) => ({
+      ...section,
+      childrens: section.childrens.filter((element: ElementType) => element.id !== elementId)
+    }));
   }
-  
+
+  const handleDelete = () => {
+    if (!selectedElement || !selectedElement.id) return;
+    
+    if(setSections){
+      setSections((prev: CanvasType[]) => 
+        deleteElementFromSections(prev, selectedElement.id)
+      );
+    }
+    
+    setSelectedElement(null);
+  }
 
   return (
     <div className="fixed z-30 right-0 top-0 w-68 min-h-screen h-[100%] bg-white border-l border-gray-200 p-3 overflow-auto">
       <div className="flex items-center justify-between">
-        <div className="text-md font-semibold capitalize"> {selectedElement.type} Properties</div>
+        <div className="text-md font-semibold capitalize">
+          {selectedElement?.type} Properties
+        </div>
         <div className="flex items-center justify-center gap-2">
-          <button className="flex items-center justify-center p-1 rounded-md bg-red-500 text-white gap-2 hover:bg-red-700 cursor-pointer"
-          onClick={() => {
-            setElements((prev: any[]) => deleteElementById(prev, selectedElement.id));
-            setSelectedElement(null);
-          }}
-        > 
-          <Trash className="w-4 h-4" />
-        </button>
-        <button className="flex items-center justify-center rounded-md bg-gray-50 border border-gray-200 cursor-pointer" onClick={() => setSelectedElement(null)}>
-          <X className="w-5 h-5" />
-        </button>
+          <button 
+            className="flex items-center justify-center p-1 rounded-md bg-red-500 text-white gap-2 hover:bg-red-700 cursor-pointer"
+            onClick={handleDelete}
+          >
+            <Trash className="w-4 h-4" />
+          </button>
+          <button 
+            className="flex items-center justify-center rounded-md bg-gray-50 border border-gray-200 cursor-pointer p-1" 
+            onClick={() => setSelectedElement(null)}
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
       </div>
       <hr className="text-gray-200 mt-2" />
       <div className="flex flex-1 flex-wrap overflow-auto mt-5">
-        <PropertyRenderer element={selectedElement} />
+        {selectedElement && <PropertyRenderer element={selectedElement} />}
       </div>
-      
     </div>
   )
 }
