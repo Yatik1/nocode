@@ -1,30 +1,32 @@
 import React from 'react'
 import useBuilder from '../../../hooks/useBuilder'
-import { ElementType } from '../Canvas'
+import { ElementType } from '../../../types/types'
+import { BuilderContextProps } from '../../../context/BuilderContext'
+
 
 function TextProperties({element}:{element:ElementType}) {
 
-  const {updateElementProps} = useBuilder() as any
-  const {id,props} = element
+  const {updateElementProps} = useBuilder() as BuilderContextProps
+  const {props} = element
 
   function onContentChange(e:React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({id, props:{...props, content:e.target.value}})
+    updateElementProps({ ...element, props: { ...props, content: e.target.value } });
   }
 
   function onBgChange(e:React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({id, props:{...props, bgColor:e.target.value}})
+    updateElementProps({ ...element, props: { ...props, bgColor: e.target.value } });
   }
 
   function onTextColorChange(e:React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({ id, props: { ...props, color: e.target.value } });
+    updateElementProps({ ...element, props: { ...props, color: e.target.value } });
   }
 
   function onFontStyleSelect(e:React.ChangeEvent<HTMLSelectElement>) {
-    updateElementProps({id, props:{...props, fontStyle:e.target.value}})
+    updateElementProps({ ...element, props: { ...props, fontStyle: e.target.value } });
   }
 
   function OnTextDecorate(e:React.ChangeEvent<HTMLSelectElement>) {
-    updateElementProps({id, props:{...props, decoration:e.target.value}})
+    updateElementProps({ ...element, props: { ...props, decoration: e.target.value } });
   }
   
   return (

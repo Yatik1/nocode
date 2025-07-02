@@ -1,25 +1,27 @@
+import { BuilderContextProps } from "../../../context/BuilderContext";
 import useBuilder from "../../../hooks/useBuilder"
-import { ElementType } from "../Canvas";
+import { ElementType } from "../../../types/types";
+
 
 
 function ButtonProperties({element} : {element:ElementType}) {
-    const {updateElementProps} = useBuilder() as any
-    const {id, props} = element
+    const {updateElementProps} = useBuilder() as BuilderContextProps
+    const {props} = element
 
     function onTextChange(e:React.ChangeEvent<HTMLInputElement>) {
-        updateElementProps({id, props:{...props, text:e.target.value}})
+        updateElementProps({...element, props:{...props, text:e.target.value}})
     }
 
     function onColorChange(e: React.ChangeEvent<HTMLInputElement>) {
-        updateElementProps({id, props:{...props, color: e.target.value}});
+        updateElementProps({...element, props:{...props, color: e.target.value}});
     }
 
     function onBtnColor(e: React.ChangeEvent<HTMLInputElement>) {
-        updateElementProps({id, props:{...props, bgColor: e.target.value}});
+        updateElementProps({...element, props:{...props, bgColor: e.target.value}});
     }
 
     function onRoundChange(e:React.ChangeEvent<HTMLInputElement>) {
-      updateElementProps({id, props:{...props, rounded:e.target.value}})
+      updateElementProps({...element, props:{...props, rounded:e.target.value}})
     }
 
   return (
