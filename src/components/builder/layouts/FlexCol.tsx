@@ -1,70 +1,84 @@
-import { useState } from "react";
-import useBuilder from "../../../hooks/useBuilder";
-import { ElementType, getDefaultProps } from "../Canvas";
-import ComponentRenderer from "../ComponentRenderer";
+// import { useState } from "react";
+// import useBuilder from "../../../hooks/useBuilder";
 
-function FlexCol({ props, id }: { props: any, id: string }) {
-  const { updateElementProps, setSelectedElement, selectedElement } = useBuilder() as any;
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
+// import ComponentRenderer from "../ComponentRenderer";
+// import { ElementType } from "../../../types/types";
+// import { getDefaultProps } from "../../../util/getProps";
+// import { BuilderContextProps } from "../../../context/BuilderContext";
 
-  const isSelected = selectedElement?.id === id;
+// function FlexCol({ props, id }: { props: any, id: string }) {
+//   const { updateElementProps, setSelectedElement, selectedElement } = useBuilder() as BuilderContextProps;
+//   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-  function handleDrop(e: React.DragEvent) {
-    e.stopPropagation();
-    e.preventDefault();
-    setIsDraggingOver(false);
+//   const isSelected = selectedElement?.id === id;
 
-    const childComponentType = e.dataTransfer.getData("componentId");
+//   function handleDrop(e: React.DragEvent) {
+//     e.stopPropagation();
+//     e.preventDefault();
+//     setIsDraggingOver(false);
 
-    const newChildElement: ElementType = {
-      id: `${childComponentType}-${Date.now()}`,
-      type: childComponentType,
-      props: getDefaultProps(childComponentType),
-    };
+//     const childComponentType = e.dataTransfer.getData("componentId");
 
-    const newChildren = [...(props.children || []), newChildElement];
+//     const newChildElement: ElementType = {
+//       id: `${childComponentType}-${Date.now()}`,
+//       type: childComponentType,
+//       props: getDefaultProps(childComponentType),
+//       x: 0,
+//       y:0
+//     };
 
-    updateElementProps({
-      id,
-      props: {
-        ...props,
-        children: newChildren,
-      },
-    });
-  }
+//     const newChildren = [...(props.children || []), newChildElement];
 
-  const borderClass = isDraggingOver || isSelected
-  ? "border border-dotted border-blue-400"
-    : "";
+//     updateElementProps({
+//       id,
+//       props: {
+//         ...props,
+//         children: newChildren,
+//       },
+//     });
+//   }
 
+//   const borderClass = isDraggingOver || isSelected
+//   ? "border border-dotted border-blue-400"
+//     : "";
+
+//   return (
+//     <div
+//       className={`flex flex-col w-full min-h-30 h-full gap-4 ${borderClass}`}
+//       style={{
+//         alignItems: props.alignItems,
+//         justifyContent: props.justifyContent,
+//         background: props.backgroundColor,
+//       }}
+//       onClick={(e) => {
+//         e.stopPropagation();
+//         setSelectedElement({ id, props, type: "flex-col" });
+//       }}
+//       onDrop={handleDrop}
+//       onDragOver={(e) => {
+//         e.preventDefault();
+//         setIsDraggingOver(true);
+//       }}
+//       onDragLeave={() => setIsDraggingOver(false)}
+//     >
+//       {Array.isArray(props.children) && props.children.length > 0 && (
+//         props.children.map((child: ElementType) => (
+//           <div key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
+//             <ComponentRenderer element={child} />
+//           </div>
+//         ))
+//       )}
+//     </div>
+//   );
+// }
+
+// export default FlexCol;
+
+
+function FlexCol() {
   return (
-    <div
-      className={`flex flex-col w-full min-h-30 h-full gap-4 ${borderClass}`}
-      style={{
-        alignItems: props.alignItems,
-        justifyContent: props.justifyContent,
-        background: props.backgroundColor,
-      }}
-      onClick={(e) => {
-        e.stopPropagation();
-        setSelectedElement({ id, props, type: "flex-col" });
-      }}
-      onDrop={handleDrop}
-      onDragOver={(e) => {
-        e.preventDefault();
-        setIsDraggingOver(true);
-      }}
-      onDragLeave={() => setIsDraggingOver(false)}
-    >
-      {Array.isArray(props.children) && props.children.length > 0 && (
-        props.children.map((child: ElementType) => (
-          <div key={child.id} onClick={(e) => { e.stopPropagation(); setSelectedElement(child); }}>
-            <ComponentRenderer element={child} />
-          </div>
-        ))
-      )}
-    </div>
-  );
+    <div>FlexCol</div>
+  )
 }
 
-export default FlexCol;
+export default FlexCol
