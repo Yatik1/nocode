@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { handleElementDragStart } from '../../util/handleElementDragStart';
 import { toast } from 'sonner';
 
-function Canvas2({id, props, childrens}:CanvasType) {
+function Canvas({id, props, childrens}:CanvasType) {
 
   const { setSections, setSelectedElement, selectedElement, setElements} = useBuilder() as BuilderContextProps;
   const [copiedElement, setCopiedElement] = useState<ElementType | null>(null)
@@ -150,4 +150,4 @@ const handleDrop = (e: React.DragEvent) => {
 
 
 
-export default Canvas2
+export default Canvas

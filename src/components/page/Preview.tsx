@@ -5,11 +5,12 @@ import { X } from 'lucide-react';
 import ComponentRenderer from '../builder/ComponentRenderer';
 import { BuilderContextProps } from '../../context/BuilderContext';
 import { CanvasType } from '../../types/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function Preview() {
   const { sections } = useBuilder() as BuilderContextProps;
   const navigate = useNavigate();
+  const fullRef = useRef(null) as any;
 
   const [canvasSize, setCanvasSize] = useState({
     width:window.innerWidth, 
@@ -29,6 +30,8 @@ function Preview() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  console.log(fullRef.current)
   
 
 
@@ -48,6 +51,7 @@ function Preview() {
       </header>
       <div className='bg-white relative flex flex-col items-center -gap-0.5'
       style={{ width: canvasSize.width, height: canvasSize.height }}
+      ref={fullRef}
       >
         {sections.map((element: CanvasType) => (
           <div
