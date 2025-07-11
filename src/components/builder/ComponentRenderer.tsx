@@ -8,7 +8,7 @@ import Image from './ui-components/Image';
 import Button from './ui-components/Button';
 import Divider from './ui-components/Divider'; 
 
-import Canvas2 from './Canvas2';
+import Canvas from './Canvas';
 import { CanvasType, ElementType } from '../../types/types';
 
 type ComponentRendererType = {
@@ -49,7 +49,7 @@ function ComponentRenderer({ element }: ComponentRendererType) {
     //   return <FlexCol props={props} id={id} />
     
     case 'canvas':
-      return <Canvas2 props={props} id={id} childrens={childrens} />
+      return <Canvas props={props} id={id} childrens={childrens} />
 
     default:
       return null;
