@@ -24,7 +24,7 @@ function AppLayout() {
   return (
     <div className='flex flex-col w-full '>
       <Navbar />  
-      <div className="relative h-full bg-[url('/paper.svg')] flex items-center justify-center">      
+      <div className="relative min-h-full max-h-full bg-gray-50 flex items-center justify-center">      
       <main className='flex p-2'>
         <ComponentLibrary />
         <BuildLayer>
