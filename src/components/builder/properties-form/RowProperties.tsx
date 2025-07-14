@@ -29,6 +29,32 @@ function RowProperties({ element }: { element: ElementType }) {
     })
   }
 
+  function onWidthChange(e: React.ChangeEvent<HTMLInputElement>) {
+    updateElementProps({...element, props:{...props, width: e.target.value}});
+  }
+
+  function onHeightChange(e: React.ChangeEvent<HTMLInputElement>) {
+    updateElementProps({...element, props:{...props, height: e.target.value}});
+  }
+
+  function onGapChange(e: React.ChangeEvent<HTMLInputElement>) {
+    updateElementProps({...element, props:{...props, gap: e.target.value}});
+  }
+
+  function onRoundChange(e:React.ChangeEvent<HTMLInputElement>) {
+    updateElementProps({...element, props: {...props, rounded: e.target.value }})
+  }
+
+  function onWidthUnitChange(e:React.ChangeEvent<HTMLSelectElement>) {
+    updateElementProps({...element, props: {...props, widthUnit: e.target.value }})
+  }
+
+  function onHeightUnitChange(e:React.ChangeEvent<HTMLSelectElement>) {
+    updateElementProps({...element, props: {...props, heightUnit: e.target.value }})
+  }
+  
+
+
   return (
     <div className="flex flex-1 flex-col gap-[0.56rem]">
 
@@ -42,6 +68,32 @@ function RowProperties({ element }: { element: ElementType }) {
           placeholder="#FFFFFF"
           className="border border-gray-300 rounded-md py-2 px-3 text-sm"
         />
+      </div>
+
+      <label className="text-sm font-semibold">Border Radius</label>
+        <input
+          type="number"
+          value={props.rounded}
+          onChange={onRoundChange}
+          placeholder="0"
+          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
+        />
+
+
+      <hr className="w-full text-gray-200 mt-2" />
+
+      <label className="text-sm font-semibold">Gap</label>
+      <div className="flex gap-2 items-center justify-start">
+        <input
+          type="number"
+          value={props.gap}
+          onChange={onGapChange}
+          placeholder="0"
+          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
+        />
+        <div className="border border-gray-300 px-[0.6rem] py-[0.5rem] text-sm rounded-md text-gray-400 bg-zinc-200">
+          px
+        </div>
       </div>
 
       <label className="text-sm font-semibold">Align items</label>
@@ -68,6 +120,51 @@ function RowProperties({ element }: { element: ElementType }) {
         <option value="space-around">space around</option>
         <option value="space-evenly">space evenly</option>
       </select>
+
+      <hr className="w-full text-gray-200 mt-2" />
+
+      <label className="text-sm font-semibold">Width</label>
+      <div className="flex gap-2 items-center justify-start">
+        <input
+          type="number"
+          value={props.width}
+          onChange={onWidthChange}
+          placeholder="0"
+          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
+        />
+        <select
+        className="border border-gray-300 rounded-md px-[0.175rem] py-[0.5rem] text-sm"
+        onChange={onWidthUnitChange}
+        value={props.widthUnit}
+      >
+        <option value="px">px</option>
+        <option value="rem">rem</option>
+        <option value="vw">vw</option>
+      </select>
+
+      </div>
+
+      <label className="text-sm font-semibold">Height</label>
+      <div className="flex gap-2 items-center justify-start">
+        <input
+          type="number"
+          value={props.height}
+          onChange={onHeightChange}
+          placeholder="0"
+          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
+        />
+        <select
+        className="border border-gray-300 rounded-md px-[0.175rem] py-[0.5rem] text-sm"
+        onChange={onHeightUnitChange}
+        value={props.heightUnit}
+      >
+        <option value="px">px</option>
+        <option value="rem">rem</option>
+        <option value="vw">vw</option>
+      </select>
+      </div>
+
+
 
     </div>
   );

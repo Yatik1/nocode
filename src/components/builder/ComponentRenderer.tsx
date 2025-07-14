@@ -1,7 +1,3 @@
-// import FlexRow from './layouts/FlexRow';
-// import FlexCol from './layouts/FlexCol';
-// import Canvas from './Canvas';
-// import Section from './layouts/Section';
 import Heading from './ui-components/Heading';
 import Text from './ui-components/Text';
 import Image from './ui-components/Image';
@@ -10,6 +6,8 @@ import Divider from './ui-components/Divider';
 
 import Canvas from './Canvas';
 import { CanvasType, ElementType } from '../../types/types';
+import FlexRow from './layouts/FlexRow';
+import FlexCol from './layouts/FlexCol';
 
 type ComponentRendererType = {
   element : ElementType | CanvasType 
@@ -42,11 +40,11 @@ function ComponentRenderer({ element }: ComponentRendererType) {
     //     <Section props={props} id={id} />
     //   );
 
-    // case 'flex-row':
-    //     return  <FlexRow props={props}  id={id} />
+    case 'row':
+        return  <FlexRow element={element as ElementType} />
       
-    // case 'flex-col':
-    //   return <FlexCol props={props} id={id} />
+    case 'column':
+      return <FlexCol />
     
     case 'canvas':
       return <Canvas props={props} id={id} childrens={childrens} />

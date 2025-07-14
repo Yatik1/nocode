@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 function Preview() {
   const { sections } = useBuilder() as BuilderContextProps;
   const navigate = useNavigate();
-  const fullRef = useRef(null) as any;
+  const fullRef = useRef(null);
 
   const [canvasSize, setCanvasSize] = useState({
     width:window.innerWidth, 
