@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Link, Heading, SeparatorHorizontal, X } from 'lucide-react';
+import { Type, Image, Link, Heading, SeparatorHorizontal, X, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 
@@ -13,12 +13,12 @@ const components = [
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'}
 ];
 
-// const layouts = [
-//   { id: 'section', icon: <Layout size={24} />, label: 'Section' },
-//   { id: 'flex-row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row Layout' },
-//   { id: 'flex-col', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column Layout' },
-//   // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
-// ]
+const layouts = [
+  // { id: 'section', icon: <Layout size={24} />, label: 'Section' },
+  { id: 'row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row' },
+  { id: 'column', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column' },
+  // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
+]
 
 function ComponentLibrary() {
 
@@ -53,7 +53,7 @@ function ComponentLibrary() {
         ))}
       </div>
 
-      {/* <h2 className="text-lg font-semibold mb-2 mt-5">Layouts</h2>
+      <h2 className="text-lg font-semibold mb-2 mt-5">Layouts</h2>
       <div className="grid grid-cols-2 gap-2">
         {layouts.map((layout) => (
           <Card
@@ -66,7 +66,7 @@ function ComponentLibrary() {
             <span className="text-[0.8rem]">{layout.label}</span>
           </Card>
         ))}
-      </div> */}
+      </div>
 
       <button onClick={() => console.log(JSON.stringify(sections))}>Get data stringify</button>
       <button onClick={() => console.log(sections)}>Get data json</button>
