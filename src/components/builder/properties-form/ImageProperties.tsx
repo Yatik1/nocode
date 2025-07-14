@@ -68,7 +68,7 @@ function ImageProperties({ element }: {element:ElementType}) {
         className="border border-gray-300 rounded-md p-2 text-sm w-full"
       />
 
-      <label className="text-sm font-semibold">Image width</label>
+      <label className="text-sm font-semibold">Width</label>
       <div className="flex gap-2 items-center justify-start">
         <input
           type="number"
@@ -83,7 +83,7 @@ function ImageProperties({ element }: {element:ElementType}) {
         </div>
       </div>
 
-      <label className="text-sm font-semibold">Image height</label>
+      <label className="text-sm font-semibold">Height</label>
       <div className="flex gap-2 items-center justify-start">
         <input
           type="number"
