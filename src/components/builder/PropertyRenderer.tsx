@@ -32,7 +32,7 @@ function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
       case "section":
         return <SectionProperties element={element as ElementType} />
       
-      case "flex-row":
+      case "row":
         return <RowProperties element={element as ElementType} />
 
       case "flex-col":
