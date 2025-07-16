@@ -8,6 +8,7 @@ import Canvas from './Canvas';
 import { CanvasType, ElementType } from '../../types/types';
 import FlexRow from './layouts/FlexRow';
 import FlexCol from './layouts/FlexCol';
+import Container from './layouts/Container';
 
 type ComponentRendererType = {
   element : ElementType | CanvasType 
@@ -33,18 +34,16 @@ function ComponentRenderer({ element }: ComponentRendererType) {
       return <Button {...props} />
     
     case 'divider':
-      return <Divider />
+      return <Divider {...props} />
 
-    // case 'section':
-    //   return (
-    //     <Section props={props} id={id} />
-    //   );
+    case 'container':
+      return <Container element={element as ElementType} />
 
     case 'row':
         return  <FlexRow element={element as ElementType} />
       
     case 'column':
-      return <FlexCol />
+      return <FlexCol element={element as ElementType} />
     
     case 'canvas':
       return <Canvas props={props} id={id} childrens={childrens} />

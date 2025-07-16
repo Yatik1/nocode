@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Link, Heading, SeparatorHorizontal, X, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter } from 'lucide-react';
+import { Type, Image, Link, Heading, SeparatorHorizontal, X, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, Square } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 
@@ -14,10 +14,13 @@ const components = [
 ];
 
 const layouts = [
-  // { id: 'section', icon: <Layout size={24} />, label: 'Section' },
   { id: 'row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row' },
   { id: 'column', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column' },
   // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
+]
+
+const containers = [
+  { id: 'container', icon: <Square size={24} />, label: 'Container' },
 ]
 
 function ComponentLibrary() {
@@ -67,6 +70,23 @@ function ComponentLibrary() {
           </Card>
         ))}
       </div>
+
+      <h2 className="text-lg font-semibold mb-2 mt-5">Containers</h2>
+      <div className="grid grid-cols-2 gap-2">
+        {containers.map((container) => (
+          <Card
+            key={container.id}
+            draggable
+            onDragStart={(e) => onDragStart(e, container.id)}
+            className="px-1 py-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
+          >
+            {container.icon}
+            <span className="text-[0.8rem]">{container.label}</span>
+          </Card>
+        ))}
+      </div>
+
+      
 
       <button onClick={() => console.log(JSON.stringify(sections))}>Get data stringify</button>
       <button onClick={() => console.log(sections)}>Get data json</button>
