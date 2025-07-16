@@ -3,8 +3,8 @@ export interface ElementType {
   type: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   props: Record<string, any>;
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
 }
 
 export interface CanvasType {

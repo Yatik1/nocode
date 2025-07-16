@@ -22,14 +22,21 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
       return { src: '', width: '100', height: '100' };
     case 'button':
       return { text: 'Button', bgColor: 'gray', color: 'white', rounded: '0' };
-    case 'section':
+    case 'container':
       return {
         backgroundColor: 'lightgray',
-        height: '300',
-        width: '1000',
-        direction: 'row',
-        children: [],
+        height: '20',
+        heightUnit:"rem",
+        width: '20',
+        widthUnit:"rem",
+        rounded:"0",
+        opacity:"1"
       };
+    case "divider":
+      return {
+        color:"lightgray",
+        width:"50"
+      }
     case 'row':
       return {
         alignItems: 'center',
@@ -50,7 +57,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         gap:"0",
         backgroundColor: '',
         children: [],
-        height:"40",
+        height:"30",
         heightUnit:"rem",
         width:"20",
         widthUnit:"rem",
