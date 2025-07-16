@@ -15,7 +15,13 @@ export type BuilderContextProps = {
     setChildrens?:React.Dispatch<React.SetStateAction<ElementType[]>>,
     sections:CanvasType[],
     setSections?:React.Dispatch<React.SetStateAction<CanvasType[]>>,
-    updateElementProps:(props:CanvasType | ElementType) => void;
+    updateElementProps: (update: {
+  id: string;
+  props: ElementType['props'] | CanvasType['props'];
+  x?: number;
+  y?: number;
+  type?: string;
+}) => void;
 }
 
 export const BuilderContext = createContext<BuilderContextProps | null>(null)
@@ -37,63 +43,89 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
     ]);
 
 
-    function updateElementProps(update: { id: string; props: ElementType['props'] | CanvasType['props'] }) {
-      function updateElementRecursive(elements: ElementType[]): ElementType[] {
-        return elements.map(el => {
-          if (el.id === update.id) {
-            return {
-              ...el,
-              props: {
-                ...el.props,
-                ...update.props,
-              },
-            };
-          }
-          if (Array.isArray(el.props?.children)) {
-            return {
-              ...el,
-              props: {
-                ...el.props,
-                children: updateElementRecursive(el.props.children),
-              },
-            };
-          }
-          return el;
-        });
+    function updateElementProps(update: {
+  id: string;
+  props: ElementType['props'] | CanvasType['props'];
+  x?: number;
+  y?: number;
+  type?: string;
+}) {
+  function updateElementRecursive(elements: ElementType[]): ElementType[] {
+    return elements.map(el => {
+      if (el.id === update.id) {
+        return {
+          ...el,
+          props: {
+            ...el.props,
+            ...update.props,
+          },
+          x: update.x !== undefined ? update.x : el.x,
+          y: update.y !== undefined ? update.y : el.y,
+        };
       }
 
-      function updateCanvasRecursive(sections: CanvasType[]): CanvasType[] {
-        return sections.map(section => {
-          if (section.id === update.id) {
-            return {
-              ...section,
-              props: {
-                ...section.props,
-                ...update.props,
-              },
-            };
-          }
-          if (Array.isArray(section.childrens)) {
-            return {
-              ...section,
-              childrens: updateElementRecursive(section.childrens),
-            };
-          }
-          return section;
-        });
+      if (Array.isArray(el.props?.children)) {
+        return {
+          ...el,
+          props: {
+            ...el.props,
+            children: updateElementRecursive(el.props.children),
+          },
+        };
       }
 
-      setSections(prev => {
-        const updated = updateCanvasRecursive(prev);
-        return updated;
-      });
+      return el;
+    });
+  }
 
-      setSelectedElement(prev =>
-        prev?.id === update.id
-          ? { ...prev, props: { ...prev.props, ...update.props } }
-          : prev
-      );
-    }
+  function updateCanvasRecursive(sections: CanvasType[]): CanvasType[] {
+    return sections.map(section => {
+      if (section.id === update.id) {
+        return {
+          ...section,
+          props: {
+            ...section.props,
+            ...update.props,
+          },
+        };
+      }
+
+      return {
+        ...section,
+        childrens: updateElementRecursive(section.childrens),
+      };
+    });
+  }
+
+  setSections(prev => updateCanvasRecursive(prev));
+
+  setSelectedElement(prev => {
+  if (!prev || prev.id !== update.id) return prev;
+
+  const updatedProps = {
+    ...prev.props,
+    ...update.props,
+  };
+
+  // CASE: CanvasType (no x/y)
+  if ('childrens' in prev) {
+    return {
+      ...prev,
+      props: updatedProps,
+    };
+  }
+
+  // CASE: ElementType (has x/y)
+  return {
+    ...prev,
+    props: updatedProps,
+    x: update.x !== undefined ? update.x : prev.x,
+    y: update.y !== undefined ? update.y : prev.y,
+  };
+});
+
+}
+
     
     
 
