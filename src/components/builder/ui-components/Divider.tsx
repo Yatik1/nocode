@@ -1,10 +1,17 @@
 
 
-function Divider() {
+function Divider(props : {
+  color?:string,
+  width?:string
+}) {
+  console.log(props)
     return(
-        <div className='py-3 w-screen'>
-          <hr className='text-gray-200' />
-        </div>
+          <hr 
+            style={{
+              color:props.color,
+              width:props.width+"rem"
+            }} 
+          />
     );
 }
 
