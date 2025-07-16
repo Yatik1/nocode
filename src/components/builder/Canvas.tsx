@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 
 function Canvas({id, props, childrens}:CanvasType) {
 
-  const { setSections, setSelectedElement, selectedElement, setElements} = useBuilder() as BuilderContextProps;
+  const { setSections, setSelectedElement, selectedElement, setElements, updateElementProps} = useBuilder() as BuilderContextProps;
   const [copiedElement, setCopiedElement] = useState<ElementType | null>(null)
   const location = useLocation() as { pathname: string };
 
@@ -70,8 +70,8 @@ const handleDrop = (e: React.DragEvent) => {
             const newElement : ElementType = {
                 ...JSON.parse(JSON.stringify(copiedElement)),
                 id: `${copiedElement.type}-${Date.now()}`,
-                x: copiedElement.x + 25,
-                y: copiedElement.y + 25,
+                x: copiedElement.x ? copiedElement.x + 25 : 25,
+                y: copiedElement.y ? copiedElement.y + 25 : 25,
             }
             
             if(setSections) {
@@ -121,11 +121,11 @@ const handleDrop = (e: React.DragEvent) => {
                     key={element.id}
                     data-element-id={element.id}
                     onClick={(e:React.MouseEvent) => {e.preventDefault();e.stopPropagation();setSelectedElement(element)}}
-                    onMouseDownCapture={(e) => handleElementDragStart(e, element.id, childrens, setElements)}
+                    onMouseDownCapture={(e) => {e.preventDefault();e.stopPropagation();handleElementDragStart(e, element.id, childrens, setElements)}}
                     className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""} absolute w-fit flex items-center justify-center`}
                     style={{
-                        top: isNaN(element.y) ? 0 : element.y,
-                        left: isNaN(element.x) ? 0 : element.x,
+                        top:  element.y,
+                        left: element.x,
                         cursor: "move",
                         userSelect: "none",
                     }}
