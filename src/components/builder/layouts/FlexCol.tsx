@@ -2,7 +2,7 @@ import { useState } from "react";
 import useBuilder from "../../../hooks/useBuilder";
 import ComponentRenderer from "../ComponentRenderer";
 import { ElementType } from "../../../types/types";
-import { getDefaultProps } from "../../../util/getProps";
+import { getDefaultProps } from "../../../utils/getProps";
 import { BuilderContextProps } from "../../../context/BuilderContext";
 
 function FlexCol({element}: {element:ElementType}) {
