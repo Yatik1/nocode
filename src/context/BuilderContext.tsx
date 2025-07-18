@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { CanvasType, ElementType } from '../types/types';
-import { getDefaultProps } from '../util/getProps';
+import { getDefaultProps } from '../utils/getProps';
 ;
 
 
@@ -42,91 +42,84 @@ export default function BuilderProvider({children} : {children: React.ReactNode}
         },
     ]);
 
-
     function updateElementProps(update: {
-  id: string;
-  props: ElementType['props'] | CanvasType['props'];
-  x?: number;
-  y?: number;
-  type?: string;
-}) {
-  function updateElementRecursive(elements: ElementType[]): ElementType[] {
-    return elements.map(el => {
-      if (el.id === update.id) {
-        return {
-          ...el,
-          props: {
-            ...el.props,
-            ...update.props,
-          },
-          x: update.x !== undefined ? update.x : el.x,
-          y: update.y !== undefined ? update.y : el.y,
-        };
-      }
-
-      if (Array.isArray(el.props?.children)) {
-        return {
-          ...el,
-          props: {
-            ...el.props,
-            children: updateElementRecursive(el.props.children),
-          },
-        };
-      }
-
-      return el;
-    });
-  }
-
-  function updateCanvasRecursive(sections: CanvasType[]): CanvasType[] {
-    return sections.map(section => {
-      if (section.id === update.id) {
-        return {
-          ...section,
-          props: {
-            ...section.props,
-            ...update.props,
-          },
-        };
-      }
-
-      return {
-        ...section,
-        childrens: updateElementRecursive(section.childrens),
-      };
-    });
-  }
-
-  setSections(prev => updateCanvasRecursive(prev));
-
-  setSelectedElement(prev => {
-  if (!prev || prev.id !== update.id) return prev;
-
-  const updatedProps = {
-    ...prev.props,
-    ...update.props,
-  };
-
-  // CASE: CanvasType (no x/y)
-  if ('childrens' in prev) {
-    return {
-      ...prev,
-      props: updatedProps,
-    };
-  }
-
-  // CASE: ElementType (has x/y)
-  return {
-    ...prev,
-    props: updatedProps,
-    x: update.x !== undefined ? update.x : prev.x,
-    y: update.y !== undefined ? update.y : prev.y,
-  };
-});
-
-}
-
+      id: string;
+      props: ElementType['props'] | CanvasType['props'];
+      x?: number;
+      y?: number;
+      type?: string;
+    }) {
+      function updateChildrensRecursive(childrens: ElementType[] = []): ElementType[] {
+        return childrens.map((child) => {
+          if (child.id === update.id) {
+            return {
+              ...child,
+              props: {
+                ...child.props,
+                ...update.props,
+              },
+              x: update.x !== undefined ? update.x : child.x,
+              y: update.y !== undefined ? update.y : child.y,
+            };
+          }
     
+          if (child.childrens && Array.isArray(child.childrens)) {
+            return {
+              ...child,
+              childrens: updateChildrensRecursive(child.childrens),
+            };
+          }
+    
+          return child;
+        });
+      }
+    
+      function updateCanvasRecursive(sections: CanvasType[]): CanvasType[] {
+        return sections.map((section) => {
+          if (section.id === update.id) {
+            return {
+              ...section,
+              props: {
+                ...section.props,
+                ...update.props,
+              },
+            };
+          }
+    
+          return {
+            ...section,
+            childrens: updateChildrensRecursive(section.childrens || []),
+          };
+        });
+      }
+    
+      setSections((prev) => updateCanvasRecursive(prev));
+    
+      setSelectedElement((prev) => {
+        if (!prev || prev.id !== update.id) return prev;
+    
+        const updatedProps = {
+          ...prev.props,
+          ...update.props,
+        };
+    
+        if ("childrens" in prev) {
+          // CASE: CanvasType (no x/y)
+          return {
+            ...prev,
+            props: updatedProps,
+          };
+        }
+    
+        // CASE: ElementType (has x/y)
+        return {
+          ...prev,
+          props: updatedProps,
+          x: update.x !== undefined ? update.x : prev.x,
+          y: update.y !== undefined ? update.y : prev.y,
+        };
+      });
+    }
     
 
     return (
