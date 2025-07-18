@@ -5,6 +5,7 @@ export interface ElementType {
   props: Record<string, any>;
   x?: number;
   y?: number;
+  childrens?: ElementType[];
 }
 
 export interface CanvasType {

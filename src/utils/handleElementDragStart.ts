@@ -30,13 +30,7 @@ export const handleElementDragStart = (
       let newX = (childrens[idx].x || 0) + deltaX;
       let newY = (childrens[idx].y || 0) + deltaY;
 
-      // Apply boundary constraints for all edges
-      // Left boundary: ensure element doesn't go beyond left edge (x >= 0)
-      // Right boundary: ensure element doesn't go beyond right edge (x + width <= canvas width)
       newX = Math.max(0, Math.min(newX, canvasRect.width - elementWidth));
-      
-      // Top boundary: ensure element doesn't go beyond top edge (y >= 0)
-      // Bottom boundary: ensure element doesn't go beyond bottom edge (y + height <= canvas height)
       newY = Math.max(0, Math.min(newY, canvasRect.height - elementHeight));
 
       childrens[idx].x = newX;
