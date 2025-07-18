@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { CanvasType, ElementType } from '../../types/types'
 import useBuilder from '../../hooks/useBuilder'
 import { BuilderContextProps } from '../../context/BuilderContext'
-import { getDefaultProps } from '../../util/getProps';
+import { getDefaultProps } from '../../utils/getProps';
 import ComponentRenderer from './ComponentRenderer';
 import { Plus } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import { handleElementDragStart } from '../../util/handleElementDragStart';
+import { handleElementDragStart } from '../../utils/handleElementDragStart';
 import { toast } from 'sonner';
 
 function Canvas({id, props, childrens}:CanvasType) {
 
-  const { setSections, setSelectedElement, selectedElement, setElements, updateElementProps} = useBuilder() as BuilderContextProps;
+  const { setSections, setSelectedElement, selectedElement, setElements} = useBuilder() as BuilderContextProps;
   const [copiedElement, setCopiedElement] = useState<ElementType | null>(null)
   const location = useLocation() as { pathname: string };
 
 
 const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
     const elementType = e.dataTransfer.getData("componentId");
     if (!elementType) return;
 
@@ -103,7 +105,7 @@ const handleDrop = (e: React.DragEvent) => {
         <div
         id={id}
         className={`relative bg-white ${location.pathname!== "/preview" ? "shadow-black drop-shadow-md border border-gray-300 " : ""}overflow-hidden canvas-area`}
-        style={{width:location.pathname !== "/preview" ? props.width-25 : props.width, height:location.pathname !== "/preview" ? props.height-70 : props.height, backgroundColor: props.backgroundColor}}
+        style={{width:location.pathname !== "/preview" ? props.width-25 : props.width, height:location.pathname !== "/preview" ? props.height-70 : props.height, background: props.backgroundColor}}
         data-section-id={id}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -121,7 +123,7 @@ const handleDrop = (e: React.DragEvent) => {
                     key={element.id}
                     data-element-id={element.id}
                     onClick={(e:React.MouseEvent) => {e.preventDefault();e.stopPropagation();setSelectedElement(element)}}
-                    onMouseDownCapture={(e) => {e.preventDefault();e.stopPropagation();handleElementDragStart(e, element.id, childrens, setElements)}}
+                    onMouseDown={(e) => {handleElementDragStart(e, element.id, childrens, setElements)}}
                     className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""} absolute w-fit flex items-center justify-center`}
                     style={{
                         top:  element.y,
