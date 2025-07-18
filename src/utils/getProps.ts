@@ -9,11 +9,11 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         height:window.innerHeight
       };
     case 'heading':
-      return { text: 'New Heading', level: 'h2', color: '#000000', bgColor: 'none' };
+      return { text: 'New Heading', level: 'h2', color: '#000000', backgroundColor: 'none' };
     case 'text':
       return {
         content: 'Add your text here',
-        bgColor: 'none',
+        backgroundColor: 'none',
         color: '#000000',
         fontStyle: 'normal',
         decoration: 'none',
@@ -21,7 +21,7 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
     case 'image':
       return { src: '', width: '100', height: '100' };
     case 'button':
-      return { text: 'Button', bgColor: 'gray', color: 'white', rounded: '0' };
+      return { text: 'Button', backgroundColor: 'gray', color: 'white', rounded: '0' };
     case 'container':
       return {
         backgroundColor: 'lightgray',
