@@ -37,7 +37,7 @@ function ComponentRenderer({ element }: ComponentRendererType) {
       return <Divider {...props} />
 
     case 'container':
-      return <Container element={element as ElementType} />
+      return <Container props={props} id={id} childrens={childrens} />
 
     case 'row':
         return  <FlexRow element={element as ElementType} />
