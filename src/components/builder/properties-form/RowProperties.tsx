@@ -2,6 +2,7 @@ import React from "react";
 import useBuilder from "../../../hooks/useBuilder";
 import { ElementType } from "../../../types/types";
 import { BuilderContextProps } from "../../../context/BuilderContext";
+import BackgroundColorPicker from "./utils/BackgroundColorPicker";
 
 
 function RowProperties({ element }: { element: ElementType }) {
@@ -20,13 +21,6 @@ function RowProperties({ element }: { element: ElementType }) {
       ...element,
       props: { ...props, justifyContent: e.target.value },
     });
-  }
-
-  function onBgChange(e:React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({
-      ...element, 
-      props:{...props, backgroundColor: e.target.value}
-    })
   }
 
   function onWidthChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -58,17 +52,7 @@ function RowProperties({ element }: { element: ElementType }) {
   return (
     <div className="flex flex-1 flex-col gap-[0.56rem]">
 
-      <label className="text-sm font-semibold">Background color</label>
-      <div className="flex gap-2 justify-start items-center">
-        <div className={`w-5 h-5 rounded-md border border-stone-400`} style={{backgroundColor:props.backgroundColor}} />
-        <input
-          type="text"
-          value={props.bgColor === "none" ? "" : props.bgColor}
-          onChange={onBgChange}
-          placeholder="#FFFFFF"
-          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
-        />
-      </div>
+      <BackgroundColorPicker element={element} />
 
       <label className="text-sm font-semibold">Border Radius</label>
         <input

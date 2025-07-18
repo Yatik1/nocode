@@ -2,6 +2,8 @@ import React from 'react'
 import useBuilder from '../../../hooks/useBuilder';
 import { ElementType } from '../../../types/types';
 import { BuilderContextProps } from '../../../context/BuilderContext';
+import BackgroundColorPicker from './utils/BackgroundColorPicker';
+import TextColorPicker from './utils/TextColorPicker';
 
 function HeadingProperties({ element }: { element: ElementType }) {
   const { props } = element;
@@ -11,17 +13,11 @@ function HeadingProperties({ element }: { element: ElementType }) {
     updateElementProps({ ...element, props: { ...props, level } });
   }
 
-  function onColorInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({ ...element, props: { ...props, color: e.target.value } });
-  }
 
   function onHeadingChange(e: React.ChangeEvent<HTMLInputElement>) {
     updateElementProps({ ...element, props: { ...props, text: e.target.value } });
   }
 
-  function onBgChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({ ...element, props: { ...props, bgColor: e.target.value || "none" } });
-  }
 
   const headingLevels = ["h1", "h2", "h3", "h4", "h5", "h6"];
 
@@ -51,29 +47,9 @@ function HeadingProperties({ element }: { element: ElementType }) {
         ))}
       </div>
 
-      <label className="text-sm font-semibold">Text Color</label>
-      <div className="flex gap-2 justify-start items-center">
-        <div className="w-4 h-4 rounded-md" style={{ backgroundColor: props.color || "black" }} />
-        <input
-          type="text"
-          value={props.color}
-          onChange={onColorInputChange}
-          placeholder="#000000"
-          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
-        />
-      </div>
+      <TextColorPicker element={element} />
 
-      <label className="text-sm font-semibold">Background Color</label>
-      <div className="flex gap-2 justify-start items-center">
-        <div className="w-4 h-4 rounded-md" style={{ backgroundColor: props.bgColor }} />
-        <input
-          type="text"
-          value={props.bgColor === "none" ? "" : props.bgColor}
-          onChange={onBgChange}
-          placeholder="#FFFFFF"
-          className="border border-gray-300 rounded-md py-2 px-3 text-sm"
-        />
-      </div>
+      <BackgroundColorPicker element={element} />
     </div>
   );
 }

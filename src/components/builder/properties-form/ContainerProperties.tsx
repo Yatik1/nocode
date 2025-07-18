@@ -1,37 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import useBuilder from "../../../hooks/useBuilder";
-import { ElementType } from "../../../types/types";
+import { CanvasType } from "../../../types/types";
 import { BuilderContextProps } from "../../../context/BuilderContext";
-import ColorPicker from 'react-best-gradient-color-picker'
+import BackgroundColorPicker from "./utils/BackgroundColorPicker";
 
 
 
-function SectionProperties({ element }: { element: ElementType }) {
+function SectionProperties({ element }: { element: CanvasType }) {
   const { props } = element;
   const { updateElementProps } = useBuilder() as BuilderContextProps;
-
-  const [openBg, setOpenBg] = useState<boolean>(false)
-  const opacityPercent = props.opacity ? Math.round(parseFloat(props.opacity) * 100) : 100;
-
 
   function onRoundChange(e: React.ChangeEvent<HTMLInputElement>) {
     updateElementProps({
       ...element,
       props: { ...props, rounded: e.target.value },
     });
-  }
-
-  function onBgChange(color:string) {
-    updateElementProps({
-      ...element,
-      props:{...props, backgroundColor: color}
-    })
-  }
-
-  function onOpacityChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const percent = parseInt(e.target.value, 10);
-    const cssOpacity = percent / 100;
-    updateElementProps({ ...element, props: { ...props, opacity: cssOpacity.toString() } });
   }
 
   function onWidthChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -46,40 +29,7 @@ function SectionProperties({ element }: { element: ElementType }) {
   return (
     <div className="flex flex-1 flex-col gap-[0.56rem]">
 
-      <label className="text-sm font-semibold relative">Background color</label>
-      <div className="flex flex-col gap-2 justify-center items-start relative">
-        <div className="flex items-center justify-between gap-2">
-        <div className={`w-10 h-10 rounded-md border border-stone-400 cursor-pointer`} style={{background:props.backgroundColor}} onClick={() => setOpenBg(prev=>!prev)} />
-        <input
-          type="range"
-          min={0}
-          max={100}
-          step={1}
-          value={opacityPercent}
-          onChange={onOpacityChange}
-          className={`w-[8rem] appearance-${props.backgroundColor ? props.backgroundColor : "black"} h-1 bg-white rounded outline-none`}
-          style={{
-              accentColor: props.backgroundColor || "black",
-              width: '8rem',
-              height: '4px',
-              background: '#e5e7eb',
-              borderRadius: '4px'
-          }}
-        />
-                <span className="border border-gray-300 rounded-md p-2 text-sm">{opacityPercent}%</span>
-
-        </div>
-      </div>
-      
-      {openBg && (
-        <ColorPicker
-          value={props.backgroundColor}
-          onChange={onBgChange}
-          disableDarkMode={true}
-          className="border-b pb-4 border-gray-200"
-        />
-      )}
-
+      <BackgroundColorPicker element={element} />
 
       <label className="text-sm font-semibold">Rounded</label>
       <input

@@ -1,6 +1,8 @@
 import { BuilderContextProps } from "../../../context/BuilderContext";
 import useBuilder from "../../../hooks/useBuilder"
 import { ElementType } from "../../../types/types";
+import BackgroundColorPicker from "./utils/BackgroundColorPicker";
+import TextColorPicker from "./utils/TextColorPicker";
 
 
 
@@ -10,14 +12,6 @@ function ButtonProperties({element} : {element:ElementType}) {
 
     function onTextChange(e:React.ChangeEvent<HTMLInputElement>) {
         updateElementProps({...element, props:{...props, text:e.target.value}})
-    }
-
-    function onColorChange(e: React.ChangeEvent<HTMLInputElement>) {
-        updateElementProps({...element, props:{...props, color: e.target.value}});
-    }
-
-    function onBtnColor(e: React.ChangeEvent<HTMLInputElement>) {
-        updateElementProps({...element, props:{...props, bgColor: e.target.value}});
     }
 
     function onRoundChange(e:React.ChangeEvent<HTMLInputElement>) {
@@ -36,27 +30,8 @@ function ButtonProperties({element} : {element:ElementType}) {
             className="border border-gray-300 rounded-md py-2 px-3 text-sm"
         />
 
-        <label className="text-sm font-semibold">Text Color</label>
-        <div className="flex gap-2 justify-start items-center">
-              <div className="w-4 h-4 rounded-md border border-stone-400" style={{background:props.color}} />
-              <input
-                type="text"
-                onChange={onColorChange}
-                placeholder={props.color}
-                className="border border-gray-300 rounded-md py-2 px-3 text-sm"
-              />
-          </div>
-
-        <label className="text-sm font-semibold">Button color</label>   
-        <div className="flex gap-2 justify-start items-center">
-              <div className="w-4 h-4 rounded-md border border-stone-400" style={{background:props.bgColor?props.bgColor:"black"}} />
-              <input
-                type="text"
-                onChange={onBtnColor}
-                placeholder={props.bgColor?props.bgColor:"black"}
-                className="border border-gray-300 rounded-md py-2 px-3 text-sm"
-              />
-        </div>
+        <BackgroundColorPicker element={element} />
+        <TextColorPicker element={element} />
 
         <label className="text-sm font-semibold">Border rounded</label>
         <div className="flex gap-2 items-center justify-start">
