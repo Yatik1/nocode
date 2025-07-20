@@ -16,7 +16,7 @@ function BackgroundColorPicker({element}:{element : ElementType | CanvasType}) {
     function onBgChange(color:string) {
         updateElementProps({
           ...element,
-          props:{...props, backgroundColor: color || "none"}
+          props:{...props, background: color || "none"}
         })
       }
     
@@ -31,7 +31,7 @@ function BackgroundColorPicker({element}:{element : ElementType | CanvasType}) {
         <label className="text-sm font-semibold relative">Background color</label>
       <div className="flex flex-col gap-2 justify-center items-start relative">
         <div className="flex items-center justify-between gap-2">
-        <div className={`w-10 h-10 rounded-md border border-stone-400 cursor-pointer`} style={{background:props.backgroundColor}} onClick={() => setOpenBg(prev=>!prev)} />
+        <div className={`w-10 h-10 rounded-md border border-stone-400 cursor-pointer`} style={{background:props.background}} onClick={() => setOpenBg(prev=>!prev)} />
         <input
           type="range"
           min={0}
@@ -55,7 +55,7 @@ function BackgroundColorPicker({element}:{element : ElementType | CanvasType}) {
       
       {openBg && (
         <ColorPicker
-          value={props.backgroundColor}
+          value={props.background}
           onChange={onBgChange}
           disableDarkMode={true}
           className="border-b pb-4 border-gray-200"
