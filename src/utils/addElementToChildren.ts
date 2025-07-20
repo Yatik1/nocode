@@ -6,7 +6,7 @@ export function addElementToContainer(sections: CanvasType[], containerId: strin
       if (section.childrens) {
         return {
           ...section,
-          childrens: section.childrens.map((child:any) =>
+          childrens: section.childrens.map((child:ElementType) =>
             child.id === containerId
               ? { ...child, childrens: [...(child.childrens || []), newElement] }
               : child

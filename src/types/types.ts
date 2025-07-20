@@ -1,3 +1,9 @@
+export interface PageType {
+  id:string, 
+  pageName:string, 
+  content: CanvasType[]
+}
+
 export interface ElementType {
   id: string;
   type: string;
