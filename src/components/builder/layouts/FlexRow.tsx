@@ -61,7 +61,7 @@ function FlexRow({element}: {element:ElementType}) {
         alignItems: props.alignItems,
         justifyContent: props.justifyContent,
         gap:props.gap+"px",
-        background: props.backgroundColor,
+        background: props.background,
         minWidth:props.width+props.widthUnit,
         width:"auto",
         minHeight:props.height+props.heightUnit,

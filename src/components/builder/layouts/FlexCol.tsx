@@ -62,7 +62,7 @@ function FlexCol({element}: {element:ElementType}) {
     <div
       className={`flex flex-col flex-auto px-2 py-4 ${borderClass}`}
       style={{
-        background: props.backgroundColor,
+        background: props.background,
         borderRadius: props.rounded+"px",
         gap:props.gap+"px",
         alignItems: props.alignItems,
