@@ -9,7 +9,7 @@ function Divider(props : {
           <hr 
             style={{
               color:props.color,
-              width:props.width+"rem"
+              width:props.width+"px"
             }} 
           />
     );
