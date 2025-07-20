@@ -3,6 +3,9 @@ import useBuilder from "../../../hooks/useBuilder";
 import { Trash } from "lucide-react";
 import { ElementType } from "../../../types/types";
 import { BuilderContextProps } from "../../../context/BuilderContext";
+import WidthUtil from "./utils/WidthUtil";
+import HeightUtil from "./utils/HeightUtil";
+import RoundUtil from "./utils/RoundUtil";
 
 
 function ImageProperties({ element }: {element:ElementType}) {
@@ -31,16 +34,9 @@ function ImageProperties({ element }: {element:ElementType}) {
     }
   }
 
-  function onWidthChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({...element, props:{...props, width: e.target.value}});
-  }
-
-  function onHeightChange(e: React.ChangeEvent<HTMLInputElement>) {
-    updateElementProps({...element, props:{...props, height: e.target.value}});
-  }
 
   return (
-    <div className="flex flex-col gap-3 mt-4">
+    <div className="flex flex-col gap-3">
       <label className="text-sm font-semibold">Add an Image</label>
 
       {imageUrl && (
@@ -65,38 +61,15 @@ function ImageProperties({ element }: {element:ElementType}) {
         ref={fileInputRef}
         onChange={handleUpload}
         placeholder="Choosen file"
-        className="border border-gray-300 rounded-md p-2 text-sm w-full"
+        className="border border-gray-300 rounded-md p-2 text-sm w-[12rem]"
       />
 
-      <label className="text-sm font-semibold">Width</label>
-      <div className="flex gap-2 items-center justify-start">
-        <input
-          type="number"
-          min={100}
-          value={props.width}
-          onChange={onWidthChange}
-          placeholder="100"
-          className="border border-gray-300 rounded-md py-2 px-3 text-sm w-[7rem]"
-        />
-        <div className="border border-gray-300 px-[0.6rem] py-[0.5rem] text-sm rounded-md text-gray-400 bg-zinc-200">
-          px
-        </div>
+      <div className="flex gap-2">
+        <WidthUtil element={element} />
+        <HeightUtil element={element} />
       </div>
 
-      <label className="text-sm font-semibold">Height</label>
-      <div className="flex gap-2 items-center justify-start">
-        <input
-          type="number"
-          min={100}
-          value={props.height}
-          onChange={onHeightChange}
-          placeholder="100"
-          className="border border-gray-300 rounded-md py-2 px-3 text-sm w-[7rem]"
-        />
-        <div className="border border-gray-300 px-[0.6rem] py-[0.5rem] text-sm rounded-md text-gray-400 bg-zinc-200">
-          px
-        </div>
-      </div>
+      <RoundUtil element={element}/>
     </div>
   );
 }
