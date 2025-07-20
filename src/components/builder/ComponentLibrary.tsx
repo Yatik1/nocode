@@ -1,16 +1,19 @@
 import React from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Link, Heading, SeparatorHorizontal, X, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, Square } from 'lucide-react';
+import { Type, Image, Link, Heading, SeparatorHorizontal, X, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
+import Modal from '../ui/Modal';
+
 
 
 const components = [
+  { id: 'container', icon: <SquareDashed size={24} />, label: 'Container' },
   { id: 'heading', icon: <Heading size={24} />, label: 'Heading' },
   { id: 'text', icon: <Type size={24} />, label: 'Text' },
   { id: 'image', icon: <Image size={24} />, label: 'Image' },
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
-  {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'}
+  {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'},
 ];
 
 const layouts = [
@@ -19,30 +22,29 @@ const layouts = [
   // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
 ]
 
-const containers = [
-  { id: 'container', icon: <Square size={24} />, label: 'Container' },
-]
 
 function ComponentLibrary() {
 
-  const {setSelectedElement,sections,open, setOpen} = useBuilder() as BuilderContextProps
+  const {setSelectedElement,open, setOpen, page,pages} = useBuilder() as BuilderContextProps
 
   const onDragStart = (e: React.DragEvent, componentId: string) => {
   setSelectedElement(null)
     e.dataTransfer.setData('componentId', componentId);
-    
   };
+
 
   return (
     open && (
       <div className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
-        <h2 className="text-lg font-semibold">Components</h2>
+        <Modal />
         <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setOpen(false)}>
           <X className="w-5 h-5" />
         </button>
       </div>
+      <h2 className="text-lg font-semibold">Components</h2>
       <div className="grid grid-cols-2 gap-2">
+        
         {components.map((component) => (
           <Card
             key={component.id}
@@ -71,29 +73,16 @@ function ComponentLibrary() {
         ))}
       </div>
 
-      <h2 className="text-lg font-semibold mb-2 mt-5">Containers</h2>
-      <div className="grid grid-cols-2 gap-2">
-        {containers.map((container) => (
-          <Card
-            key={container.id}
-            draggable
-            onDragStart={(e) => onDragStart(e, container.id)}
-            className="px-1 py-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
-          >
-            {container.icon}
-            <span className="text-[0.8rem]">{container.label}</span>
-          </Card>
-        ))}
-      </div>
-
       
 
-      <button onClick={() => console.log(JSON.stringify(sections))}>Get data stringify</button>
-      <button onClick={() => console.log(sections)}>Get data json</button>
+      <button onClick={() => console.log(JSON.stringify(pages))}>Get data stringify</button>
+      <button onClick={() => {console.log(page)}}>Get data json</button>
 
     </div>
     ) 
   );
 }
+
+
 
 export default ComponentLibrary
