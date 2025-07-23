@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Link, Heading, SeparatorHorizontal, X, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed } from 'lucide-react';
+import { Type, Image, Link, Heading, SeparatorHorizontal, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed, Plus, Home, File, PanelLeftClose } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
-import Modal from '../ui/Modal';
+import { CanvasType, PageType } from '../../types/types';
+import { getDefaultProps } from '../../utils/getProps';
 
 
 
@@ -25,23 +26,53 @@ const layouts = [
 
 function ComponentLibrary() {
 
-  const {setSelectedElement,open, setOpen, page,pages} = useBuilder() as BuilderContextProps
+  const {open, setOpen} = useBuilder() as BuilderContextProps
 
-  const onDragStart = (e: React.DragEvent, componentId: string) => {
-  setSelectedElement(null)
-    e.dataTransfer.setData('componentId', componentId);
-  };
+  const [selectedOption, setSelectedOption] = useState("assets")
+
 
 
   return (
     open && (
       <div className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
-        <Modal />
-        <button className="text-sm text-gray-500 hover:text-gray-700" onClick={() => setOpen(false)}>
-          <X className="w-5 h-5" />
+        {/* <Modal /> */}
+        <div className="w-fit h-10 bg-gray-100 border border-gray-300 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
+            <p className={`px-2 py-1 ${selectedOption === "pages" ? "bg-white" : "" }  rounded-md`} onClick={() => setSelectedOption("pages")}>Pages</p>
+            <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-white" : "" } rounded-md`} onClick={() => setSelectedOption("assets")}>Assets</p>
+        </div>
+
+        <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => setOpen(false)}>
+          <PanelLeftClose size={22} />
         </button>
       </div>
+
+      {selectedOption === "assets" &&  <Assets />}
+      {selectedOption === "pages" &&  <PagesSelection />}
+      
+      
+
+      {/* <button onClick={() => console.log(JSON.stringify(pages))}>Get data stringify</button>
+      <button onClick={() => {console.log(page)}}>Get data json</button> */}
+
+    </div>
+    ) 
+  );
+}
+
+
+function Assets() {
+
+  const {setSelectedElement} = useBuilder() as BuilderContextProps
+
+  const onDragStart = (e: React.DragEvent, componentId: string) => {
+    setSelectedElement(null)
+      e.dataTransfer.setData('componentId', componentId);
+    };
+
+    
+  return (
+    <>
       <h2 className="text-lg font-semibold">Components</h2>
       <div className="grid grid-cols-2 gap-2">
         
@@ -73,16 +104,78 @@ function ComponentLibrary() {
         ))}
       </div>
 
-      
-
-      <button onClick={() => console.log(JSON.stringify(pages))}>Get data stringify</button>
-      <button onClick={() => {console.log(page)}}>Get data json</button>
-
-    </div>
-    ) 
-  );
+    </>
+  )
 }
 
+function PagesSelection() {
+  const {pages, page:selectedPage, setPages, setPage} = useBuilder() as BuilderContextProps
+  
+    function addPage() {
+
+      const nextPageNumber = pages.length > 0 ? Math.max(...pages.map(p => p.pageNumber)) + 1 : 1;
+
+      const newSection: CanvasType = {
+        id: `canvas-${Date.now()}`,
+        type:"canvas",
+        props: getDefaultProps('canvas'),
+        childrens:[]
+    }
+  
+      const newPage = {
+        id:`page-${Date.now()}`,
+        pageNumber:nextPageNumber,
+        pageName:"New page",
+        content:[newSection]
+      }
+  
+      setPages((prev: PageType[]) => [...prev, newPage]);
+    }
+  
+    function selectPage(page:PageType) {
+      setPage({
+        id:page.id,
+        pageNumber:page.pageNumber,
+        pageName:page.pageName,
+        content:page.content
+      })
+    }
+  
+    return(
+      <>
+        <span className='flex items-center justify-between text-sm'>
+          Pages 
+
+          <button className='flex items-center justify-center hover:bg-gray-200 p-1 rounded-md' onClick={addPage}>
+             <Plus size={15} /> 
+          </button>
+        </span>
+        <hr className='mt-1.5 text-gray-300'/>
+          <div className='bg-white mt-3'>
+            {pages.length > 0 && pages.map((page) =>(
+                <span 
+                  key={page.id} 
+                  className={` w-full flex flex-col items-start justify-center p-1.5 cursor-pointer hover:bg-gray-200 rounded-sm my-0.5 tracking-tighter ${page.id === selectedPage.id ? "bg-gray-200 " : ""}`} 
+                  onClick={() => selectPage(page)}
+                > 
+                  <p className="pl-6 flex items-center justify-center gap-1 text-sm">
+                    {page.pageName === "Home" ? (
+                      <>
+                        <Home fill='black' size={13} /> {page.pageName}
+                      </>
+                    ) : (
+                      <>
+                        <File size={13} />
+                        {page.pageName} - {page.pageNumber}
+                      </>
+                    )}
+                  </p>
+                </span>
+              ))}
+          </div>
+      </>
+    )
+}
 
 
 export default ComponentLibrary
