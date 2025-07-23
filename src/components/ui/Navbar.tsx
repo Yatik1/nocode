@@ -9,9 +9,14 @@ function Navbar() {
     const navigate = useNavigate()
     const {setOpen, setSelectedElement} = useBuilder() as BuilderContextProps
 
+    function onOpen() {
+      setOpen((prev:boolean) => !prev)
+      setSelectedElement(null)
+    }
+
   return (
     <div className="sticky top-0 z-10 bg-white w-full h-[6.5vh] border-b border-gray-200 flex justify-between items-center align-center px-3 gap-1">
-        <button className='flex items-center justify-center cursor-pointer' onClick={() => {setOpen(true); setSelectedElement(null)}}>
+        <button className='flex items-center justify-center cursor-pointer' onClick={onOpen}>
           <PanelLeftOpen stroke="#646464" size={22} />
         </button>
         {/* <span className='w-[9rem] flex items-center justify-start'>
