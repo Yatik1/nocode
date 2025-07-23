@@ -16,7 +16,24 @@ function Canvas({ id, props, childrens }: CanvasType) {
     setSelectedElement,
     selectedElement,
     setElements,
+    setOpen
   } = useBuilder() as BuilderContextProps;
+
+  const [canvasSize, setCanvasSize] = useState({width: window.innerWidth, height:window.innerHeight})
+
+  useEffect(() => {
+    const adjustSize = () => {
+      setCanvasSize({
+        width: window.innerWidth, height:window.innerHeight
+      })
+    }
+
+    window.addEventListener("resize", adjustSize)
+
+    return () => {
+      window.removeEventListener("resize",adjustSize)
+    }
+  })
 
   const [copiedElement, setCopiedElement] = useState<ElementType | null>(null);
   const location = useLocation() as { pathname: string };
@@ -43,6 +60,8 @@ function Canvas({ id, props, childrens }: CanvasType) {
           : section
       )
     );
+
+    setOpen(false)
   };
 
   function handleDragOver(e: React.DragEvent) {
@@ -108,10 +127,10 @@ function Canvas({ id, props, childrens }: CanvasType) {
         className={`relative bg-white ${location.pathname !== "/preview"
           ? "shadow-black drop-shadow-md border border-gray-300"
           : ""
-          } overflow-hidden canvas-area`}
+          } overflow-auto canvas-area`}
         style={{
-          width: location.pathname !== "/preview" ? props.width - 25 : props.width,
-          height: location.pathname !== "/preview" ? props.height - 70 : props.height,
+          width: location.pathname !== "/preview" ? canvasSize.width - 25 : canvasSize.width,
+          height: location.pathname !== "/preview" ? canvasSize.height - 70 : canvasSize.height,
           background: props.background,
         }}
         data-section-id={id}
@@ -140,7 +159,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
                 handleElementDragStart(e, element.id, childrens, setElements)
               }
               className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""
-                } absolute w-fit flex items-center justify-center`}
+                } sticky w-fit flex items-center justify-center`}
               style={{
                 top: element.y,
                 left: element.x,
