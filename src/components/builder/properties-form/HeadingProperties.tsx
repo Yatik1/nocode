@@ -1,4 +1,3 @@
-import React from 'react'
 import useBuilder from '../../../hooks/useBuilder';
 import { ElementType } from '../../../types/types';
 import { BuilderContextProps } from '../../../context/BuilderContext';
