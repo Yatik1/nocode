@@ -1,5 +1,6 @@
 export interface PageType {
   id:string, 
+  pageNumber:number,
   pageName:string, 
   content: CanvasType[]
 }

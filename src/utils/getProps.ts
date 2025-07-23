@@ -5,8 +5,6 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
     case 'canvas':
       return {
         background: '#FFFFFF',
-        width:window.innerWidth,
-        height:window.innerHeight
       };
     case 'heading':
       return { text: 'New Heading', level: 'h2', color: '#000000', background: 'none' };
