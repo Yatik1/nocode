@@ -9,7 +9,8 @@ export const handleElementDragStart = (
   e.preventDefault();
   e.stopPropagation();
 
-  const canvas = e.currentTarget.closest(".canvas-area") as HTMLElement;
+  const canvas = e.currentTarget.parentElement as HTMLElement;
+  if(!canvas) return;
   const canvasRect = canvas.getBoundingClientRect();
 
   const elementNode = document.querySelector(`[data-element-id="${elementId}"]`) as HTMLElement;

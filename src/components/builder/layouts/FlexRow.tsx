@@ -2,7 +2,7 @@ import { useState } from "react";
 import useBuilder from "../../../hooks/useBuilder";
 import ComponentRenderer from "../ComponentRenderer";
 import { ElementType } from "../../../types/types";
-import { getDefaultProps } from "../../../util/getProps";
+import { getDefaultProps } from "../../../utils/getProps";
 import { BuilderContextProps } from "../../../context/BuilderContext";
 
 function FlexRow({element}: {element:ElementType}) {
@@ -29,8 +29,6 @@ function FlexRow({element}: {element:ElementType}) {
       id: `${componentType}-${Date.now()}`,
       type: componentType,
       props: getDefaultProps(componentType),
-      x: e.nativeEvent.offsetX,
-      y: e.nativeEvent.offsetY,
     };
 
     const updatedChildren = Array.isArray(props.children)
@@ -43,9 +41,7 @@ function FlexRow({element}: {element:ElementType}) {
       props: {
         ...props,
         children: updatedChildren,
-      },
-      x: x,
-      y:y
+      }
     });
   };
 
@@ -60,12 +56,12 @@ function FlexRow({element}: {element:ElementType}) {
 
   return (
     <div
-      className={`flex flex-auto px-2 py-4 ${borderClass}`}
+      className={`flex flex-auto px-2 py-3 ${borderClass}`}
       style={{
         alignItems: props.alignItems,
         justifyContent: props.justifyContent,
         gap:props.gap+"px",
-        background: props.backgroundColor,
+        background: props.background,
         minWidth:props.width+props.widthUnit,
         width:"auto",
         minHeight:props.height+props.heightUnit,

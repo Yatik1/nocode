@@ -1,4 +1,4 @@
-import { Menu, Save, ScanEye } from 'lucide-react'
+import { PanelLeftOpen, Save, ScanEye } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import useBuilder from '../../hooks/useBuilder'
@@ -7,16 +7,16 @@ import { BuilderContextProps } from '../../context/BuilderContext'
 function Navbar() {
 
     const navigate = useNavigate()
-    const {setOpen} = useBuilder() as BuilderContextProps
+    const {setOpen, setSelectedElement} = useBuilder() as BuilderContextProps
 
   return (
     <div className="sticky top-0 z-10 bg-white w-full h-[6.5vh] border-b border-gray-200 flex justify-between items-center align-center px-3 gap-1">
-        <button className='flex items-center justify-center' onClick={() => setOpen((prev:boolean) => !prev)}>
-          <Menu size={20} />
+        <button className='flex items-center justify-center cursor-pointer' onClick={() => {setOpen(true); setSelectedElement(null)}}>
+          <PanelLeftOpen stroke="#646464" size={22} />
         </button>
-        <span className='w-12 h-12 flex items-center justify-center'>
-            <img src='logo.png' alt='logo' />
-        </span>
+        {/* <span className='w-[9rem] flex items-center justify-start'>
+
+        </span> */}
         <div className='flex items-center justify-center gap-3 w-full'>
             <div className='bg-black w-20 rounded-md h-8 text-white flex items-center justify-center gap-2'>
                 <p className='text-white text-sm'>Save</p>

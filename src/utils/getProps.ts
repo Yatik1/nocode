@@ -4,38 +4,60 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
   switch (sectionType) {
     case 'canvas':
       return {
-        backgroundColor: '#FFFFFF',
-        width:window.innerWidth,
-        height:window.innerHeight
+        background: '#FFFFFF',
       };
     case 'heading':
-      return { text: 'New Heading', level: 'h2', color: '#000000', bgColor: 'none' };
+      return { text: 'New Heading', level: 'h2', color: '#000000', background: 'none' };
     case 'text':
       return {
-        content: 'Add your text here',
-        bgColor: 'none',
+        text: 'Add your text here',
+        background: 'none',
         color: '#000000',
         fontStyle: 'normal',
         decoration: 'none',
+        width: '150',
       };
     case 'image':
-      return { src: '', width: '100', height: '100' };
-    case 'button':
-      return { text: 'Button', bgColor: 'gray', color: 'white', rounded: '0' };
-    case 'section':
-      return {
-        backgroundColor: 'lightgray',
-        height: '300',
-        width: '1000',
-        direction: 'row',
-        children: [],
+      return { 
+        src: '',
+        height: '20',
+        heightUnit:"rem",
+        width: '20',
+        widthUnit:"rem",
+        rounded:"0",
       };
+    case 'button':
+      return { 
+        text: 'Button',
+        background: 'gray', 
+        color: 'white', 
+        rounded: '0', 
+        height: '50',
+        heightUnit:"px",
+        width: '100',
+        widthUnit:"px",
+      }
+    case 'container':
+      return {
+        background: 'lightgray',
+        height: '20',
+        heightUnit:"rem",
+        width: '20',
+        widthUnit:"rem",
+        rounded:"0",
+        opacity:"1"
+      };
+    case "divider":
+      return {
+        color:"lightgray",
+        width:"250"
+      }
     case 'row':
       return {
         alignItems: 'center',
         justifyContent: 'center',
         gap:"0",
-        backgroundColor: '',
+        background: '',
         children: [],
         height:"20",
         heightUnit:"rem",
@@ -48,9 +70,9 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
          alignItems: 'center',
         justifyContent: 'center',
         gap:"0",
-        backgroundColor: '',
+        background: '',
         children: [],
-        height:"40",
+        height:"30",
         heightUnit:"rem",
         width:"20",
         widthUnit:"rem",

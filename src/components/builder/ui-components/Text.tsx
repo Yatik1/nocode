@@ -1,16 +1,17 @@
 
 
 function Text(props: {
-    content?:string, 
-    bgColor?:string, 
+    text?:string, 
+    background?:string, 
     color?:string, 
     fontStyle?:string,
     decoration?:string,
+    width?:string
 }) {
-  if(props.content) {
+  if(props.text) {
         return(
-          <div className='w-fit h-fit p-2' style={{background:props.bgColor}}>
-            <p style={{color:props.color, fontStyle:props.fontStyle, textDecoration:props.decoration}}>{props.content}</p>
+          <div className='h-fit p-2' style={{width:props.width+"px",background:props.background}}>
+            <p style={{color:props.color, fontStyle:props.fontStyle, textDecoration:props.decoration}}>{props.text}</p>
           </div>
         )
       }
