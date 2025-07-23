@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Card from '../ui/Card';
 import { Type, Image, Link, Heading, SeparatorHorizontal, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed, Plus, Home, File, PanelLeftClose } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 import { CanvasType, PageType } from '../../types/types';
 import { getDefaultProps } from '../../utils/getProps';
-
-
+import gsap from 'gsap';
 
 const components = [
   { id: 'container', icon: <SquareDashed size={24} />, label: 'Container' },
@@ -26,15 +25,38 @@ const layouts = [
 
 function ComponentLibrary() {
 
-  const {open, setOpen} = useBuilder() as BuilderContextProps
-
+  const {open} = useBuilder() as BuilderContextProps
   const [selectedOption, setSelectedOption] = useState("assets")
 
+  const sideRef = useRef(null)
+
+  useEffect(() => {
+    gsap.fromTo(
+      sideRef.current,
+      { x: -300 },
+      { 
+        x:0,
+        ease:'circ.out'
+       }
+    );
+  },[open]);
+
+  function sideClose() {
+    gsap.to(
+      sideRef.current, {
+        x:-300
+      }
+    )
+  }
+
+  function onClose() {
+    sideClose()
+  }
 
 
   return (
     open && (
-      <div className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
+      <div ref={sideRef} className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
         {/* <Modal /> */}
         <div className="w-fit h-10 bg-gray-100 border border-gray-300 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
@@ -42,7 +64,7 @@ function ComponentLibrary() {
             <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-white" : "" } rounded-md`} onClick={() => setSelectedOption("assets")}>Assets</p>
         </div>
 
-        <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => setOpen(false)}>
+        <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={onClose}>
           <PanelLeftClose size={22} />
         </button>
       </div>
