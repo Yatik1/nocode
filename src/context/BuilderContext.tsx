@@ -36,6 +36,7 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
 
   const initialPage: PageType = {
     id: `page-${Date.now()}`,
+    pageNumber: 1, 
     pageName: "Home",
     content: [initialCanvas],
   };
