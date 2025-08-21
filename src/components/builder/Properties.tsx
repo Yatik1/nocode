@@ -38,7 +38,7 @@ export default function Properties() {
   };
 
   return (
-    <div className="fixed z-30 right-0 top-0 min-w-68 w-auto min-h-screen bg-white border-l border-gray-200 p-3 overflow-auto">
+    <div className="fixed z-99999 right-0 top-0 min-w-68 w-[20rem] min-h-screen bg-white border-l border-gray-200 px-2.5 py-3 overflow-auto">
       <div className="flex items-center justify-between">
         <div className="text-md font-semibold capitalize">
           {selectedElement?.type || "No Selection"}
@@ -65,5 +65,6 @@ export default function Properties() {
         {selectedElement && <PropertyRenderer element={selectedElement} />}
       </div>
     </div>
+    // <div className="absolute z-99999 top-0 w-screen h-screen bg-red-200"></div>
   );
 }

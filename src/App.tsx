@@ -23,30 +23,37 @@ function AppLayout() {
   const { selectedElement, page } = useBuilder() as BuilderContextProps;
 
   return (
-    <div className="flex flex-col w-full">
-      <Navbar />
-      <div className="relative min-h-full max-h-full bg-gray-50 flex items-center justify-center">
-        <main className="flex p-2">
+    <div className="w-full h-screen flex flex-col">
+      {/* Top Navbar */}
+
+        <Navbar />
+
+
+      {/* Body: Sidebar + Canvas + Properties */}
+      <div className="flex flex-1 overflow-hidden bg-gray-100">
+        {/* Left Sidebar - Component Library */}
+        
           <ComponentLibrary />
-          <BuildLayer>
+   
+        {/* Center Canvas Area */}
+        <main className="flex-1 relative overflow-auto bg-neutral-100 p-4">
+          <div className="relative mx-0 w-fit h-fit bg-white shadow rounded-md">
             {page && page.content.length > 0 && page.content.map((canvas: CanvasType) => (
               <ComponentRenderer key={canvas.id} element={canvas} />
             ))}
-          </BuildLayer>
+          </div>
         </main>
 
-        {selectedElement && <Properties />}
+        {/* Right Sidebar - Properties */}
+        {selectedElement && (
+          <aside className="w-[320px] min-w-[290px] max-w-[350px] h-full overflow-y-auto">
+            <Properties />
+          </aside>
+        )}
       </div>
     </div>
   );
 }
 
-function BuildLayer({ children }: { children: React.ReactNode }) {
-  return (
-    <section className="flex flex-col gap-2">
-      {children}
-    </section>
-  );
-}
 
 export default App;

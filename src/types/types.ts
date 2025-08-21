@@ -22,4 +22,6 @@ export interface CanvasType {
   props: Record<string, any>;
   number?: number;
   childrens: ElementType[];
+  x?:number, 
+  y?:number
 }

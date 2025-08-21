@@ -88,7 +88,7 @@ function Navbar() {
     function publishHandler() {
       const local_project = localStorage.getItem("project")
       const project = local_project ? JSON.parse(local_project) : null
-      const publish_url = `${import.meta.env.VITE_BASE_URL}/builder/projects/publish`
+      const publish_url = `${import.meta.env.VITE_BASE_URL}/builder/projects/publish` 
       let payload
       if (!project) {
         const id = uuidv4()

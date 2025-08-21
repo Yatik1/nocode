@@ -25,13 +25,14 @@ const layouts = [
 
 function ComponentLibrary() {
 
-  const {open} = useBuilder() as BuilderContextProps
+  const {open, setOpen,page,pages} = useBuilder() as BuilderContextProps
   const [selectedOption, setSelectedOption] = useState("assets")
 
   const sideRef = useRef(null)
 
   useEffect(() => {
-    gsap.fromTo(
+   if(open) {
+     gsap.fromTo(
       sideRef.current,
       { x: -300 },
       { 
@@ -39,24 +40,24 @@ function ComponentLibrary() {
         ease:'circ.out'
        }
     );
+   }
   },[open]);
 
   function sideClose() {
     gsap.to(
       sideRef.current, {
-        x:-300
+        x:-300,
+        onComplete: () => setOpen(false)
       }
     )
   }
 
-  function onClose() {
-    sideClose()
-  }
 
 
   return (
     open && (
-      <div ref={sideRef} className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
+
+      <div ref={sideRef} className="fixed z-10 top-0 left-0 border-0 bg-white h-screen w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
         {/* <Modal /> */}
         <div className="w-fit h-10 bg-gray-100 border border-gray-300 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
@@ -64,7 +65,7 @@ function ComponentLibrary() {
             <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-white" : "" } rounded-md`} onClick={() => setSelectedOption("assets")}>Assets</p>
         </div>
 
-        <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={onClose}>
+        <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={sideClose}>
           <PanelLeftClose size={22} />
         </button>
       </div>
@@ -74,10 +75,11 @@ function ComponentLibrary() {
       
       
 
-      {/* <button onClick={() => console.log(JSON.stringify(pages))}>Get data stringify</button>
-      <button onClick={() => {console.log(page)}}>Get data json</button> */}
+      <button onClick={() => console.log(JSON.stringify(pages))}>Get data stringify</button>
+      <button onClick={() => {console.log(page)}}>Get data json</button>
 
     </div>
+
     ) 
   );
 }
@@ -88,9 +90,10 @@ function Assets() {
   const {setSelectedElement} = useBuilder() as BuilderContextProps
 
   const onDragStart = (e: React.DragEvent, componentId: string) => {
-    setSelectedElement(null)
+      setSelectedElement(null)
       e.dataTransfer.setData('componentId', componentId);
     };
+
 
     
   return (
