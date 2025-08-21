@@ -19,7 +19,6 @@ const components = [
 const layouts = [
   { id: 'row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row' },
   { id: 'column', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column' },
-  // { id: 'grid', icon: <LayoutPanelLeft size={24} />, label: 'Grid Layout' },
 ]
 
 
@@ -31,7 +30,8 @@ function ComponentLibrary() {
   const sideRef = useRef(null)
 
   useEffect(() => {
-    gsap.fromTo(
+    if(open){
+      gsap.fromTo(
       sideRef.current,
       { x: -300 },
       { 
@@ -39,6 +39,7 @@ function ComponentLibrary() {
         ease:'circ.out'
        }
     );
+    }
   },[open]);
 
   function sideClose() {
@@ -58,7 +59,6 @@ function ComponentLibrary() {
     open && (
       <div ref={sideRef} className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
-        {/* <Modal /> */}
         <div className="w-fit h-10 bg-gray-100 border border-gray-300 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
             <p className={`px-2 py-1 ${selectedOption === "pages" ? "bg-white" : "" }  rounded-md`} onClick={() => setSelectedOption("pages")}>Pages</p>
             <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-white" : "" } rounded-md`} onClick={() => setSelectedOption("assets")}>Assets</p>
@@ -72,10 +72,6 @@ function ComponentLibrary() {
       {selectedOption === "assets" &&  <Assets />}
       {selectedOption === "pages" &&  <PagesSelection />}
       
-      
-
-      {/* <button onClick={() => console.log(JSON.stringify(pages))}>Get data stringify</button>
-      <button onClick={() => {console.log(page)}}>Get data json</button> */}
 
     </div>
     ) 
