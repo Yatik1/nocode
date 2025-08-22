@@ -39,6 +39,9 @@ function Canvas({ id, props, childrens }: CanvasType) {
   const location = useLocation() as { pathname: string };
 
   const handleDrop = (e: React.DragEvent) => {
+
+    if(location.pathname==="/preview") return;
+
     e.preventDefault();
     e.stopPropagation();
 
@@ -69,6 +72,8 @@ function Canvas({ id, props, childrens }: CanvasType) {
   }
 
   function addSection() {
+    if(location.pathname==="/preview") return;
+
     const newSection: CanvasType = {
       id: `canvas-${Date.now()}`,
       type: "canvas",
@@ -151,19 +156,21 @@ function Canvas({ id, props, childrens }: CanvasType) {
               key={element.id}
               data-element-id={element.id}
               onClick={(e: React.MouseEvent) => {
+                if(location.pathname==="/preview") return;
                 e.preventDefault();
                 e.stopPropagation();
                 setSelectedElement(element);
               }}
-              onMouseDown={(e) =>
+              onMouseDown={(e) =>{
+                if(location.pathname==="/preview") return;
                 handleElementDragStart(e, element.id, childrens, setElements)
-              }
+              }}
               className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""
                 } absolute w-fit flex items-center justify-center`}
               style={{
                 top: element.y,
                 left: element.x,
-                cursor: "move",
+                cursor: location.pathname==="/preview" ? "default" : "move",
                 userSelect: "none",
               }}
             >

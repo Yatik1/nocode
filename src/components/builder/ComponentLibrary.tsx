@@ -128,7 +128,7 @@ function Assets() {
 
 function PagesSelection() {
   const {pages, page:selectedPage, setPages, setPage} = useBuilder() as BuilderContextProps
-  
+
     function addPage() {
 
       const nextPageNumber = pages.length > 0 ? Math.max(...pages.map(p => p.pageNumber)) + 1 : 1;
