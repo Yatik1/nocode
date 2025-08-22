@@ -68,29 +68,36 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
     y?: number;
     type?: string;
   }) {
-    function updateChildrensRecursive(childrens: ElementType[] = []): ElementType[] {
-      return childrens.map((child) => {
-        if (child.id === update.id) {
-          return {
-            ...child,
-            props: {
-              ...child.props,
-              ...update.props,
-            },
-            x: update.x !== undefined ? update.x : child.x,
-            y: update.y !== undefined ? update.y : child.y,
-          };
-        }
+    function updateElementRecursive(element: ElementType): ElementType {
+      if (element.id === update.id) {
+        return {
+          ...element,
+          props: {
+            ...element.props,
+            ...update.props,
+          },
+          x: update.x !== undefined ? update.x : element.x,
+          y: update.y !== undefined ? update.y : element.y,
+        };
+      }
 
-        if (child.childrens && Array.isArray(child.childrens)) {
-          return {
-            ...child,
-            childrens: updateChildrensRecursive(child.childrens),
-          };
-        }
+      const updatedChildrens = Array.isArray(element.childrens)
+        ? element.childrens.map(updateElementRecursive)
+        : element.childrens;
 
-        return child;
-      });
+      // Handle row/column style children stored under props.children
+      const hasPropsChildren = element.props && Array.isArray((element.props as Record<string, unknown>).children);
+      const updatedPropsChildren = hasPropsChildren
+        ? (element.props.children as ElementType[]).map(updateElementRecursive)
+        : element.props?.children;
+
+      return {
+        ...element,
+        childrens: updatedChildrens,
+        props: hasPropsChildren
+          ? { ...element.props, children: updatedPropsChildren }
+          : element.props,
+      };
     }
 
     function updateCanvasRecursive(sections: CanvasType[]): CanvasType[] {
@@ -107,7 +114,7 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
 
         return {
           ...section,
-          childrens: updateChildrensRecursive(section.childrens || []),
+          childrens: (section.childrens || []).map(updateElementRecursive),
         };
       });
     }
