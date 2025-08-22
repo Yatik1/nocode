@@ -159,7 +159,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
                 handleElementDragStart(e, element.id, childrens, setElements)
               }
               className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""
-                } sticky w-fit flex items-center justify-center`}
+                } absolute w-fit flex items-center justify-center`}
               style={{
                 top: element.y,
                 left: element.x,
