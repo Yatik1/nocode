@@ -124,6 +124,11 @@ function Navbar() {
         toast.error("Publish failed");
       });
     }
+
+    function onPreview() {
+      setSelectedElement(null)
+      navigate("/preview")
+    }
   return (
     <div className="sticky top-0 z-10 bg-white w-full h-[6.5vh] border-b border-gray-200 flex justify-between items-center align-center px-3 gap-1">
         <button className='flex items-center justify-center cursor-pointer' onClick={onOpen}>
@@ -137,7 +142,7 @@ function Navbar() {
                 <p className='text-white text-sm'>Save</p>
                 <Save size={15} onClick={saveHandler}/>
             </div>
-            <div className='bg-white border border-gray-300 w-25 rounded-md h-8 text-black flex items-center justify-center gap-2' onClick={() => navigate("/preview")}>
+            <div className='bg-white border border-gray-300 w-25 rounded-md h-8 text-black flex items-center justify-center gap-2' onClick={onPreview}>
                 <p className='text-sm'>Preview</p>
                 <ScanEye size={15}/>
             </div>
