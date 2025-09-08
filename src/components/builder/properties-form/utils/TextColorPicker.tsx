@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import ColorPicker from 'react-best-gradient-color-picker'
 import { ElementType } from '../../../../types/types';
 import useBuilder from '../../../../hooks/useBuilder';
@@ -6,16 +5,14 @@ import { BuilderContextProps } from '../../../../context/BuilderContext';
 
 function TextColorPicker({element}:{element : ElementType}) {
 
-    const [openBg, setOpenBg] = useState<boolean>(false)
-
     const {props} = element
-    const {updateElementProps} = useBuilder() as BuilderContextProps;
+    const {updateElementProps, isColorPicker, setIsColorPicker, setIsBgColorPicker} = useBuilder() as BuilderContextProps;
 
 
     function onColorChange(color:string) {
         updateElementProps({
           ...element,
-          props:{...props, color: color || "none"}
+          props:{...props, color: color}
         })
     }
 
@@ -32,7 +29,7 @@ function TextColorPicker({element}:{element : ElementType}) {
         <label className="text-sm font-semibold relative">Text color</label>
       <div className="flex flex-col gap-2 justify-center items-start relative">
         <div className="flex items-center justify-between gap-2">
-        <div className={`w-10 h-10 rounded-md border border-stone-400 cursor-pointer`} style={{background:props.color}} onClick={() => setOpenBg(prev=>!prev)} />
+        <div className={`w-7 h-7 rounded-full border border-stone-400 cursor-pointer`} style={{background:props.color}} onClick={() => {setIsBgColorPicker(false);setIsColorPicker(prev=>!prev)}} />
         <input
           type="text"
           value={props.color}
@@ -44,15 +41,17 @@ function TextColorPicker({element}:{element : ElementType}) {
         </div>
       </div>
       
-      {openBg && (
-        <ColorPicker
-          value={props.color}
-          onChange={onColorChange}
-          disableDarkMode={true}
-          className="border-b pb-4 border-gray-200"
-          hideControls={true}
-        />
-      )}
+      {isColorPicker && (
+              <ColorPicker
+                value={props.color}
+                onChange={onColorChange}
+                disableDarkMode={true}
+                hideControls={true}
+                width={310}
+                height={180}
+                className="absolute right-[19vw] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden px-[10rem] py-2"
+              />
+            )}
     </>
   )
 }
