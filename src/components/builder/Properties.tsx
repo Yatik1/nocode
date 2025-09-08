@@ -5,7 +5,7 @@ import { ElementType, CanvasType } from "../../types/types";
 import { BuilderContextProps } from "../../context/BuilderContext";
 
 export default function Properties() {
-  const { selectedElement, setSelectedElement, updatePageContent } = useBuilder() as BuilderContextProps;
+  const { selectedElement, setSelectedElement, updatePageContent, setIsBgColorPicker, setIsColorPicker } = useBuilder() as BuilderContextProps;
 
   function deleteFromChildrens(elements: ElementType[], elementId: string): ElementType[] {
     return elements
@@ -38,7 +38,8 @@ export default function Properties() {
   };
 
   return (
-    <div className="fixed z-30 right-0 top-0 min-w-68 w-auto min-h-screen bg-white border-l border-gray-200 p-3 overflow-auto">
+    <div className="w-[50%] absolute right-0">
+      <div className="fixed z-30 right-5 top-[53vh] -translate-y-1/2 w-68 h-[89vh] glassContainer bg-white border border-gray-200 p-3 rounded-md" >
       <div className="flex items-center justify-between">
         <div className="text-md font-semibold capitalize">
           {selectedElement?.type || "No Selection"}
@@ -54,16 +55,20 @@ export default function Properties() {
           )}
           <button
             className="flex items-center justify-center rounded-md bg-gray-50 border border-gray-200 cursor-pointer p-1"
-            onClick={() => setSelectedElement(null)}
+            onClick={() => { setIsBgColorPicker(false); setIsColorPicker(false); setSelectedElement(null); }}
           >
             <X className="w-5 h-5" />
           </button>
         </div>
       </div>
       <hr className="text-gray-200 mt-2" />
-      <div className="flex flex-1 flex-wrap overflow-auto mt-5">
+      <div className="flex mt-5">
         {selectedElement && <PropertyRenderer element={selectedElement} />}
       </div>
+    </div>
+
+
+
     </div>
   );
 }
