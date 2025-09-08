@@ -34,7 +34,6 @@ function AppLayout() {
             ))}
           </BuildLayer>
         </main>
-
         {selectedElement && <Properties />}
       </div>
     </div>
