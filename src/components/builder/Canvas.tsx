@@ -16,7 +16,8 @@ function Canvas({ id, props, childrens }: CanvasType) {
     setSelectedElement,
     selectedElement,
     setElements,
-    setOpen
+    setOpen,
+    page
   } = useBuilder() as BuilderContextProps;
 
   const [canvasSize, setCanvasSize] = useState({width: window.innerWidth, height:window.innerHeight})
@@ -129,13 +130,10 @@ function Canvas({ id, props, childrens }: CanvasType) {
     <>
       <div
         id={id}
-        className={`relative bg-white ${location.pathname !== "/preview"
-          ? "shadow-black drop-shadow-md border border-gray-300"
-          : ""
-          } overflow-auto canvas-area`}
+        className={`relative bg-white overflow-auto canvas-area`}
         style={{
-          width: location.pathname !== "/preview" ? canvasSize.width - 25 : canvasSize.width,
-          height: location.pathname !== "/preview" ? canvasSize.height - 70 : canvasSize.height,
+          width: location.pathname !== "/preview" ? canvasSize.width - 50 : canvasSize.width,
+          height: location.pathname !== "/preview" ? canvasSize.height - 50 : canvasSize.height,
           background: props.background,
         }}
         data-section-id={id}
@@ -179,14 +177,14 @@ function Canvas({ id, props, childrens }: CanvasType) {
           ))}
       </div>
 
-      {location.pathname !== "/preview" && (
+      {/* {location.pathname !== "/preview" && (
         <button
           className="absolute z-999 -bottom-1 left-1/2 -translate-x-1/2 bg-gray-200 text-sm text-gray-600 border border-gray-300 rounded-md p-1 flex items-center justify-center hover:bg-blue-200 hover:text-blue-600 hover:border-blue-500"
           onClick={addSection}
         >
           <Plus size={15} /> Add section
         </button>
-      )}
+      )} */}
     </>
   );
 }
