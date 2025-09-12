@@ -27,7 +27,7 @@ function BackgroundColorPicker({element}:{element : ElementType | CanvasType}) {
 
   return (
     <>
-        <label className="text-sm font-semibold relative">Background color</label>
+        <label className="text-[#272727] text-sm relative">Background</label>
       <div className="flex flex-col gap-2 justify-center items-start relative">
         <div className="flex items-center justify-between gap-2">
         <div className={`w-7 h-7 rounded-full border border-stone-400 cursor-pointer`} style={{background:props.background}} onClick={() => {setIsColorPicker(false);setIsBgColorPicker(prev=>!prev)}} />
