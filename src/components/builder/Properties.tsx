@@ -1,4 +1,4 @@
-import { Trash, X } from "lucide-react";
+import { CircleFadingPlus, Minus, Trash, X } from "lucide-react";
 import useBuilder from "../../hooks/useBuilder";
 import PropertyRenderer from "./PropertyRenderer";
 import { ElementType, CanvasType } from "../../types/types";
@@ -38,31 +38,49 @@ export default function Properties() {
   };
 
   return (
-    <div className="w-[50%] absolute right-0">
-      <div className="fixed z-30 right-5 top-[53vh] -translate-y-1/2 w-68 h-[89vh] glassContainer bg-white border border-gray-200 p-3 rounded-md" >
-      <div className="flex items-center justify-between">
-        <div className="text-md font-semibold capitalize">
+    <div className="absolute right-0">
+      <div className="fixed z-30 right-2 top-2 w-68 h-[98vh] bg-white border border-gray-200 rounded-md" >
+        
+        <div className="w-full flex items-center justify-between p-3">
+          
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+              <p className="uppercase text-white">Y</p>
+            </div>
+            <CircleFadingPlus strokeWidth={1.5} size={20} />
+          </div>
+
+          <div className="flex items-center justify-center gap-2">
+            <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md">
+              Publish
+            </button>
+            <X strokeWidth={1.5} size={20} onClick={() => { setIsBgColorPicker(false); setIsColorPicker(false); setSelectedElement(null); }} className="cursor-pointer" />
+          </div>
+
+        </div>
+
+      <hr className="text-gray-100" />
+
+
+      <div className="flex items-center justify-between p-3">
+        
+        <div className="text-md font-medium capitalize">
           {selectedElement?.type || "No Selection"}
         </div>
         <div className="flex items-center gap-2">
-          {selectedElement?.type !== "canvas" && (
-            <button
-              className="flex items-center justify-center p-1 rounded-md bg-red-500 text-white hover:bg-red-700 cursor-pointer"
-              onClick={handleDelete}
-            >
-              <Trash className="w-4 h-4" />
-            </button>
-          )}
           <button
-            className="flex items-center justify-center rounded-md bg-gray-50 border border-gray-200 cursor-pointer p-1"
-            onClick={() => { setIsBgColorPicker(false); setIsColorPicker(false); setSelectedElement(null); }}
+            className="flex items-center justify-center rounded-md bg-red-100 text-red-500   cursor-pointer p-1"
+            onClick={handleDelete}
           >
-            <X className="w-5 h-5" />
+            <Minus strokeWidth={1.5} size={20} />
           </button>
         </div>
+
       </div>
-      <hr className="text-gray-200 mt-2" />
-      <div className="flex mt-5">
+
+      <hr className="text-gray-100" />
+
+      <div className="flex p-3">
         {selectedElement && <PropertyRenderer element={selectedElement} />}
       </div>
     </div>
