@@ -34,6 +34,7 @@ function AppLayout() {
         <main className="flex">
           <ComponentLibrary />
           <BuildLayer>
+            <p className="text-xs text-blue-500">/{page.pageName}</p>
             {page && page.content.length > 0 && page.content.map((canvas: CanvasType) => (
               <ComponentRenderer key={canvas.id} element={canvas} />
             ))}
@@ -41,8 +42,7 @@ function AppLayout() {
         </main>
         {selectedElement && <Properties />}
 
-         <button className='absolute top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white border-md' onClick={onOpen}> 
-          {/* onClick={onOpen}> */}
+         <button className='absolute top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white rounded-md' onClick={onOpen}>
           <PanelLeftOpen stroke="#646464" size={20} />
         </button>
 
@@ -53,7 +53,7 @@ function AppLayout() {
 
 function BuildLayer({ children }: { children: React.ReactNode }) {
   return (
-    <section className="flex flex-col pt-10 pb-2">
+    <section className="flex flex-col pt-8 pb-2">
       {children}
     </section>
   );
