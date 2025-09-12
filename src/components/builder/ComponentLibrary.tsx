@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Link, Heading, SeparatorHorizontal, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed, Plus, Home, File, PanelLeftClose } from 'lucide-react';
+import { Type, Image, Heading, SquareDashed, Plus, Home, File, PanelLeftClose, Link2, Minus, Rows2, Columns2, LayoutPanelLeft } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 import { CanvasType, PageType } from '../../types/types';
@@ -8,17 +8,18 @@ import { getDefaultProps } from '../../utils/getProps';
 import gsap from 'gsap';
 
 const components = [
-  { id: 'container', icon: <SquareDashed size={24} />, label: 'Container' },
-  { id: 'heading', icon: <Heading size={24} />, label: 'Heading' },
-  { id: 'text', icon: <Type size={24} />, label: 'Text' },
-  { id: 'image', icon: <Image size={24} />, label: 'Image' },
-  { id: 'button', icon: <Link size={24} />, label: 'Button' },
-  {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'},
+  { id: 'container', icon: <SquareDashed strokeWidth={1.5} size={24} />, label: 'Container' },
+  { id: 'heading', icon: <Heading strokeWidth={1.5} size={24} />, label: 'Heading' },
+  { id: 'text', icon: <Type strokeWidth={1.5} size={24} />, label: 'Text' },
+  { id: 'image', icon: <Image strokeWidth={1.5} size={24} />, label: 'Image' },
+  { id: 'button', icon: <Link2 strokeWidth={1.5} size={24} />, label: 'Button' },
+  {id:'divider', icon: <Minus strokeWidth={1.5} />, label:'Separator'},
 ];
 
 const layouts = [
-  { id: 'row', icon: <AlignHorizontalDistributeCenter size={24} />, label: 'Row' },
-  { id: 'column', icon: <AlignVerticalDistributeCenter size={24} />, label: 'Column' },
+  { id: 'row', icon: <Rows2 strokeWidth={1.5}  size={24} />, label: 'Row' },
+  { id: 'column', icon: <Columns2 strokeWidth={1.5} size={24} />, label: 'Column' },
+  { id: 'column', icon: <LayoutPanelLeft strokeWidth={1.5} size={24} />, label: 'Grid'},
 ]
 
 
@@ -59,9 +60,9 @@ function ComponentLibrary() {
     open && (
       <div ref={sideRef} className="fixed z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
-        <div className="w-fit h-10 bg-gray-100 border border-gray-300 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
-            <p className={`px-2 py-1 ${selectedOption === "pages" ? "bg-white" : "" }  rounded-md`} onClick={() => setSelectedOption("pages")}>Pages</p>
-            <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-white" : "" } rounded-md`} onClick={() => setSelectedOption("assets")}>Assets</p>
+        <div className="w-fit h-10 bg-white border border-gray-200 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
+            <p className={`px-2 py-1 ${selectedOption === "pages" ? "bg-gray-100" : "" }  rounded-sm`} onClick={() => setSelectedOption("pages")}>Pages</p>
+            <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-gray-100" : "" } rounded-sm`} onClick={() => setSelectedOption("assets")}>Assets</p>
         </div>
 
         <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={onClose}>
@@ -91,15 +92,16 @@ function Assets() {
     
   return (
     <>
-      <h2 className="text-lg font-semibold">Components</h2>
-      <div className="grid grid-cols-2 gap-2">
+      {/* <h2 className="text-lg">Components</h2> */}
+      <p className="text-md text-[#726B6B]">Components</p>
+      <div className="grid grid-cols-2 gap-2 mt-1.5">
         
         {components.map((component) => (
           <Card
             key={component.id}
             draggable
             onDragStart={(e) => onDragStart(e, component.id)}
-            className="p-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
+            className="p-3 cursor-move hover:bg-gray-50 flex flex-col items-center gap-2"
           >
             {component.icon}
             <span className="text-[0.85rem]">{component.label}</span>
@@ -107,8 +109,9 @@ function Assets() {
         ))}
       </div>
 
-      <h2 className="text-lg font-semibold mb-2 mt-5">Layouts</h2>
-      <div className="grid grid-cols-2 gap-2">
+      {/* <h2 className="text-lg font-semibold mb-2 mt-5">Layouts</h2> */}
+      <p className="text-md text-[#726B6B] mt-4 ">Layouts</p>
+      <div className="grid grid-cols-2 gap-2 mt-1.5">
         {layouts.map((layout) => (
           <Card
             key={layout.id}
