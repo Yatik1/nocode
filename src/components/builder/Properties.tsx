@@ -1,4 +1,4 @@
-import { CircleFadingPlus, Minus, Trash, X } from "lucide-react";
+import { CircleFadingPlus, Minus, X } from "lucide-react";
 import useBuilder from "../../hooks/useBuilder";
 import PropertyRenderer from "./PropertyRenderer";
 import { ElementType, CanvasType } from "../../types/types";
