@@ -1,6 +1,5 @@
 import { ChevronDown, Grip, Hand, Play, Plus, Square, UserRoundPlus } from "lucide-react"
 
-
 function ControlPanel() {
   return (
     <div className="absolute z-[999%] min-w-[5rem] rounded-md bg-white border-[0.5px] border-gray-100 bottom-5 drop-shadow-md flex items-center justify-center">
@@ -29,7 +28,6 @@ function ControlPanel() {
           </button>
 
        </div>
-
 
     </div>
   )
