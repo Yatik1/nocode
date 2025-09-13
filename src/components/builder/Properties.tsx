@@ -1,4 +1,4 @@
-import { CircleFadingPlus, Minus, X } from "lucide-react";
+import { CircleFadingPlus, Minus, UserRoundPlus, X } from "lucide-react";
 import useBuilder from "../../hooks/useBuilder";
 import PropertyRenderer from "./PropertyRenderer";
 import { ElementType, CanvasType } from "../../types/types";
@@ -47,10 +47,10 @@ export default function Properties() {
             <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
               <p className="uppercase text-white">Y</p>
             </div>
-            <CircleFadingPlus strokeWidth={1.5} size={20} />
           </div>
 
           <div className="flex items-center justify-center gap-2">
+            <UserRoundPlus strokeWidth={1.5} size={20} />
             <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md">
               Publish
             </button>
