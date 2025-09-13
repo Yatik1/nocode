@@ -8,6 +8,7 @@ import ComponentRenderer from './components/builder/ComponentRenderer';
 import { BuilderContextProps } from './context/BuilderContext';
 import { CanvasType } from './types/types';
 import { PanelLeftOpen } from 'lucide-react';
+import ControlPanel from './components/ui/ControlPanel';
 
 function App() {
 
@@ -31,6 +32,11 @@ function AppLayout() {
     <div>
       {/* <Navbar /> */}
       <div className="relative bg-[#f5f5f5] min-h-[100vh] h-fit flex items-center justify-center">
+        
+        <button className='absolute top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white rounded-md' onClick={onOpen}>
+          <PanelLeftOpen stroke="#646464" size={20} />
+        </button>
+
         <main className="flex">
           <ComponentLibrary />
           <BuildLayer>
@@ -42,9 +48,7 @@ function AppLayout() {
         </main>
         {selectedElement && <Properties />}
 
-         <button className='absolute top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white rounded-md' onClick={onOpen}>
-          <PanelLeftOpen stroke="#646464" size={20} />
-        </button>
+         <ControlPanel />
 
       </div>
     </div>
