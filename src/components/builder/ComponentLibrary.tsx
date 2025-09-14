@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Link, Heading, SeparatorHorizontal, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed, Plus, Home, File, PanelLeftClose } from 'lucide-react';
+import { Type, Image, Link, Heading, SeparatorHorizontal, AlignHorizontalDistributeCenter, AlignVerticalDistributeCenter, SquareDashed, Plus, Home, File, PanelLeftClose, CircleUserRound, Video } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 import { CanvasType, PageType } from '../../types/types';
@@ -12,8 +12,10 @@ const components = [
   { id: 'heading', icon: <Heading size={24} />, label: 'Heading' },
   { id: 'text', icon: <Type size={24} />, label: 'Text' },
   { id: 'image', icon: <Image size={24} />, label: 'Image' },
+  { id: 'video', icon: <Video size={24} />, label: 'Video' },
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'},
+  {id:'avatar', icon:  <CircleUserRound /> , label:'Avatar'},
 ];
 
 const layouts = [
