@@ -8,6 +8,8 @@ import ImageProperties from "./properties-form/ImageProperties"
 import ContainerProperties from "./properties-form/ContainerProperties"
 import TextProperties from "./properties-form/TextProperties"
 import FlexProperties from "./properties-form/FlexProperties"
+import AvatarProperties from "./properties-form/AvatarProperties"
+import VideoProperties from "./properties-form/VideoProperties"
 
 
 function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
@@ -25,9 +27,15 @@ function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
 
       case "button":
         return <ButtonProperties element={element as ElementType} />
+      
+      case "avatar":
+        return <AvatarProperties element={element as ElementType} />
 
       case "image":
         return <ImageProperties element={element as ElementType } />
+      
+      case "video":
+        return  <VideoProperties element={element as ElementType} />
 
       case "container":
         return <ContainerProperties element={element as ElementType} />
