@@ -15,15 +15,8 @@ function LinkProperties({element} : {element:ElementType}) {
 
     return(
         <div className='flex flex-1 flex-col gap-[0.56rem]'>
-            <TextChangeUtil element={element} />
-            <label className= "text-sm font-semibold">Redirection URL</label>
-            <input 
-            type="text"
-            value={props.link || ''}
-            onChange={onLinkChange}
-            placeholder='https://example.com'
-            className="border border-gray-300 rounded-md py-2 px-3 text-sm"
-            />
+            <TextChangeUtil element={element} propName="text" label="Link Text" />
+            <TextChangeUtil element={element} propName="link" label="Redirection URL" />
             <TextColorPicker element={element} />
             <FontStylesUtils element={element} />
         </div>
