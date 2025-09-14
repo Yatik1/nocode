@@ -9,6 +9,8 @@ import { CanvasType, ElementType } from '../../types/types';
 import FlexRow from './layouts/FlexRow';
 import FlexCol from './layouts/FlexCol';
 import Container from './layouts/Container';
+import Avatar from './ui-components/Avatar';
+import Video from './ui-components/Video';
 
 type ComponentRendererType = {
   element : ElementType | CanvasType 
@@ -29,12 +31,18 @@ function ComponentRenderer({ element }: ComponentRendererType) {
 
     case 'image':
       return <Image {...props} />
+    
+    case 'video':
+      return <Video {...props} />
 
     case 'button':
       return <Button {...props} />
     
     case 'divider':
       return <Divider {...props} />
+    
+    case 'avatar':
+      return <Avatar {...props} />
 
     case 'container':
       return <Container props={props} id={id} childrens={childrens} />
