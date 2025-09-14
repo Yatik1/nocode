@@ -1,5 +1,4 @@
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getDefaultProps(sectionType: string): Record<string, any> {
   switch (sectionType) {
     case 'canvas':
@@ -84,6 +83,21 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         link: "https://example.com",
         color: '#0000EE',
         decoration: 'none',
+      }
+    case "textfield":
+      return {
+        label: "Input Label",
+        placeholder: "Enter text...",
+        value: "",
+        width: "200",
+        widthUnit: "px",
+        labelColor: "#000000",
+        valueColor: "#000000",
+        placeholderColor: "#888888",
+        background: "#FFFFFF",
+        borderColor: "#cccccc",
+        borderWidth: "1",
+        rounded: "4",
       }
     default:
       return {};

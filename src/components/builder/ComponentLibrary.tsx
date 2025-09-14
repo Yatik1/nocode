@@ -15,6 +15,7 @@ const components = [
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'},
   {id: 'link', icon: <Link size={24} />, label:'Link'},
+  {id: 'textfield', icon: <Type size={24} />, label:'Text Field'},
 ];
 
 const layouts = [

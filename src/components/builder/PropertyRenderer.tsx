@@ -1,4 +1,3 @@
-
 import { CanvasType, ElementType } from "../../types/types"
 import ButtonProperties from "./properties-form/ButtonProperties"
 import CanvasProperties from "./properties-form/CanvasProperties"
@@ -9,6 +8,7 @@ import ContainerProperties from "./properties-form/ContainerProperties"
 import TextProperties from "./properties-form/TextProperties"
 import FlexProperties from "./properties-form/FlexProperties"
 import LinkProperties from "./properties-form/LinkProperties"
+import TextFieldProperties from "./properties-form/TextFieldProperties"
 
 
 function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
@@ -42,6 +42,9 @@ function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
 
       case "link":
         return <LinkProperties element={element as ElementType} />
+
+      case "textfield":
+        return <TextFieldProperties element={element as ElementType} />
 
       default:
         return <p>No properties available for this element.</p>

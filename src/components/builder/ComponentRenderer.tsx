@@ -4,6 +4,7 @@ import Image from './ui-components/Image';
 import Button from './ui-components/Button';
 import Divider from './ui-components/Divider'; 
 import Link from './ui-components/Link';
+import TextField from './ui-components/TextField';
 
 import Canvas from './Canvas';
 import { CanvasType, ElementType } from '../../types/types';
@@ -51,6 +52,9 @@ function ComponentRenderer({ element }: ComponentRendererType) {
     
     case 'canvas':
       return <Canvas props={props} id={id} childrens={childrens} />
+
+    case 'textfield':
+      return <TextField {...props} id={id} />
 
     default:
       return null;
