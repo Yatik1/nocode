@@ -8,6 +8,7 @@ import ImageProperties from "./properties-form/ImageProperties"
 import ContainerProperties from "./properties-form/ContainerProperties"
 import TextProperties from "./properties-form/TextProperties"
 import FlexProperties from "./properties-form/FlexProperties"
+import LinkProperties from "./properties-form/LinkProperties"
 
 
 function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
@@ -38,6 +39,9 @@ function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
       case "row":
       case "column":
         return <FlexProperties element={element as ElementType} />
+
+      case "link":
+        return <LinkProperties element={element as ElementType} />
 
       default:
         return <p>No properties available for this element.</p>

@@ -14,6 +14,7 @@ const components = [
   { id: 'image', icon: <Image size={24} />, label: 'Image' },
   { id: 'button', icon: <Link size={24} />, label: 'Button' },
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'},
+  {id: 'link', icon: <Link size={24} />, label:'Link'},
 ];
 
 const layouts = [

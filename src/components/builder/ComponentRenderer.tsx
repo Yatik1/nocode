@@ -3,6 +3,7 @@ import Text from './ui-components/Text';
 import Image from './ui-components/Image';
 import Button from './ui-components/Button';
 import Divider from './ui-components/Divider'; 
+import Link from './ui-components/Link';
 
 import Canvas from './Canvas';
 import { CanvasType, ElementType } from '../../types/types';
@@ -44,6 +45,9 @@ function ComponentRenderer({ element }: ComponentRendererType) {
       
     case 'column':
       return <FlexCol element={element as ElementType} />
+    
+    case 'link':
+      return <Link {...props} />
     
     case 'canvas':
       return <Canvas props={props} id={id} childrens={childrens} />

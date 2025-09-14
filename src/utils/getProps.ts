@@ -78,6 +78,13 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         widthUnit:"rem",
         rounded:"0"
       }
+    case "link":
+      return{
+        text: 'Add your respective link text here',
+        link: "https://example.com",
+        color: '#0000EE',
+        decoration: 'none',
+      }
     default:
       return {};
   }
