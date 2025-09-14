@@ -26,6 +26,15 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         widthUnit:"rem",
         rounded:"0",
       };
+    case 'video':
+      return { 
+        src: '',
+        height: '20',
+        heightUnit:"rem",
+        width: '30',
+        widthUnit:"rem",
+        rounded:"0",
+      };
     case 'button':
       return { 
         text: 'Button',
@@ -77,6 +86,16 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         width:"20",
         widthUnit:"rem",
         rounded:"0"
+      }
+    case "avatar":
+      return {
+        size:"50",
+        background:"orange",
+        color:"black",
+        fontSize:"20",
+        text:"A",
+        fontStyle:"normal",
+        fontWeight:"bold"
       }
     default:
       return {};
