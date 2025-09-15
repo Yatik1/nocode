@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Card from '../ui/Card';
-import { Type, Image, Heading, SquareDashed, Plus, Home, File, PanelLeftClose, Link2, Minus, Rows2, Columns2, LayoutPanelLeft } from 'lucide-react';
+import { Type, Image, Heading, Plus, Home, File, PanelLeftClose, Link2, Minus, Rows2, Columns2, LayoutPanelLeft, Square } from 'lucide-react';
 import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 import { CanvasType, PageType } from '../../types/types';
@@ -8,7 +8,7 @@ import { getDefaultProps } from '../../utils/getProps';
 import gsap from 'gsap';
 
 const components = [
-  { id: 'container', icon: <SquareDashed strokeWidth={1.5} size={24} />, label: 'Container' },
+  { id: 'container', icon: <Square strokeWidth={1.5} size={24} />, label: 'Container' },
   { id: 'heading', icon: <Heading strokeWidth={1.5} size={24} />, label: 'Heading' },
   { id: 'text', icon: <Type strokeWidth={1.5} size={24} />, label: 'Text' },
   { id: 'image', icon: <Image strokeWidth={1.5} size={24} />, label: 'Image' },
