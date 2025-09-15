@@ -4,7 +4,6 @@ import useBuilder from '../../hooks/useBuilder';
 import { BuilderContextProps } from '../../context/BuilderContext';
 import { getDefaultProps } from '../../utils/getProps';
 import ComponentRenderer from './ComponentRenderer';
-import { Plus } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { handleElementDragStart } from '../../utils/handleElementDragStart';
 import { toast } from 'sonner';
@@ -16,8 +15,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
     setSelectedElement,
     selectedElement,
     setElements,
-    setOpen,
-    page
+    setOpen
   } = useBuilder() as BuilderContextProps;
 
   const [canvasSize, setCanvasSize] = useState({width: window.innerWidth, height:window.innerHeight})
@@ -70,19 +68,6 @@ function Canvas({ id, props, childrens }: CanvasType) {
 
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
-  }
-
-  function addSection() {
-    if(location.pathname==="/preview") return;
-
-    const newSection: CanvasType = {
-      id: `canvas-${Date.now()}`,
-      type: "canvas",
-      props: getDefaultProps('canvas'),
-      childrens: [],
-    };
-
-    updatePageContent((prev) => [...prev, newSection]);
   }
 
   useEffect(() => {
