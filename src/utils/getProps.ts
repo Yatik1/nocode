@@ -99,6 +99,48 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         borderWidth: "1",
         rounded: "4",
       }
+    case "checkbox":
+      return {
+        label: "Checkbox Label",
+        checked: false,
+        labelColor: "#000000",
+        boxColor: "#2563eb",
+        size: "18"
+      }
+    case "radio":
+      return {
+        label: "Radio Label",
+        checked: false,
+        labelColor: "#000000",
+        circleColor: "#2563eb",
+        size: "18",
+        name: "radio-group"
+      }
+    case "dropdown":
+      return {
+        label: "Dropdown Label",
+        options: "Option 1,Option 2,Option 3",
+        value: "Option 1",
+        labelColor: "#000000",
+        optionColor: "#000000",
+        background: "#FFFFFF",
+        width: "200",
+        widthUnit: "px",
+        rounded: "4"
+      }
+    case "slider":
+      return {
+        label: "Slider Label",
+        min: 0,
+        max: 100,
+        step: 1,
+        value: 50,
+        labelColor: "#000000",
+        trackColor: "#2563eb",
+        thumbColor: "#2563eb",
+        width: "200",
+        widthUnit: "px"
+      }
     default:
       return {};
   }

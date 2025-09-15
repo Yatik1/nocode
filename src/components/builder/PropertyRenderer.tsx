@@ -9,6 +9,10 @@ import TextProperties from "./properties-form/TextProperties"
 import FlexProperties from "./properties-form/FlexProperties"
 import LinkProperties from "./properties-form/LinkProperties"
 import TextFieldProperties from "./properties-form/TextFieldProperties"
+import CheckboxProperties from "./properties-form/CheckboxProperties"
+import RadioProperties from "./properties-form/RadioProperties"
+import DropdownProperties from "./properties-form/DropdownProperties"
+import SliderProperties from "./properties-form/SliderProperties"
 
 
 function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
@@ -45,6 +49,18 @@ function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
 
       case "textfield":
         return <TextFieldProperties element={element as ElementType} />
+
+      case "checkbox":
+        return <CheckboxProperties element={element as ElementType} />
+
+      case "radio":
+        return <RadioProperties element={element as ElementType} />
+
+      case "dropdown":
+        return <DropdownProperties element={element as ElementType} />
+
+      case "slider":
+        return <SliderProperties element={element as ElementType} />
 
       default:
         return <p>No properties available for this element.</p>

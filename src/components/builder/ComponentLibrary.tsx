@@ -16,6 +16,10 @@ const components = [
   {id:'divider', icon: <SeparatorHorizontal />, label:'Separator'},
   {id: 'link', icon: <Link size={24} />, label:'Link'},
   {id: 'textfield', icon: <Type size={24} />, label:'Text Field'},
+  {id: 'checkbox', icon: <Type size={24} />, label:'Checkbox'},
+  {id: 'radio', icon: <Type size={24} />, label:'Radio Button'},
+  {id: 'dropdown', icon: <Type size={24} />, label:'Dropdown'},
+  {id: 'slider', icon: <Type size={24} />, label:'Slider'},
 ];
 
 const layouts = [

@@ -61,7 +61,7 @@ export default function Properties() {
         </div>
       </div>
       <hr className="text-gray-200 mt-2" />
-      <div className="flex flex-1 flex-wrap overflow-auto mt-5">
+      <div className="flex flex-1 flex-wrap overflow-y-auto max-h-[calc(100vh-100px)] mt-5">
         {selectedElement && <PropertyRenderer element={selectedElement} />}
       </div>
     </div>

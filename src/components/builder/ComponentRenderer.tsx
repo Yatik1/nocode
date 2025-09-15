@@ -5,6 +5,10 @@ import Button from './ui-components/Button';
 import Divider from './ui-components/Divider'; 
 import Link from './ui-components/Link';
 import TextField from './ui-components/TextField';
+import Checkbox from './ui-components/Checkbox'
+import Radio from './ui-components/Radio'
+import Dropdown from './ui-components/Dropdown'
+import Slider from './ui-components/Slider'
 
 import Canvas from './Canvas';
 import { CanvasType, ElementType } from '../../types/types';
@@ -55,6 +59,15 @@ function ComponentRenderer({ element }: ComponentRendererType) {
 
     case 'textfield':
       return <TextField {...props} id={id} />
+
+    case 'checkbox':
+      return <Checkbox {...props} id={id} />
+    case 'radio':
+      return <Radio {...props} id={id} />
+    case 'dropdown':
+      return <Dropdown {...props} id={id} />
+    case 'slider':
+      return <Slider {...props} id={id} />
 
     default:
       return null;
