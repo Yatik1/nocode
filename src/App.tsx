@@ -9,6 +9,7 @@ import { BuilderContextProps } from './context/BuilderContext';
 import { CanvasType } from './types/types';
 import { PanelLeftOpen } from 'lucide-react';
 import ControlPanel from './components/ui/ControlPanel';
+import InfiniteCanvas from './components/ui/InfiniteCanvas';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
    <Routes>
      <Route path='/' element={<AppLayout />} />
      <Route path="/preview" element={<Preview />} />
+     {/* <Route path='/infinite' element={<InfiniteCanvas />}  */}
    </Routes>
   );
 }
@@ -29,38 +31,28 @@ function AppLayout() {
     }
 
   return (
-    <div>
-      {/* <Navbar /> */}
       <div className="relative bg-[#f5f5f5] min-h-[100vh] h-fit flex items-center justify-center">
         
         <button className='absolute top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white rounded-md' onClick={onOpen}>
           <PanelLeftOpen stroke="#646464" size={20} />
         </button>
 
+        <ComponentLibrary />
+
         <main className="flex">
-          <ComponentLibrary />
-          <BuildLayer>
+          
+          <InfiniteCanvas>
             <p className="text-xs text-blue-500">/{page.pageName}</p>
             {page && page.content.length > 0 && page.content.map((canvas: CanvasType) => (
               <ComponentRenderer key={canvas.id} element={canvas} />
             ))}
-          </BuildLayer>
+          </InfiniteCanvas>
         </main>
-        {selectedElement && <Properties />}
-
-         <ControlPanel />
-
+        <Properties />
+      <ControlPanel />
       </div>
-    </div>
   );
 }
 
-function BuildLayer({ children }: { children: React.ReactNode }) {
-  return (
-    <section className="flex flex-col pt-8 pb-2">
-      {children}
-    </section>
-  );
-}
 
 export default App;
