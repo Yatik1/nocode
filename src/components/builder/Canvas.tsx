@@ -161,15 +161,6 @@ function Canvas({ id, props, childrens }: CanvasType) {
             </div>
           ))}
       </div>
-
-      {/* {location.pathname !== "/preview" && (
-        <button
-          className="absolute z-999 -bottom-1 left-1/2 -translate-x-1/2 bg-gray-200 text-sm text-gray-600 border border-gray-300 rounded-md p-1 flex items-center justify-center hover:bg-blue-200 hover:text-blue-600 hover:border-blue-500"
-          onClick={addSection}
-        >
-          <Plus size={15} /> Add section
-        </button>
-      )} */}
     </>
   );
 }
