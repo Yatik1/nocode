@@ -39,7 +39,7 @@ export default function Properties() {
 
   return (
     <div className="absolute right-0">
-      <div className="fixed z-30 right-2 top-2 w-68 h-[98vh] bg-white border border-gray-200 rounded-md" >
+      <div className="fixed z-30 right-0 top-0 w-68 h-screen bg-white border border-gray-200" >
         
         <div className="w-full flex items-center justify-between p-3">
           
