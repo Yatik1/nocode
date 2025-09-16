@@ -1,11 +1,11 @@
-import { Trash, X } from "lucide-react";
+import { CircleFadingPlus, Minus, UserRoundPlus, X } from "lucide-react";
 import useBuilder from "../../hooks/useBuilder";
 import PropertyRenderer from "./PropertyRenderer";
 import { ElementType, CanvasType } from "../../types/types";
 import { BuilderContextProps } from "../../context/BuilderContext";
 
 export default function Properties() {
-  const { selectedElement, setSelectedElement, updatePageContent } = useBuilder() as BuilderContextProps;
+  const { selectedElement, setSelectedElement, updatePageContent, setIsBgColorPicker, setIsColorPicker } = useBuilder() as BuilderContextProps;
 
   function deleteFromChildrens(elements: ElementType[], elementId: string): ElementType[] {
     return elements
@@ -38,32 +38,55 @@ export default function Properties() {
   };
 
   return (
-    <div className="fixed z-30 right-0 top-0 min-w-68 w-auto min-h-screen bg-white border-l border-gray-200 p-3 overflow-auto">
-      <div className="flex items-center justify-between">
-        <div className="text-md font-semibold capitalize">
+    <div className="absolute right-0">
+      <div className="fixed z-30 right-0 top-0 w-68 h-screen bg-white border border-gray-200" >
+        
+        <div className="w-full flex items-center justify-between p-3">
+          
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+              <p className="uppercase text-white">Y</p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-2">
+            <UserRoundPlus strokeWidth={1.5} size={20} />
+            <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md">
+              Publish
+            </button>
+            <X strokeWidth={1.5} size={20} onClick={() => { setIsBgColorPicker(false); setIsColorPicker(false); setSelectedElement(null); }} className="cursor-pointer" />
+          </div>
+
+        </div>
+
+      <hr className="text-gray-100" />
+
+
+      <div className="flex items-center justify-between p-3">
+        
+        <div className="text-md font-medium capitalize">
           {selectedElement?.type || "No Selection"}
         </div>
         <div className="flex items-center gap-2">
-          {selectedElement?.type !== "canvas" && (
-            <button
-              className="flex items-center justify-center p-1 rounded-md bg-red-500 text-white hover:bg-red-700 cursor-pointer"
-              onClick={handleDelete}
-            >
-              <Trash className="w-4 h-4" />
-            </button>
-          )}
           <button
-            className="flex items-center justify-center rounded-md bg-gray-50 border border-gray-200 cursor-pointer p-1"
-            onClick={() => setSelectedElement(null)}
+            className="flex items-center justify-center rounded-md bg-red-100 text-red-500   cursor-pointer p-1"
+            onClick={handleDelete}
           >
-            <X className="w-5 h-5" />
+            <Minus strokeWidth={1.5} size={20} />
           </button>
         </div>
+
       </div>
-      <hr className="text-gray-200 mt-2" />
-      <div className="flex flex-1 flex-wrap overflow-y-auto max-h-[calc(100vh-100px)] mt-5">
+
+      <hr className="text-gray-100" />
+
+      <div className="flex p-3">
         {selectedElement && <PropertyRenderer element={selectedElement} />}
       </div>
+    </div>
+
+
+
     </div>
   );
 }

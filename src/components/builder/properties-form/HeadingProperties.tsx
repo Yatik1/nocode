@@ -17,7 +17,6 @@ function HeadingProperties({ element }: { element: ElementType }) {
 
   return (
     <div className="flex flex-1 flex-col gap-[0.56rem]">
-
       <label className="text-sm font-semibold">Levels</label>
       <div className="flex items-center justify-between px-2">
         {headingLevels.map((level) => (
