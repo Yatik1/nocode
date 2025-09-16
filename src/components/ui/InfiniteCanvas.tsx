@@ -111,7 +111,7 @@ function InfiniteCanvas({children}: {children:React.ReactNode}) {
             onMouseDown={handleMouseDown}
         >
              <section 
-                className="flex flex-col gap-2" 
+                className="flex flex-col" 
                 style={{
                     transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
                     transformOrigin: "0 0",

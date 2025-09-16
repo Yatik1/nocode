@@ -18,21 +18,6 @@ function Canvas({ id, props, childrens }: CanvasType) {
     setOpen
   } = useBuilder() as BuilderContextProps;
 
-  const [canvasSize, setCanvasSize] = useState({width: window.innerWidth, height:window.innerHeight})
-
-  useEffect(() => {
-    const adjustSize = () => {
-      setCanvasSize({
-        width: window.innerWidth, height:window.innerHeight
-      })
-    }
-
-    window.addEventListener("resize", adjustSize)
-
-    return () => {
-      window.removeEventListener("resize",adjustSize)
-    }
-  })
 
   const [copiedElement, setCopiedElement] = useState<ElementType | null>(null);
   const location = useLocation() as { pathname: string };
@@ -117,8 +102,8 @@ function Canvas({ id, props, childrens }: CanvasType) {
         id={id}
         className={`relative bg-white overflow-auto canvas-area`}
         style={{
-          width: location.pathname !== "/preview" ? canvasSize.width - 50 : canvasSize.width,
-          height: location.pathname !== "/preview" ? canvasSize.height - 50 : canvasSize.height,
+          width: location.pathname !== "/preview" ? window.innerWidth : "100vw",
+          height: location.pathname !== "/preview" ? window.innerHeight : "100vh" ,
           background: props.background,
         }}
         data-section-id={id}
