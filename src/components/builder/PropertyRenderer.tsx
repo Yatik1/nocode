@@ -1,4 +1,3 @@
-
 import { CanvasType, ElementType } from "../../types/types"
 import ButtonProperties from "./properties-form/ButtonProperties"
 import CanvasProperties from "./properties-form/CanvasProperties"
@@ -8,6 +7,12 @@ import ImageProperties from "./properties-form/ImageProperties"
 import ContainerProperties from "./properties-form/ContainerProperties"
 import TextProperties from "./properties-form/TextProperties"
 import FlexProperties from "./properties-form/FlexProperties"
+import LinkProperties from "./properties-form/LinkProperties"
+import TextFieldProperties from "./properties-form/TextFieldProperties"
+import CheckboxProperties from "./properties-form/CheckboxProperties"
+import RadioProperties from "./properties-form/RadioProperties"
+import DropdownProperties from "./properties-form/DropdownProperties"
+import SliderProperties from "./properties-form/SliderProperties"
 
 
 function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
@@ -38,6 +43,24 @@ function PropertyRenderer({element}:{element : ElementType | CanvasType}) {
       case "row":
       case "column":
         return <FlexProperties element={element as ElementType} />
+
+      case "link":
+        return <LinkProperties element={element as ElementType} />
+
+      case "textfield":
+        return <TextFieldProperties element={element as ElementType} />
+
+      case "checkbox":
+        return <CheckboxProperties element={element as ElementType} />
+
+      case "radio":
+        return <RadioProperties element={element as ElementType} />
+
+      case "dropdown":
+        return <DropdownProperties element={element as ElementType} />
+
+      case "slider":
+        return <SliderProperties element={element as ElementType} />
 
       default:
         return <p>No properties available for this element.</p>
