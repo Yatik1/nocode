@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Preview from './components/page/Preview';
 import ComponentRenderer from './components/builder/ComponentRenderer';
 import { BuilderContextProps } from './context/BuilderContext';
-import { CanvasType } from './types/types';
+import { CanvasType, PageType } from './types/types';
 import { PanelLeftOpen } from 'lucide-react';
 import ControlPanel from './components/ui/ControlPanel';
 import InfiniteCanvas from './components/ui/InfiniteCanvas';
@@ -23,12 +23,21 @@ function App() {
 }
 
 function AppLayout() {
-  const { selectedElement, page,setOpen, setSelectedElement} = useBuilder() as BuilderContextProps;
+  const { setPage,pages, page,setOpen, setSelectedElement} = useBuilder() as BuilderContextProps;
 
   function onOpen() {
       setOpen((prev:boolean) => !prev)
       setSelectedElement(null)
     }
+
+    const selectPage = (page:PageType) => {
+        setPage({
+          id:page.id,
+          pageNumber:page.pageNumber,
+          pageName:page.pageName,
+          content:page.content
+        })
+      }
 
   return (
       <div className="relative bg-[#f5f5f5] min-h-[100vh] h-fit flex items-center justify-center">
@@ -42,10 +51,18 @@ function AppLayout() {
         <main className="flex">
           
           <InfiniteCanvas>
-            <p className="text-xs text-blue-500">/{page.pageName}</p>
-            {page && page.content.length > 0 && page.content.map((canvas: CanvasType) => (
-              <ComponentRenderer key={canvas.id} element={canvas} />
-            ))}
+            <div className="flex items-start justify-start gap-10">
+              {pages && pages.map((page:PageType) => {
+              return (
+                <div className='flex flex-col gap-2 items-start justify-start' onClick={() => selectPage(page)}>
+                  <p className="text-xs text-blue-500">/{page.pageName}</p>
+                  {page.content.map((canvas:CanvasType) => (
+                    <ComponentRenderer key={canvas.id} element={canvas}/>
+                  ))}
+                </div>
+              )
+            })}
+            </div>
           </InfiniteCanvas>
         </main>
         <Properties />
