@@ -151,7 +151,7 @@ function PagesSelection() {
       setPages((prev: PageType[]) => [...prev, newPage]);
     }
   
-    function selectPage(page:PageType) {
+    const selectPage = (page:PageType) => {
       setPage({
         id:page.id,
         pageNumber:page.pageNumber,
