@@ -13,7 +13,7 @@ interface Transform {
 
 const MIN_SCALE=0.1
 const MAX_SCALE=10
-const ZOOM_SPEED=0.1
+const ZOOM_SPEED=0.05
 
 function InfiniteCanvas({children}: {children:React.ReactNode}) {
 
@@ -55,7 +55,6 @@ function InfiniteCanvas({children}: {children:React.ReactNode}) {
     )
 
     const handleMouseDown = useCallback((e:React.MouseEvent) => {
-        if(e.button !== 0) return;
 
         // console.log("Mouse down")
         setIsDragging(true)
