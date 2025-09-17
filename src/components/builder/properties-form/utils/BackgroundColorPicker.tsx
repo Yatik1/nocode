@@ -18,10 +18,9 @@ function BackgroundColorPicker({ element }: { element: ElementType | CanvasType 
   }
 
   function onBgChange(color: string) {
-    const hexColor = color.startsWith('linear') ? color : rgbaToHex(color);
     updateElementProps({
       ...element,
-      props: { ...props, background: hexColor },
+      props: { ...props, background: color },
     });
   }
   
@@ -38,7 +37,7 @@ function BackgroundColorPicker({ element }: { element: ElementType | CanvasType 
         >
           {props.background === 'none' ? <Ban strokeWidth={1.5} size={15} /> : <div className={`w-[15px] h-[15px] rounded-[2px]`} style={{ background: props.background }} />}
           <p className="text-[#707070] text-sm w-25 truncate capitalize">
-            {props.background?.startsWith('linear') ? 'Linear' : props.background}
+            {props.background?.startsWith('linear') ? 'Linear' : rgbaToHex(props.background)}
           </p>
         </div>
 
