@@ -23,7 +23,7 @@ function App() {
 }
 
 function AppLayout() {
-  const { setPage,pages, page,setOpen, setSelectedElement} = useBuilder() as BuilderContextProps;
+  const { setPage,pages, selectedElement,setOpen, setSelectedElement} = useBuilder() as BuilderContextProps;
 
   function onOpen() {
       setOpen((prev:boolean) => !prev)
@@ -42,7 +42,7 @@ function AppLayout() {
   return (
       <div className="relative bg-[#f5f5f5] min-h-[100vh] h-fit flex items-center justify-center">
         
-        <button className='absolute top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white rounded-md' onClick={onOpen}>
+        <button className='fixed top-1 left-2 flex items-center justify-center cursor-pointer p-1 bg-white rounded-md' onClick={onOpen}>
           <PanelLeftOpen stroke="#646464" size={20} />
         </button>
 
@@ -65,7 +65,7 @@ function AppLayout() {
             </div>
           </InfiniteCanvas>
         </main>
-        <Properties />
+        {selectedElement && <Properties />}
       <ControlPanel />
       </div>
   );
