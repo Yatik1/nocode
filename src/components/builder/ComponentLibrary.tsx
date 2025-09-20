@@ -25,48 +25,49 @@ const layouts = [
 
 function ComponentLibrary() {
 
-  // const {open} = useBuilder() as BuilderContextProps
+  const {open} = useBuilder() as BuilderContextProps
   const [selectedOption, setSelectedOption] = useState("assets")
 
-  // const sideRef = useRef(null)
+  const sideRef = useRef(null)
 
-  // useEffect(() => {
-  //   if(open){
-  //     gsap.fromTo(
-  //     sideRef.current,
-  //     { x: -300 },
-  //     { 
-  //       x:0,
-  //       ease:'circ.out'
-  //      }
-  //   );
-  //   }
-  // },[open]);
+  useEffect(() => {
+    if(open){
+      gsap.fromTo(
+      sideRef.current,
+      { x: -300 },
+      { 
+        x:0,
+        ease:'circ.out'
+       }
+    );
+    }
+  },[open]);
 
-  // function sideClose() {
-  //   gsap.to(
-  //     sideRef.current, {
-  //       x:-300
-  //     }
-  //   )
-  // }
+  function sideClose() {
+    gsap.to(
+      sideRef.current, {
+        x:-300
+      }
+    )
+  }
 
-  // function onClose() {
-  //   sideClose()
-  // }
+  function onClose() {
+    sideClose()
+  }
 
 
   return (
-      <div className="absolute z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
+      open && (
+        <div ref={sideRef} className="absolute z-10 top-0 left-0 border-0 bg-white h-full w-[16rem] border-r border-gray-200 p-4">
       <div className='flex items-center justify-between mb-4'>
         <div className="w-fit h-10 bg-white border border-gray-200 rounded-md flex gap-2 items-center justify-between p-1 tracking-tighter text-sm">
             <p className={`px-2 py-1 ${selectedOption === "pages" ? "bg-gray-100" : "" }  rounded-sm`} onClick={() => setSelectedOption("pages")}>Pages</p>
             <p className={`px-2 py-1 ${selectedOption === "assets" ? "bg-gray-100" : "" } rounded-sm`} onClick={() => setSelectedOption("assets")}>Assets</p>
         </div>
 
-        {/* <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={onClose}>
+        <button className="text-sm text-gray-500 hover:text-gray-700 cursor-pointer" onClick={onClose}>
           <PanelLeftClose size={22} />
-        </button> */}
+        </button>
       </div>
 
       {selectedOption === "assets" &&  <Assets />}
@@ -74,6 +75,7 @@ function ComponentLibrary() {
       
 
     </div>
+      )
   );
 }
 
