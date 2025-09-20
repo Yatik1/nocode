@@ -21,6 +21,13 @@ function Canvas({ id, props, childrens }: CanvasType) {
 
 
   const [copiedElement, setCopiedElement] = useState<ElementType | null>(null);
+  //  const [draggingElement, setDraggingElement] = useState<ElementType | null>(null)
+  // const [guides, setGuides] = useState<{ x: number | null; y: number | null }>({
+  //   x: null,
+  //   y: null
+  // })
+
+
   const location = useLocation() as { pathname: string };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -97,6 +104,30 @@ function Canvas({ id, props, childrens }: CanvasType) {
     };
   }, [selectedElement, copiedElement]);
 
+  // const handleMouseMoveDuringDrag = (e: MouseEvent) => {
+  //   const canvasElement = document.getElementById(id)
+  //   if (!canvasElement) return
+
+  //   const canvasRect = canvasElement.getBoundingClientRect()
+
+  //   const mouseX = e.clientX - canvasRect.left
+  //   const mouseY = e.clientY - canvasRect.top
+
+  //   setGuides({
+  //     x: mouseX,
+  //     y: mouseY
+  //   })
+  // }
+
+  // const handleMouseUp = () => {
+  //   setDraggingElement(null)
+  //   setGuides({ x: null, y: null })
+
+  //   window.removeEventListener('mousemove', handleMouseMoveDuringDrag)
+  //   window.removeEventListener('mouseup', handleMouseUp)
+  // }
+
+
   return (
     <>
       <div
@@ -118,7 +149,37 @@ function Canvas({ id, props, childrens }: CanvasType) {
             childrens: childrens || [],
           });
         }}
+        // onMouseUp={handleMouseUp}
       >
+        {/* {guides.x !== null && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: guides.x,
+              width: '1px',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 255, 0.5)',
+              pointerEvents: 'none',
+              zIndex: 1000
+            }}
+          />
+        )}
+        {guides.y !== null && (
+          <div
+            style={{
+              position: 'absolute',
+              top: guides.y,
+              left: 0,
+              width: '100%',
+              height: '1px',
+              backgroundColor: 'rgba(0, 0, 255, 0.5)',
+              pointerEvents: 'none',
+              zIndex: 1000
+            }}
+          />
+        )} */}
+
         {childrens &&
           childrens.map((element: ElementType) => (
             <div
@@ -133,6 +194,9 @@ function Canvas({ id, props, childrens }: CanvasType) {
               onMouseDown={(e) =>{
                 if(location.pathname==="/preview") return;
                 handleElementDragStart(e, element.id, childrens, setElements, transform)
+
+                // window.addEventListener('mousemove', handleMouseMoveDuringDrag)
+                // window.addEventListener('mouseup', handleMouseUp)
               }}
               className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""
                 } absolute w-fit flex items-center justify-center`}
