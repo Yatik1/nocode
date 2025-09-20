@@ -1,4 +1,4 @@
-import { CircleFadingPlus, Minus, UserRoundPlus, X } from "lucide-react";
+import { Minus, UserRoundPlus, X } from "lucide-react";
 import useBuilder from "../../hooks/useBuilder";
 import PropertyRenderer from "./PropertyRenderer";
 import { ElementType, CanvasType } from "../../types/types";
@@ -39,7 +39,7 @@ export default function Properties() {
 
   return (
     <div className="absolute right-0">
-      <div className="fixed z-30 right-0 top-0 w-68 h-screen bg-white border border-gray-200" >
+      <div className="fixed z-30 right-2 top-1/2 -translate-y-1/2  w-68 h-[98vh] rounded-md bg-white border border-gray-200" >
         
         <div className="w-full flex items-center justify-between p-3">
           
