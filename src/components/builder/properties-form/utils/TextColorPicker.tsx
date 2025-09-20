@@ -51,7 +51,7 @@ function TextColorPicker({element}:{element : ElementType}) {
                 hideControls={true}
                 width={310}
                 height={180}
-                className="absolute right-[19vw] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden px-[10rem] py-2"
+                className="absolute z-50 left-[-120%] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden px-[10rem] py-2"
               />
             )}
     </div>
