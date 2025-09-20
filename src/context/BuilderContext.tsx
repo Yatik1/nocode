@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { CanvasType, ElementType, PageType } from '../types/types';
+import { CanvasType, ElementType, PageType, Transform } from '../types/types';
 import { getDefaultProps } from '../utils/getProps';
 
 export type BuilderContextProps = {
@@ -25,6 +25,10 @@ export type BuilderContextProps = {
     type?: string;
   }) => void;
   updatePageContent: (updater: (content: CanvasType[]) => CanvasType[]) => void;
+
+  // transformation states for infinite canvas
+  transform: Transform
+  setTransform: React.Dispatch<React.SetStateAction<Transform>>
 }
 
 export const BuilderContext = createContext<BuilderContextProps | null>(null);
@@ -54,6 +58,9 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
 
   const [elements, setElements] = useState<ElementType[]>([]);
   const [selectedElement, setSelectedElement] = useState<ElementType | CanvasType | null>(null);
+
+  const [transform, setTransform] = useState<Transform>({x: 189.07076579782336, y: 88.84413322710449, scale: 0.6973620836652986});
+
 
   useEffect(() => {
     setPages((prevPages) =>
@@ -162,7 +169,8 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
       updateElementProps,
       updatePageContent,
       isColorPicker, setIsColorPicker,
-      isBgColorPicker, setIsBgColorPicker
+      isBgColorPicker, setIsBgColorPicker,
+      transform, setTransform
     }}>
       {children}
     </BuilderContext.Provider>
