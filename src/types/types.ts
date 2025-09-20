@@ -23,3 +23,9 @@ export interface CanvasType {
   number?: number;
   childrens: ElementType[];
 }
+
+export interface Transform {
+  x: number;
+  y: number;
+  scale: number;
+}

@@ -4,42 +4,63 @@ export const handleElementDragStart = (
   e: React.MouseEvent,
   elementId: string,
   childrens: ElementType[],
-  setElements: (elements: ElementType[]) => void
+  setElements: (elements: ElementType[]) => void,
+  parentTransform: { x: number; y: number; scale: number },
+  parentRef?: HTMLElement // optional container ref (canvas or container)
 ) => {
   e.preventDefault();
   e.stopPropagation();
 
-  const canvas = e.currentTarget.parentElement as HTMLElement;
-  if(!canvas) return;
-  const canvasRect = canvas.getBoundingClientRect();
+  if (!parentRef) parentRef = e.currentTarget.parentElement as HTMLElement;
+  if (!parentRef) return;
 
-  const elementNode = document.querySelector(`[data-element-id="${elementId}"]`) as HTMLElement;
+  const parentRect = parentRef.getBoundingClientRect();
+  const parentWidth = parentRect.width / parentTransform.scale;
+  const parentHeight = parentRect.height / parentTransform.scale;
+
+  const elementNode = document.querySelector(
+    `[data-element-id="${elementId}"]`
+  ) as HTMLElement;
+  if (!elementNode) return;
+
   const elementRect = elementNode.getBoundingClientRect();
-  const elementWidth = elementRect.width;
-  const elementHeight = elementRect.height;
+  const elementWidth = elementRect.width / parentTransform.scale;
+  const elementHeight = elementRect.height / parentTransform.scale;
 
-  let startX = e.clientX;
-  let startY = e.clientY;
+  // Convert mouse start position into parent-local coordinates
+  let startX =
+    (e.clientX - parentTransform.x - parentRect.left) / parentTransform.scale;
+  let startY =
+    (e.clientY - parentTransform.y - parentRect.top) / parentTransform.scale;
 
   const onMouseMove = (moveEvent: MouseEvent) => {
-    const deltaX = moveEvent.clientX - startX;
-    const deltaY = moveEvent.clientY - startY;
+    const currentX =
+      (moveEvent.clientX - parentTransform.x - parentRect.left) /
+      parentTransform.scale;
+    const currentY =
+      (moveEvent.clientY - parentTransform.y - parentRect.top) /
+      parentTransform.scale;
+
+    const deltaX = currentX - startX;
+    const deltaY = currentY - startY;
 
     const idx = childrens.findIndex((el) => el.id === elementId);
     if (idx !== -1) {
       let newX = (childrens[idx].x || 0) + deltaX;
       let newY = (childrens[idx].y || 0) + deltaY;
 
-      newX = Math.max(0, Math.min(newX, canvasRect.width - elementWidth));
-      newY = Math.max(0, Math.min(newY, canvasRect.height - elementHeight));
+      // ✅ Clamp inside container
+      newX = Math.max(0, Math.min(newX, parentWidth - elementWidth));
+      newY = Math.max(0, Math.min(newY, parentHeight - elementHeight));
 
       childrens[idx].x = newX;
       childrens[idx].y = newY;
       setElements([...childrens]);
     }
 
-    startX = moveEvent.clientX;
-    startY = moveEvent.clientY;
+    // update start positions in local space
+    startX = currentX;
+    startY = currentY;
   };
 
   const onMouseUp = () => {
