@@ -15,7 +15,8 @@ function Canvas({ id, props, childrens }: CanvasType) {
     setSelectedElement,
     selectedElement,
     setElements,
-    setOpen
+    setOpen,
+    transform
   } = useBuilder() as BuilderContextProps;
 
 
@@ -100,7 +101,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
     <>
       <div
         id={id}
-        className={`relative bg-white overflow-auto canvas-area`}
+        className={`relative overflow-hidden canvas-area`}
         style={{
           width: location.pathname !== "/preview" ? window.innerWidth : "100vw",
           height: location.pathname !== "/preview" ? window.innerHeight : "100vh" ,
@@ -131,7 +132,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
               }}
               onMouseDown={(e) =>{
                 if(location.pathname==="/preview") return;
-                handleElementDragStart(e, element.id, childrens, setElements)
+                handleElementDragStart(e, element.id, childrens, setElements, transform)
               }}
               className={`${selectedElement?.id === element.id ? "border border-blue-500" : ""
                 } absolute w-fit flex items-center justify-center`}
