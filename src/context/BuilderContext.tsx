@@ -7,12 +7,10 @@ export type BuilderContextProps = {
   setPages: React.Dispatch<React.SetStateAction<PageType[]>>,
   page: PageType,
   setPage: React.Dispatch<React.SetStateAction<PageType>>,
-  open: boolean,
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  isColorPicker: boolean,
-  setIsColorPicker: React.Dispatch<React.SetStateAction<boolean>>,
-  isBgColorPicker: boolean,
-  setIsBgColorPicker: React.Dispatch<React.SetStateAction<boolean>>,
+
+  open:boolean,
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>,
+
   elements: ElementType[],
   setElements: React.Dispatch<React.SetStateAction<ElementType[]>>,
   selectedElement: ElementType | CanvasType | null,
@@ -29,6 +27,11 @@ export type BuilderContextProps = {
   // transformation states for infinite canvas
   transform: Transform
   setTransform: React.Dispatch<React.SetStateAction<Transform>>
+
+  // active state for handling color picker
+  activeColorPicker:string | null, 
+  setActiveColorPicker:React.Dispatch<React.SetStateAction<string|null>>
+  
 }
 
 export const BuilderContext = createContext<BuilderContextProps | null>(null);
@@ -53,8 +56,8 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
   const [page, setPage] = useState<PageType>(initialPage);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [isColorPicker, setIsColorPicker] = useState<boolean>(false);
-  const [isBgColorPicker, setIsBgColorPicker] = useState<boolean>(false);
+
+  const [activeColorPicker, setActiveColorPicker] = useState<string | null>(null)
 
   const [elements, setElements] = useState<ElementType[]>([]);
   const [selectedElement, setSelectedElement] = useState<ElementType | CanvasType | null>(null);
@@ -168,9 +171,8 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
       page, setPage,
       updateElementProps,
       updatePageContent,
-      isColorPicker, setIsColorPicker,
-      isBgColorPicker, setIsBgColorPicker,
-      transform, setTransform
+      transform, setTransform,
+      activeColorPicker, setActiveColorPicker
     }}>
       {children}
     </BuilderContext.Provider>
