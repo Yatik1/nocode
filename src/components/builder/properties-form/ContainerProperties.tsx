@@ -1,6 +1,6 @@
 import { CanvasType, ElementType } from "../../../types/types";
 import BackgroundColorPicker from "./utils/BackgroundColorPicker";
-import RoundUtil from "./utils/RoundUtil";
+import RoundUtil from "./utils/BorderUtil";
 import WidthUtil from "./utils/WidthUtil";
 import HeightUtil from "./utils/HeightUtil";
 

@@ -5,7 +5,7 @@ import { ElementType } from "../../../types/types";
 import { BuilderContextProps } from "../../../context/BuilderContext";
 import WidthUtil from "./utils/WidthUtil";
 import HeightUtil from "./utils/HeightUtil";
-import RoundUtil from "./utils/RoundUtil";
+import RoundUtil from "./utils/BorderUtil";
 
 
 function ImageProperties({ element }: {element:ElementType}) {

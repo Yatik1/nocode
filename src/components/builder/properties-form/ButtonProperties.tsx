@@ -1,7 +1,7 @@
 import { ElementType } from "../../../types/types";
 import BackgroundColorPicker from "./utils/BackgroundColorPicker";
 import HeightUtil from "./utils/HeightUtil";
-import RoundUtil from "./utils/RoundUtil";
+import RoundUtil from "./utils/BorderUtil";
 import TextChangeUtil from "./utils/TextChangeUtil";
 import TextColorPicker from "./utils/TextColorPicker";
 import WidthUtil from "./utils/WidthUtil";
