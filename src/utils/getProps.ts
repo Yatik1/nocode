@@ -45,7 +45,10 @@ export function getDefaultProps(sectionType: string): Record<string, any> {
         width: '20',
         widthUnit:"rem",
         rounded:"0",
-        opacity:"1"
+        opacity:"1",
+        borderColor:"#000000",
+        borderStyle:"solid",
+        borderWidth:"1"
       };
     case "divider":
       return {
