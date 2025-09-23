@@ -94,6 +94,7 @@ function BorderUtil({element}:{element : ElementType | CanvasType}) {
             options={borderStylesInfo}
             value={props.borderStyle}
             onChange={onBorderStyleChange}
+            fieldStyle={"py-1 px-2 text-xs"}
            />
           </div>
 
