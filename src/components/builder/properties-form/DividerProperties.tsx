@@ -1,6 +1,6 @@
 import { ElementType } from '../../../types/types'
 import TextColorPicker from './utils/TextColorPicker'
-import WidthUtil from './utils/WidthUtil'
+import LayoutUtil from './utils/LayoutUtil'
 
 function DividerProperties({element} : {element:ElementType}) {
   return (
@@ -9,7 +9,7 @@ function DividerProperties({element} : {element:ElementType}) {
 
         <hr className='w-full text-gray-200 mt-2' />
 
-        <WidthUtil element={element} />
+        <LayoutUtil element={element} />
 
     </div>
   )

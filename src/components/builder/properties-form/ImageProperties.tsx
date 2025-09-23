@@ -3,9 +3,8 @@ import useBuilder from "../../../hooks/useBuilder";
 import { Trash } from "lucide-react";
 import { ElementType } from "../../../types/types";
 import { BuilderContextProps } from "../../../context/BuilderContext";
-import WidthUtil from "./utils/WidthUtil";
-import HeightUtil from "./utils/HeightUtil";
 import RoundUtil from "./utils/BorderUtil";
+import LayoutUtil from "./utils/LayoutUtil";
 
 
 function ImageProperties({ element }: {element:ElementType}) {
@@ -64,10 +63,7 @@ function ImageProperties({ element }: {element:ElementType}) {
         className="border border-gray-300 rounded-md p-2 text-sm w-[12rem]"
       />
 
-      <div className="flex gap-2">
-        <WidthUtil element={element} />
-        <HeightUtil element={element} />
-      </div>
+        <LayoutUtil element={element} />
 
       <RoundUtil element={element}/>
     </div>

@@ -1,8 +1,7 @@
 import { CanvasType, ElementType } from "../../../types/types";
 import BackgroundColorPicker from "./utils/BackgroundColorPicker";
 import RoundUtil from "./utils/BorderUtil";
-import WidthUtil from "./utils/WidthUtil";
-import HeightUtil from "./utils/HeightUtil";
+import LayoutUtil from "./utils/LayoutUtil";
 
 function ContainerProperties({ element }: { element: CanvasType | ElementType }) {
   
@@ -12,10 +11,7 @@ function ContainerProperties({ element }: { element: CanvasType | ElementType })
       <BackgroundColorPicker element={element} />
       <RoundUtil element={element} />
         
-      <div className="flex gap-2">
-        <WidthUtil element={element}/>
-        <HeightUtil element={element} />
-      </div>
+      <LayoutUtil element={element}/>
     </div>
   );
 }

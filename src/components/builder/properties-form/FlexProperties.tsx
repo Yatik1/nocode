@@ -1,9 +1,8 @@
 import { ElementType } from "../../../types/types";
 import BackgroundColorPicker from "./utils/BackgroundColorPicker";
-import WidthUtil from "./utils/WidthUtil";
-import HeightUtil from "./utils/HeightUtil";
 import RoundUtil from "./utils/BorderUtil";
 import FlexUtils from "./utils/FlexUtils";
+import LayoutUtil from "./utils/LayoutUtil";
 
 
 function FlexProperties({ element }: { element: ElementType }) {
@@ -20,10 +19,7 @@ function FlexProperties({ element }: { element: ElementType }) {
 
       <hr className="w-full text-gray-200 mt-2" />
 
-      <div className="flex gap-2">
-        <WidthUtil element={element}/>
-        <HeightUtil element={element} />
-      </div>
+        <LayoutUtil element={element}/>
     </div>
   );
 }
