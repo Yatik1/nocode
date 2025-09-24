@@ -59,11 +59,11 @@ export default function PopoverSelect({
 
         {/* Popover Options */}
       {open && (
-        <div className={`bg-[#f4f4f4] absolute top-7 rounded-sm border border-stone-200 flex flex-col gap-2 items-start justify-center py-1 px-1.5 z-50 w-full ${optionStyle}`}>
+        <div className={`bg-white absolute top-7 rounded-sm border border-stone-200 flex flex-col gap-2 items-start justify-center py-1 px-1.5 z-50 w-full ${optionStyle}`}>
           {options.map((opt,index) => (
             <div
               key={index}
-              className={`flex items-center justify-start gap-1 hover:text-blue-800 w-full h-full cursor-pointer ${opt.value === value && "text-blue-800"}`}
+              className={`flex items-center justify-start gap-1 hover:text-[#51a2ff] w-full h-full cursor-pointer ${opt.value === value && "text-[#51a2ff]"}`}
               onClick={() => handleSelect(opt.value)}
             >
               {opt.icon && <span className="rotate-[-45deg]">{opt.icon}</span>}
