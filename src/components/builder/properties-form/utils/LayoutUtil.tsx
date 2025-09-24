@@ -40,38 +40,40 @@ function LayoutUtil({element} : {element:CanvasType | ElementType}) {
 
   ]
 
+  const keys= Object.keys(props)
+
   return (
         <div className="flex flex-col gap-1 items-start justify-center">
           <label className="text-[#272727] text-sm font-medium">Layout</label>
           <div className="flex items-center justify-center gap-1">
               <div className="flex items-center justify-center gap-0.5">
-              {Object.keys(props).includes("width") && (
-                <div className="flex items-center justify-center gap-1.5 bg-[#F4F4F4] rounded-sm text-sm  py-1 px-2">
-              <span className='font-semibold text-[#949494]'>W</span>
+              {keys.includes("width") && (
+                <div className="flex items-center justify-center gap-1.5 bg-[#F4F4F4] rounded-sm text-xs py-1 px-2">
+              <span className='font-semibold text-[#949494] text-xs'>W</span>
               <input 
                 type='number'
                 min={10}
                 value={props.width}
                 onChange={onWidthChange}
                 placeholder='Width..'
-                className='w-[2rem] overflow-hidden text-sm ring-0 outline-0'
+                className='w-[2rem] overflow-hidden ring-0 outline-0'
               />
               </div>
               )}
 
-              {Object.keys(props).includes("widthUnit")  && (
+              {keys.includes("widthUnit")  && (
                 <PopoverSelect
                   options={units}
                   value={props.widthUnit}
                   onChange={onWidthUnitChange}
-                  fieldStyle='py-1 px-2 text-sm w-[3.6rem]'
+                  fieldStyle='py-1 px-2 text-xs w-[3.6rem]'
               />
               )}
               </div>
 
               <div className="flex items-center justify-center gap-0.5">
-                {Object.keys(props).includes("height")  && (
-                  <div className="flex items-center justify-center gap-1.5 bg-[#F4F4F4] rounded-sm text-sm  py-1 px-2">
+                {keys.includes("height")  && (
+                  <div className="flex items-center justify-center gap-1.5 bg-[#F4F4F4] rounded-sm text-xs  py-1 px-2">
                 <span className='font-semibold text-[#949494]'>H</span>
                 <input 
                   type='number'
@@ -79,17 +81,17 @@ function LayoutUtil({element} : {element:CanvasType | ElementType}) {
                   value={props.height}
                   onChange={onHeightChange}
                   placeholder='Height'
-                  className='w-[2rem] overflow-hidden text-sm ring-0 outline-0'
+                  className='w-[2rem] overflow-hidden text-xs ring-0 outline-0'
                 />
                 </div>
                 )}
 
-                {Object.keys(props).includes("heightUnit")  && (
+                {keys.includes("heightUnit")  && (
                   <PopoverSelect
                     options={units}
                     value={props.heightUnit}
                     onChange={onHeightUnitChange}
-                    fieldStyle='py-1 px-2 text-sm w-[3.6rem]'
+                    fieldStyle='py-1 px-2 text-xs w-[3.6rem]'
                 />
                 )}
               </div>
