@@ -5,7 +5,7 @@ import { ElementType, CanvasType } from "../../types/types";
 import { BuilderContextProps } from "../../context/BuilderContext";
 
 export default function Properties() {
-  const { selectedElement, setSelectedElement, updatePageContent, setIsBgColorPicker, setIsColorPicker } = useBuilder() as BuilderContextProps;
+  const { selectedElement, setSelectedElement, updatePageContent } = useBuilder() as BuilderContextProps;
 
   function deleteFromChildrens(elements: ElementType[], elementId: string): ElementType[] {
     return elements
@@ -54,7 +54,7 @@ export default function Properties() {
             <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md">
               Publish
             </button>
-            <X strokeWidth={1.5} size={20} onClick={() => { setIsBgColorPicker(false); setIsColorPicker(false); setSelectedElement(null); }} className="cursor-pointer" />
+            <X strokeWidth={1.5} size={20} onClick={() => { setSelectedElement(null); }} className="cursor-pointer" />
           </div>
 
         </div>
