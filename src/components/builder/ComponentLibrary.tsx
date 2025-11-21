@@ -11,10 +11,13 @@ const components = [
   { id: 'container', icon: <Square strokeWidth={1.5} size={24} />, label: 'Container' },
   { id: 'heading', icon: <Heading strokeWidth={1.5} size={24} />, label: 'Heading' },
   { id: 'text', icon: <Type strokeWidth={1.5} size={24} />, label: 'Text' },
-  { id: 'image', icon: <Image strokeWidth={1.5} size={24} />, label: 'Image' },
   { id: 'button', icon: <Link2 strokeWidth={1.5} size={24} />, label: 'Button' },
   {id:'divider', icon: <Minus strokeWidth={1.5} />, label:'Separator'},
 ];
+
+const media = [
+  { id: 'image', icon: <Image strokeWidth={1.5} size={24} />, label: 'Image' },
+]
 
 const layouts = [
   { id: 'row', icon: <Rows2 strokeWidth={1.5}  size={24} />, label: 'Row' },
@@ -25,7 +28,7 @@ const layouts = [
 
 function ComponentLibrary() {
 
-  const {open} = useBuilder() as BuilderContextProps
+  const {open,pages} = useBuilder() as BuilderContextProps
   const [selectedOption, setSelectedOption] = useState("assets")
 
   const sideRef = useRef(null)
@@ -72,6 +75,8 @@ function ComponentLibrary() {
 
       {selectedOption === "assets" &&  <Assets />}
       {selectedOption === "pages" &&  <PagesSelection />}
+
+      <button onClick={()=> console.log(pages)}>See data</button>
       
 
     </div>
@@ -105,6 +110,21 @@ function Assets() {
           >
             {component.icon}
             <span className="text-[0.85rem]">{component.label}</span>
+          </Card>
+        ))}
+      </div>
+
+      <p className="text-md text-[#726B6B] mt-4 ">Media</p>
+      <div className="grid grid-cols-2 gap-2 mt-1.5">
+        {media.map((m) => (
+          <Card
+            key={m.id}
+            draggable
+            onDragStart={(e) => onDragStart(e, m.id)}
+            className="px-1 py-3 cursor-move hover:bg-gray-50 transition-colors flex flex-col items-center gap-2"
+          >
+            {m.icon}
+            <span className="text-[0.8rem]">{m.label}</span>
           </Card>
         ))}
       </div>
