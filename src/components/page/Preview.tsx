@@ -3,18 +3,21 @@ import { BuilderContextProps } from "../../context/BuilderContext"
 import useBuilder from "../../hooks/useBuilder"
 import ComponentRenderer from "../builder/ComponentRenderer"
 import { useNavigate } from "react-router-dom"
+import { useRef } from "react"
 
 
 function Preview() {
   const {page:selectedPage} = useBuilder() as BuilderContextProps
 
-  console.log(selectedPage.content)
+
   return(
     <div className="w-full h-screen bg-gray-100">
       <Navbar />
-      {selectedPage.content.map((content) => (
-        <ComponentRenderer element={content} key={content.id} />
-      ))}
+      <div>
+        {selectedPage.content.map((content) => (
+          <ComponentRenderer element={content} key={content.id} />
+        ))}
+      </div>
     </div>
   )
 }
@@ -22,6 +25,7 @@ function Preview() {
 function Navbar() {
 
   const navigate=useNavigate()
+
   return (
 <nav className="w-full h-10 flex items-center justify-between px-2 border-b border-gray-200 bg-white">
       <span className='w-9 h-9 flex items-center justify-center bg-white rounded-full'>
