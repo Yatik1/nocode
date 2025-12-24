@@ -4,7 +4,6 @@ import { getDefaultProps } from "../../utils/getProps";
 import useBuilder from "../../hooks/useBuilder";
 import { BuilderContextProps } from "../../context/BuilderContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios"
 
 
@@ -14,10 +13,10 @@ function ControlPanel() {
   const location = useLocation() as {pathname:string}
   const navigate = useNavigate()
 
-  const [project, setProject] = useState(null);
+  // const [project, setProject] = useState(null);
   // const [email, setEmail] = useState(""); // ✅ Added email state
 
-  const {pages, page} = useBuilder() as BuilderContextProps
+  const {pages} = useBuilder() as BuilderContextProps
 
   function addSection() {
     if(location.pathname==="/preview") return;

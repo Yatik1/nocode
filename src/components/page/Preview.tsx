@@ -3,7 +3,6 @@ import { BuilderContextProps } from "../../context/BuilderContext"
 import useBuilder from "../../hooks/useBuilder"
 import ComponentRenderer from "../builder/ComponentRenderer"
 import { useNavigate } from "react-router-dom"
-import { useRef } from "react"
 
 
 function Preview() {
