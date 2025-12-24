@@ -5,7 +5,7 @@ import useBuilder from "../../hooks/useBuilder";
 import { BuilderContextProps } from "../../context/BuilderContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios"
 
 
 function ControlPanel() {
@@ -33,56 +33,22 @@ function ControlPanel() {
   }
 
    async function saveHandler() {
-    const local_project = localStorage.getItem("project");
-    if (!local_project || !project) {
-      const save_url = `${import.meta.env.VITE_BASE_URL}/builder/projects/`;
-      const id = uuidv4();
-
-      const payload = {
-        request_id: id,
-        name: "Test",
-        description: "Test Description",
-        json_data: pages,
-        is_published: false,
-      };
-
-      const res = await fetch(save_url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      localStorage.setItem("project", JSON.stringify(data));
-      setProject(data);
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status} ${JSON.stringify(data)}`);
+    try {
+      const save_payload = {
+        project:4,
+        json:pages
       }
-    } else {
-      const update_url = `${import.meta.env.VITE_BASE_URL}/builder/projects/`;
-      const project = JSON.parse(local_project);
-      const payload = {
-        page_id: page.id,
-        project_id: project.id,
-        json_data: pages,
-        is_published: false,
-      };
 
-      const res = await fetch(update_url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      console.log(save_payload)
 
-      const data = await res.json();
-      localStorage.setItem("project", JSON.stringify(data));
-      setProject(data);
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status} ${JSON.stringify(data)}`);
-      }
+     await axios.post("http://127.0.0.1:8030/project-publish-save/", save_payload)
+     console.log("Json uploaded")
+      
+    } catch (error) {
+      console.error("Error occured while saving json", error)
     }
+
+
   }
 
   function onPreview() {

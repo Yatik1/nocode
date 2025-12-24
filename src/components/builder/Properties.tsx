@@ -51,7 +51,7 @@ export default function Properties() {
 
           <div className="flex items-center justify-center gap-2">
             <UserRoundPlus strokeWidth={1.5} size={20} />
-            <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md">
+            <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md" onClick={() => console.log()}>
               Publish
             </button>
             <X strokeWidth={1.5} size={20} onClick={() => { setSelectedElement(null); }} className="cursor-pointer" />
