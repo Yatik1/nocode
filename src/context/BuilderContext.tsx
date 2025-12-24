@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import { CanvasType, ElementType, PageType, Transform } from '../types/types';
 import { getDefaultProps } from '../utils/getProps';
 
@@ -30,7 +30,11 @@ export type BuilderContextProps = {
 
   // active state for handling color picker
   activeColorPicker:string | null, 
-  setActiveColorPicker:React.Dispatch<React.SetStateAction<string|null>>
+  setActiveColorPicker:React.Dispatch<React.SetStateAction<string|null>>,
+
+  htmlContent:any,
+  setHTMLContent:React.Dispatch<React.SetStateAction<any>>,
+  webRef:any
   
 }
 
@@ -63,6 +67,9 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
   const [selectedElement, setSelectedElement] = useState<ElementType | CanvasType | null>(null);
 
   const [transform, setTransform] = useState<Transform>({x: 189.07076579782336, y: 88.84413322710449, scale: 0.6973620836652986});
+
+  const [htmlContent, setHTMLContent] = useState(null)
+  const webRef = useRef(null)
 
 
   useEffect(() => {
@@ -172,7 +179,8 @@ export default function BuilderProvider({ children }: { children: React.ReactNod
       updateElementProps,
       updatePageContent,
       transform, setTransform,
-      activeColorPicker, setActiveColorPicker
+      activeColorPicker, setActiveColorPicker,
+      htmlContent, setHTMLContent, webRef
     }}>
       {children}
     </BuilderContext.Provider>
