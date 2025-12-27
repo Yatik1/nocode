@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom"
 function Preview() {
   const {page:selectedPage} = useBuilder() as BuilderContextProps
 
+  console.log(selectedPage)
+
 
   return(
-    <div className="w-full h-screen bg-gray-100">
+    <div className="w-full h-screen">
       <Navbar />
       <div>
         {selectedPage.content.map((content) => (
