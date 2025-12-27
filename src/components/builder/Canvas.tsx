@@ -32,7 +32,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
 
   const handleDrop = (e: React.DragEvent) => {
 
-    if(location.pathname==="/preview") return;
+    if(location.pathname!=="/") return;
 
     e.preventDefault();
     e.stopPropagation();
@@ -134,8 +134,8 @@ function Canvas({ id, props, childrens }: CanvasType) {
         id={id}
         className={`relative overflow-hidden canvas-area`}
         style={{
-          width: location.pathname !== "/preview" ? window.innerWidth : "100vw",
-          height: location.pathname !== "/preview" ? window.innerHeight : "100vh" ,
+          width: location.pathname === "/" ? window.innerWidth : "100vw",
+          height: location.pathname === "/" ? window.innerHeight : "100vh" ,
           background: props.background,
         }}
         data-section-id={id}
@@ -186,13 +186,13 @@ function Canvas({ id, props, childrens }: CanvasType) {
               key={element.id}
               data-element-id={element.id}
               onClick={(e: React.MouseEvent) => {
-                if(location.pathname==="/preview") return;
+                if(location.pathname!=="/") return;
                 e.preventDefault();
                 e.stopPropagation();
                 setSelectedElement(element);
               }}
               onMouseDown={(e) =>{
-                if(location.pathname==="/preview") return;
+                if(location.pathname!=="/") return;
                 handleElementDragStart(e, element.id, childrens, setElements, transform)
 
                 // window.addEventListener('mousemove', handleMouseMoveDuringDrag)
@@ -203,7 +203,7 @@ function Canvas({ id, props, childrens }: CanvasType) {
               style={{
                 top: element.y,
                 left: element.x,
-                cursor: location.pathname==="/preview" ? "default" : "move",
+                cursor: location.pathname!=="/" ? "default" : "move",
                 userSelect: "none",
               }}
             >
