@@ -19,7 +19,7 @@ function ControlPanel() {
   const {pages} = useBuilder() as BuilderContextProps
 
   function addSection() {
-    if(location.pathname==="/preview") return;
+    if(location.pathname!=="/") return;
 
     const newSection: CanvasType = {
       id: `canvas-${Date.now()}`,
