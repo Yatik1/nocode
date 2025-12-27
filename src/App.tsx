@@ -10,6 +10,7 @@ import { CanvasType, PageType } from './types/types';
 import { PanelLeftOpen } from 'lucide-react';
 import ControlPanel from './components/ui/ControlPanel';
 import InfiniteCanvas from './components/ui/InfiniteCanvas';
+import Website from './components/page/Website';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
    <Routes>
      <Route path='/' element={<AppLayout />} />
      <Route path="/preview" element={<Preview />} />
+     <Route path='/:projectId' element={<Website />}/>
      {/* <Route path='/infinite' element={<InfiniteCanvas />}  */}
    </Routes>
   );

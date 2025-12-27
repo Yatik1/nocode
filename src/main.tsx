@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <BuilderProvider>
-        <Toaster position='bottom-center' />
+        <Toaster position='top-center' richColors />
         <App />
       </BuilderProvider>
     </BrowserRouter>
