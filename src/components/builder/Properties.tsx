@@ -1,11 +1,16 @@
-import { Minus, UserRoundPlus, X } from "lucide-react";
+import { Loader, Minus, UserRoundPlus, X } from "lucide-react";
 import useBuilder from "../../hooks/useBuilder";
 import PropertyRenderer from "./PropertyRenderer";
 import { ElementType, CanvasType } from "../../types/types";
 import { BuilderContextProps } from "../../context/BuilderContext";
+import { useState } from "react";
+import { toast } from "sonner";
+import axios from "axios";
 
 export default function Properties() {
-  const { selectedElement, setSelectedElement, updatePageContent } = useBuilder() as BuilderContextProps;
+  const { selectedElement, setSelectedElement, updatePageContent, pages } = useBuilder() as BuilderContextProps;
+
+  const [loading, setLoading] = useState(false)
 
   function deleteFromChildrens(elements: ElementType[], elementId: string): ElementType[] {
     return elements
@@ -37,6 +42,29 @@ export default function Properties() {
     setSelectedElement(null);
   };
 
+  const publishHandler = async () => {
+    try {
+      setLoading(true)
+      const payload = { 
+        project:5,
+        is_published:true, 
+        json:pages
+      }
+
+      await axios.post("http://127.0.0.1:8030/project-publish-save/?publish=true", payload)
+      toast.success("Your site has been published successfully")
+
+      window.open(`http://localhost:5173/${payload.project}`, "_blank")
+      
+
+    } catch (error) {
+      toast.error("Something went wrong. Please try again!")
+      console.error("Internal server error - [PUBLSH]", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="absolute right-0">
       <div className="fixed z-30 right-2 top-1/2 -translate-y-1/2  w-68 h-[98vh] rounded-md bg-white border border-gray-200" >
@@ -51,8 +79,8 @@ export default function Properties() {
 
           <div className="flex items-center justify-center gap-2">
             <UserRoundPlus strokeWidth={1.5} size={20} />
-            <button className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md" onClick={() => console.log()}>
-              Publish
+            <button className={`${loading ? "bg-blue-300/70" : "bg-blue-500"} text-white text-sm px-2 py-1 rounded-md flex items-center justify-center gap-1`} onClick={publishHandler}>
+              {loading && <Loader className="animate-spin w-3 h-3" />} Publish
             </button>
             <X strokeWidth={1.5} size={20} onClick={() => { setSelectedElement(null); }} className="cursor-pointer" />
           </div>
